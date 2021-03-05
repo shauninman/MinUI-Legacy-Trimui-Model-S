@@ -1,0 +1,18 @@
+[submodule "third-party/gambatte-dms"]
+	path = third-party/gambatte-dms
+	url = git@github.com:shauninman/gambatte-dms.git
+[submodule "third-party/DinguxCommander"]
+	path = third-party/DinguxCommander
+	url = git@github.com:shauninman/DinguxCommander.git
+[submodule "third-party/pokemini"]
+	path = third-party/pokemini
+	url = git@github.com:shauninman/pokemini.git
+[submodule "third-party/race"]
+	path = third-party/race
+	url = git@github.com:shauninman/race.git
+[submodule "third-party/sms_sdl"]
+	path = third-party/sms_sdl
+	url = git@github.com:shauninman/sms_sdl.git
+[submodule "third-party/gpsp-bittboy"]
+	path = third-party/gpsp-bittboy
+	url = git@github.com:shauninman/gpsp-bittboy.git

@@ -1,0 +1,27 @@
+#!/bin/sh
+sync
+
+if [ -f /usr/trimui/bin/StockUI ] ; then
+	notify 0 deleting libmmenu.so
+	rm -f /usr/trimui/lib/libmmenu.so
+	
+	sleep 1
+	notify 33 deleting faux MainUI
+	rm -f /usr/trimui/bin/MainUI
+	
+	sleep 1
+	
+	notify 66 restoring MainUI
+	mv /usr/trimui/bin/StockUI /usr/trimui/bin/MainUI
+	
+	sleep 1
+	
+	notify 100 uninstalled MinUI
+	
+else
+	notify 100 not installed
+fi
+
+sync
+sleep 1
+notify 100 quit

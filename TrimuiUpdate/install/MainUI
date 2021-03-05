@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -f /mnt/SDCARD/System.pak/launch.sh ] ; then
+	/mnt/SDCARD/System.pak/launch.sh
+else
+	/usr/trimui/bin/StockUI
+fi

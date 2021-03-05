@@ -1,0 +1,5 @@
+pull in
+	fceux
+	snes9x4d
+	oswan
+	picodrive
