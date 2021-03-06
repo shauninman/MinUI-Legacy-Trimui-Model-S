@@ -10,7 +10,7 @@ Because the stock firmware automatically recreates folders on the SD card I woul
 
 ## Installing
 
-Copy TrimuiUpdate_installMinUI.zip and TrimuiUpdate_uninstallMinUI.zip to the root of your stock SD card. Copy everything else onto your custom SD card. (If you are using a single SD card, copy everything onto it.) Add your roms to the Roms folder in the corresponding console folder. Insert your stock SD card into the device, power it on, navigate to FILE, and open TrimuiUpdate_installMinUI.zip. Once completed, power off the device, eject the stock SD card, insert your custom SD card, and power the device back on. (Unless you're using a single SD card.) Wecome to MinUI!
+Copy TrimuiUpdate_installMinUI.zip and TrimuiUpdate_uninstallMinUI.zip to the root of your stock SD card. Copy the contents of SDCARD onto your custom SD card. (If you are using a single SD card, copy everything onto it instead.) Add your roms to the Roms folder in the corresponding console folder. Insert your stock SD card into the device, power it on, navigate to FILE, and open TrimuiUpdate_installMinUI.zip. Once completed, power off the device, eject the stock SD card, insert your custom SD card, and power the device back on. (Unless you're using a single SD card.) Welcome to MinUI!
 
 ## Features
 
@@ -26,8 +26,8 @@ Non-emulator programs live in Tools. MinUI ships with a Commander.pak (i.e. Ding
 
 ## Additional paks
 
-Any emulator, game, or program that will run on the device can be turned into a pak. Even the official ones. These additional paks are things that I don't personally keep on my device but might be perfectly servicable or serve as an example to create new paks. <!-- TODO: add link -->
+Any emulator, game, or program that will run on the device can be turned into a pak. Even the official ones. These additional paks are things that I don't personally keep on my device but might be perfectly serviceable or serve as an example to create new paks. <!-- TODO: add link -->
 
 # For developers
 
-I'd love for you to add the custom in-game menu to your emulator. It can be done in a way that the same binary can run on non-MinUI devices too. Check out my libmmenu repo for simple implementation details. <!-- TODO: add link -->
+I'd love for you to add the custom in-game menu to your emulator. It can be done in a way the same binary can run on non-MinUI devices too. Check out my libmmenu repo for simple implementation details. <!-- TODO: add link -->
