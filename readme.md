@@ -18,7 +18,7 @@ MinUI is a simple browser for launching roms. Every emulator that ships with Min
 
 ## About paks
 
-MinUI uses paks. A pak is just a folder with the pak extension containing a launch script. It may also contain an executable and resources required by that executable. 
+MinUI applications, programs, or executables are called "paks". A pak is just a folder with the pak extension containing a launch script. It may also contain an executable and resources required by that executable. 
 
 When you open a rom from a console folder in Roms, MinUI runs the launch script in the corresponding pak in the Emus folder. For example, when you open /Roms/Game Boy/Tetris.gb, MinUI runs /Emus/Game Boy.pak/launch.sh which in turn launches /Emus/Game Boy.pak/gambatte-dms. You can rename the consoles in the Roms folder freely _but you must also rename the corresponding pak in the Emus folder._
 
