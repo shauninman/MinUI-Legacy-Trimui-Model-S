@@ -16,3 +16,6 @@
 [submodule "third-party/gpsp-bittboy"]
 	path = third-party/gpsp-bittboy
 	url = git@github.com:shauninman/gpsp-bittboy.git
+[submodule "src/libmmenu"]
+	path = src/libmmenu
+	url = git@github.com:shauninman/libmmenu.git
