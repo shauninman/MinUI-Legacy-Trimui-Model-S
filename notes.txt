@@ -1,4 +1,6 @@
-push to github
+libmmenu
+	document
+	write readme
 
 rescue things from old repo
 	art
@@ -9,3 +11,5 @@ pull in (need to find comparable source)
 	snes9x4d
 	picodrive
 	oswan
+	pcsx4all
+	temper

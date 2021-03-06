@@ -1,1 +1,4 @@
 dist/*
+encode/encode
+show/show
+ui/MinUI
