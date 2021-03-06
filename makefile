@@ -2,9 +2,11 @@
 
 all: base extra
 
-base: system tools core trimui
+base: sd system tools emus trimui
 	
-extra: extras gba
+extra: extras gba sms
+
+# DIRS
 
 extras: 
 	mkdir -p "dist/EXTRAS"
@@ -14,7 +16,9 @@ sd:
 	mkdir -p "dist/SDCARD/Logs"
 	mkdir -p "dist/SDCARD/Roms"
 	mkdir -p "dist/SDCARD/Tools"
-	
+
+# MINUI
+
 system:
 	cd ./src/ui && make
 	cd ./src/encode && make
@@ -23,6 +27,9 @@ system:
 	cp "src/ui/MinUI" 		"dist/SDCARD/System.pak"
 	cp "src/encode/encode" 	"dist/SDCARD/System.pak"
 	cp "src/show/show" 		"dist/SDCARD/System.pak"
+
+readme:
+	cp "readme.md" "dist"
 
 # TOOLS
 
@@ -39,7 +46,7 @@ poweroff:
 
 # CORE
 
-core: gb pm ngp gg
+emus: gb pm ngp gg
 
 gb:
 	cd ./third-party/gambatte-dms && make
