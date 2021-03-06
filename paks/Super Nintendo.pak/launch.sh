@@ -1,6 +1,6 @@
 #!/bin/sh
 
-EMU_EXE=sms_sdl
+EMU_EXE=snes9x4d
 EMU_DIR=$(dirname "$0")
 ROM_DIR=${EMU_DIR/.pak/}
 ROM_DIR=${ROM_DIR/Emus/Roms}

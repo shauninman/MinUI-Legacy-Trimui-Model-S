@@ -1,5 +1,16 @@
-pull in
+push to github
+
+create a system for releases
+	SDCARD should just contain directories and 
+	paks should contain individual paks
+	everything should be built into releases?
+
+rescue things from old repo
+	art
+	todos
+
+pull in (need to find comparable source)
 	fceux
 	snes9x4d
-	oswan
 	picodrive
+	oswan

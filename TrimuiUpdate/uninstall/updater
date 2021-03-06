@@ -17,11 +17,10 @@ if [ -f /usr/trimui/bin/StockUI ] ; then
 	sleep 1
 	
 	notify 100 uninstalled MinUI
-	
+	sync
 else
 	notify 100 not installed
 fi
 
-sync
 sleep 1
 notify 100 quit

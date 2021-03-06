@@ -24,8 +24,8 @@ else
 	sleep 1
 	
 	notify 100 installed MinUI
+	sync
 fi
 
-sync
 sleep 1
 notify 100 quit
