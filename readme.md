@@ -2,7 +2,7 @@
 
 _MinUI is a custom launcher for the [Trimui Model S](http://www.trimui.com/) (aka the PowKiddy A66, sigh)._
 
-I love this device. I think the hardware is great and that the official firmware has a lot of ambitious ideas. I even like its design. I just wish it were a more focused device. Focused on its strengths. I don't think playing console games on a 2" screen with frameskip at 12fps is a great experience. I think selling it as something that plays up to and including PS1 does it a disservice. Where it shines is portable consoles. Game Boy and Game Boy Color. Pokémon Mini. Neo Geo Pocket and Neo Geo Pocket Color. Game Gear. (Sorry Japanese friends, I have no experience with the Wonder Swan!) I love that it offers a consistent in-game menu with access to save states (and system-wide volume and brightness shortcuts). But I think locking players out of each emulator's unique settings was a mistake. MinUI aims to address those shortcomings. 
+I love this device. I think the hardware is great and that the official firmware has a lot of ambitious ideas. I even like its design. I just wish it were a more focused device. Focused on its strengths. I don't think playing console games on a 2" screen with frameskip at 12fps is a great experience. I think selling it as something that plays up to and including PS1 does it a disservice. Where it shines is handhelds. Game Boy and Game Boy Color. Pokémon Mini. Neo Geo Pocket and Neo Geo Pocket Color. Game Gear. (Sorry Japanese friends, I have no experience with the Wonder Swan!) I love that it offers a consistent in-game menu with access to save states (and system-wide volume and brightness button combos). But I think locking players out of each emulator's unique settings was a mistake. MinUI aims to address those shortcomings. 
 
 ## Before you install
 
@@ -26,8 +26,8 @@ Non-emulator programs live in Tools. MinUI ships with a Commander.pak (i.e. Ding
 
 ## Additional paks
 
-Any emulator, game, or program that will run on the device can be turned into a pak. Even the official ones. These additional paks are things that I don't personally keep on my device but might be perfectly serviceable or serve as an example to create new paks. <!-- TODO: add link -->
+Any emulator, game, or tool that will run on the device can be turned into a pak. Even the official ones. These additional paks are things that I don't personally keep on my device but might be perfectly serviceable or serve as an example to create new paks. You can find them in the EXTRAS folder.
 
-# For developers
+## For developers
 
-I'd love for you to add the custom in-game menu to your emulator. It can be done in a way the same binary can run on non-MinUI devices too. Check out my libmmenu repo for simple implementation details. <!-- TODO: add link -->
+I'd love for you to add the custom in-game menu to your emulator. It can be done in a way the same binary can run on non-MinUI devices too. Check out my [libmmenu repo](https://github.com/shauninman/libmmenu) for simple implementation details.
