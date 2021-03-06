@@ -30,4 +30,4 @@ Any emulator, game, or tool that will run on the device can be turned into a pak
 
 ## For developers
 
-I'd love for you to add the custom in-game menu to your emulator. It can be done in a way the same binary can run on non-MinUI devices too. Check out my [libmmenu repo](https://github.com/shauninman/libmmenu) for simple implementation details.
+I'd love for you to add the custom in-game menu to your emulator. It can be done in a way that allows the same binary run on non-MinUI devices too. Check out my [libmmenu repo](https://github.com/shauninman/libmmenu) for simple implementation details.
