@@ -29,7 +29,7 @@ system:
 	cp "src/show/show" 		"dist/SDCARD/System.pak"
 
 readme:
-	cp "readme.md" "dist"
+	cp "README.md" "dist"
 
 # TOOLS
 
