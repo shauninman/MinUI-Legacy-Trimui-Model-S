@@ -114,6 +114,8 @@ trimui: lib
 	mv "TrimuiUpdate/install/TrimuiUpdate_installMinUI.zip" "dist"
 	cd ./TrimuiUpdate/uninstall && make
 	mv "TrimuiUpdate/uninstall/TrimuiUpdate_uninstallMinUI.zip" "dist"
+	# cd ./TrimuiUpdate/exit && make
+	# mv "TrimuiUpdate/exit/TrimuiUpdate_exitStockUI.zip" "dist"
 
 clean:
 	rm -rf ./dist
