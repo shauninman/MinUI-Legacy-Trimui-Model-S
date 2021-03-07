@@ -6,11 +6,11 @@ I love this little device. I think the hardware is great and that the official f
 
 ## Before you install
 
-Because the stock firmware automatically recreates folders on the SD card I would recommend using a separate SD card for your MinUI installation. It's not necessary but it makes navigating the SD card on your computer or in Commander.pak a little easier because it's less cluttered. I will refer to these two SD cards as "stock" and "custom".
+Because the stock UI automatically recreates folders on the SD card I would recommend using a separate SD card for your MinUI installation. It's not necessary but it makes navigating the SD card on your computer or in Commander.pak a little easier because it's less cluttered. I will refer to these two SD cards as "stock" and "custom". If you don't want the stock boot screen to play a startup chime every time you power on the device, navigate to Settings and turn the bgm all the way down before installing MinUI.
 
 ## Installing
 
-Copy TrimuiUpdate_installMinUI.zip and TrimuiUpdate_uninstallMinUI.zip to the root of your stock SD card. Copy the contents of SDCARD onto your custom SD card. (If you are using a single SD card, copy everything onto it instead.) Add your roms to the Roms folder in the corresponding console folder of the custom SD card. Insert your stock SD card into the device, power it on, navigate to FILE, and open TrimuiUpdate_installMinUI.zip. Once completed, power off the device, eject the stock SD card, insert your custom SD card, and power the device back on. (Unless you're using a single SD card.) Welcome to MinUI!
+Copy TrimuiUpdate_installMinUI.zip and TrimuiUpdate_uninstallMinUI.zip to the root of your stock SD card. Copy the contents of SDCARD onto your custom SD card. (If you are using a single SD card, copy the contents of SDCARD and both zips onto it.) Add your roms to the Roms folder in the corresponding console folder. Insert your stock SD card into the device, power it on, navigate to FILE, and open TrimuiUpdate_installMinUI.zip. Once completed, power off the device, eject the stock SD card, insert your custom SD card, and power the device back on. (Unless you're using a single SD card.) Welcome to MinUI!
 
 ## Updating
 
@@ -23,6 +23,8 @@ Uninstalling leaves all data (roms, save states, emulator settings, MinUI paks, 
 To uninstall MinUI, first you need to get back to the stock UI. There are two ways to do this. The easiest is to copy the StockUI.pak from the EXTRAS/Tools folder into the Tools folder on your SD card and launch it from MinUI. The other is to open Tools/Commander.pak from MinUI then press B until you reach the root folder, navigate to /usr/trimui/bin/StockUI, press A, and select "execute".
 
 Once in the stock UI, navigate to FILE, and open TrimuiUpdate_uninstallMinUI.zip. That's it.
+
+(Please note that booting into the stock UI will cause it to recreate all its default folders and clutter up your SD card. This is why this feature takes a little extra effort.)
 
 ## Features
 
