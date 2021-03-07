@@ -235,7 +235,7 @@ Array* recents;
 static int hasRecents(void) {
 	int has = 0;
 	
-	FILE* file = fopen(kRootDir "/System.pak/recent.txt", "r"); // newest at top
+	FILE* file = fopen(kRootDir "/recent.txt", "r"); // newest at top
 	if (file) {
 		char line[256];
 		while (fgets(line,256,file)!=NULL) {
@@ -388,7 +388,7 @@ static Array* getRoot(void) {
 }
 
 static void saveRecents(void) {
-	FILE* file = fopen(kRootDir "/System.pak/recent.txt", "w");
+	FILE* file = fopen(kRootDir "/recent.txt", "w");
 	if (file) {
 		for (int i=0; i<recents->count; i++) {
 			fputs(recents->items[i], file);
