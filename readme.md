@@ -6,7 +6,7 @@ I love this little device. I think the hardware is great and that the official f
 
 ## Before you install
 
-Because the stock UI automatically recreates folders on the SD card I would recommend using a separate SD card for your MinUI installation. It's not necessary but it makes navigating the SD card on your computer or in Commander.pak a little easier because it's less cluttered. I will refer to these two SD cards as "stock" and "custom". If you don't want the stock boot screen to play a startup chime every time you power on the device, navigate to Settings and turn the bgm all the way down before installing MinUI.
+Because the stock UI automatically recreates folders on the SD card I would recommend using a separate SD card for your MinUI installation. It's not necessary but it makes navigating the SD card on your computer or in Commander.pak a little easier because it's less cluttered. I will refer to these two SD cards as "stock" and "custom". If you don't want the stock boot screen to play the startup chime every time you power on the device, navigate to Settings and turn the bgm all the way down before installing MinUI.
 
 ## Installing
 
