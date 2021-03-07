@@ -8,5 +8,5 @@ EMU_NAME=${ROM_DIR/\/mnt\/SDCARD\/Roms\//}
 ROM=${1}
 
 HOME="$ROM_DIR"
-cd "$HOME"
+cd "$EMU_DIR"
 "$EMU_DIR/$EMU_EXE" "$ROM" &> "/mnt/SDCARD/Logs/$EMU_NAME.txt"

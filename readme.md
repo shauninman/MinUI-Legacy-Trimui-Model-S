@@ -10,7 +10,19 @@ Because the stock firmware automatically recreates folders on the SD card I woul
 
 ## Installing
 
-Copy TrimuiUpdate_installMinUI.zip and TrimuiUpdate_uninstallMinUI.zip to the root of your stock SD card. Copy the contents of SDCARD onto your custom SD card. (If you are using a single SD card, copy everything onto it instead.) Add your roms to the Roms folder in the corresponding console folder. Insert your stock SD card into the device, power it on, navigate to FILE, and open TrimuiUpdate_installMinUI.zip. Once completed, power off the device, eject the stock SD card, insert your custom SD card, and power the device back on. (Unless you're using a single SD card.) Welcome to MinUI!
+Copy TrimuiUpdate_installMinUI.zip and TrimuiUpdate_uninstallMinUI.zip to the root of your stock SD card. Copy the contents of SDCARD onto your custom SD card. (If you are using a single SD card, copy everything onto it instead.) Add your roms to the Roms folder in the corresponding console folder of the custom SD card. Insert your stock SD card into the device, power it on, navigate to FILE, and open TrimuiUpdate_installMinUI.zip. Once completed, power off the device, eject the stock SD card, insert your custom SD card, and power the device back on. (Unless you're using a single SD card.) Welcome to MinUI!
+
+## Updating
+
+I plan to keep pace with official Trimui updates. When a new official update is available it is a good idea to either hold off on updating or uninstall MinUI before updating until compatibility can be confirmed and any necessary patches made.
+
+## Uninstalling
+
+Uninstalling leaves all data (roms, save states, emulator settings, MinUI paks, etc) intact on your SD card, it just prevents the device from booting directly into MinUI.
+
+To uninstall MinUI, first you need to get back to the stock UI. There are two ways to do this. The easiest is to copy the StockUI.pak from the EXTRAS/Tools folder into the Tools folder on your SD card and launch it from MinUI. The other is to open Tools/Commander.pak from MinUI then press B until you reach the root folder, navigate to /usr/trimui/bin/StockUI, press A, and select "execute".
+
+Once in the stock UI, navigate to FILE, and open TrimuiUpdate_uninstallMinUI.zip. That's it.
 
 ## Features
 

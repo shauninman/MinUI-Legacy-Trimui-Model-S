@@ -1,5 +1,3 @@
-test on 0.105
-
 setup nicer emulator defaults
 	gambatte
 	pokemini
