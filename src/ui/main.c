@@ -77,16 +77,7 @@ static char* copy_string(char* str) {
 static int hide(char* name) {
 	if (name[0]=='.') return 1;
 	
-	// TODO: these could be removed if we dropped support for MainUI
-	
-	// if (match_suffix(".hide", name)) return 1;
-	// if (match_suffix(".zip", name)) return 1;
 	if (match_suffix("_cache.db", name)) return 1;
-
-	// if (exact_match("cachefile", name)) return 1;
-	// if (exact_match("update.log", name)) return 1;
-	// if (exact_match("Apps", name)) return 1;
-	// if (exact_match("Imgs", name)) return 1;
 	if (match_prefix("COPYING", name)) return 1;
 	if (exact_match("license", name)) return 1;
 	if (exact_match("LICENSE", name)) return 1;
@@ -417,7 +408,6 @@ static void addRecent(char* path) {
 
 ///////////////////////////////////////
 
-// TODO: each Directory needs to maintain its own selected index
 typedef struct Directory {
 	char* path;
 	Array* entries;
@@ -532,8 +522,6 @@ static int Input_getButton(SDL_Event *event) {
 ///////////////////////////////////////
 
 static void restoreSettings(void) {
-	// NOTE: this must be called AFTER we get what we need from shared memory via GetKeyShm()
-	// TODO: maybe not true anymore?
 	int		address = 0x01c20890;
 	int		pagesize = sysconf(_SC_PAGESIZE);
 	int		addrmask1 = address & (0-pagesize);
@@ -609,7 +597,6 @@ static void saveLast(char* path) {
 }
 
 static void queue_next(char* cmd) {
-	// TODO: add to recents
 	// queue up next command
 	FILE* file = fopen(kRootDir "/System.pak/next.sh", "w");
 	if (file) {
@@ -621,7 +608,6 @@ static void queue_next(char* cmd) {
 }
 static void open_directory(char* path) {
 	top = Directory_new(path, 0);
-	// TODO: move start and end to Directory?
 	top->start = 0;
 	top->end = (top->entries->count<kMaxRows) ? top->entries->count : kMaxRows;
 	Array_push(stack, top);
@@ -721,10 +707,6 @@ static void Menu_quit(void) {
 	DirectoryArray_free(stack);
 }
 
-void render(void) {
-	
-}
-
 int main(void) {
 	// freopen(kRootDir "/stderr.txt", "w", stderr);
 	// freopen(kRootDir "/stdout.txt", "w", stdout);
@@ -767,7 +749,6 @@ int main(void) {
 	
 	restoreSettings();
 
-	// TODO: free all these!
 	SDL_Surface* ui_logo = IMG_Load("res/logo.png");
 	SDL_Surface* ui_highlight_bar = IMG_Load("/usr/trimui/res/skin/list-selected-bg.png");
 	SDL_Surface* ui_top_bar = IMG_Load("/usr/trimui/res/skin/title-bg.png");
