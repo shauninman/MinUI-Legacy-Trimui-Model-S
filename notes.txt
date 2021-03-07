@@ -1,6 +1,8 @@
-libmmenu
-	document
-	write readme
+test on 0.105
+
+setup nicer emulator defaults
+	gambatte
+	pokemini
 
 rescue things from old repo
 	art
