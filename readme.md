@@ -2,7 +2,7 @@
 
 _MinUI is a custom launcher for the [Trimui Model S](http://www.trimui.com/) (aka the PowKiddy A66, sigh)._
 
-I love this device. I think the hardware is great and that the official firmware has a lot of ambitious ideas. I even like its design. I just wish it were a more focused device. Focused on its strengths. I don't think playing console games on a 2" screen with frameskip at 12fps is a great experience. I think selling it as something that plays up to and including PS1 does it a disservice. Where it shines is handhelds. Game Boy and Game Boy Color. Pokémon Mini. Neo Geo Pocket and Neo Geo Pocket Color. Game Gear. (Sorry Japanese friends, I have no experience with the Wonder Swan!) I love that it offers a consistent in-game menu with access to save states (and system-wide volume and brightness button combos). But I think locking players out of each emulator's unique settings was a mistake. MinUI aims to address those shortcomings. 
+I love this little device. I think the hardware is great and that the official firmware has a lot of ambitious ideas. I even like its design. I just wish it were a more focused device. Focused on its strengths. I don't think playing console games on a 2" screen with frameskip at 12fps is a great experience. I think selling it as something that plays up to and including PS1 does it a disservice. Where it shines is handhelds. Game Boy and Game Boy Color. Pokémon Mini. Neo Geo Pocket and Neo Geo Pocket Color. Game Gear. (Sorry Japanese friends, I have no experience with the Wonder Swan!) I love that it offers a consistent in-game menu with access to save states (and system-wide volume and brightness button combos). But I think locking players out of each emulator's unique settings was a mistake. MinUI aims to address those shortcomings. 
 
 ## Before you install
 
@@ -14,11 +14,11 @@ Copy TrimuiUpdate_installMinUI.zip and TrimuiUpdate_uninstallMinUI.zip to the ro
 
 ## Features
 
-MinUI is a simple browser for launching roms. Every emulator that ships with MinUI has a custom in-game menu that also provides access to save states plus each emulator's default settings. That's kind of it. It is called _Min_UI after all.
+MinUI is a simple browser for launching roms. Every emulator that ships with MinUI has a custom in-game menu that also provides access to save states plus each emulator's default settings. That's kind of it. It is called _Min_​UI after all.
 
 ## About paks
 
-MinUI applications, programs, or executables are called "paks". A pak is just a folder with the pak extension containing a launch script. It may also contain an executable and resources required by that executable. 
+In MinUI, applications, programs, or executables are called "paks". A pak is just a folder with the pak extension that contains a launch script. It may also contain an executable and resources required by that executable. 
 
 When you open a rom from a console folder in Roms, MinUI runs the launch script in the corresponding pak in the Emus folder. For example, when you open /Roms/Game Boy/Tetris.gb, MinUI runs /Emus/Game Boy.pak/launch.sh which in turn launches /Emus/Game Boy.pak/gambatte-dms. You can rename the consoles in the Roms folder freely _but you must also rename the corresponding pak in the Emus folder._
 
@@ -26,7 +26,7 @@ Non-emulator programs live in Tools. MinUI ships with a Commander.pak (i.e. Ding
 
 ## Additional paks
 
-Any emulator, game, or tool that will run on the device can be turned into a pak. Even the official ones. These additional paks are things that I don't personally keep on my device but might be perfectly serviceable or serve as an example to create new paks. You can find them in the EXTRAS folder.
+Any emulator, game, or tool that will run on the device can be turned into a pak. Even the official ones. These additional paks are things that I don't personally keep on my device but might be perfectly usable or serve as an example to create new paks. You can find them in the EXTRAS folder.
 
 ## For developers
 
