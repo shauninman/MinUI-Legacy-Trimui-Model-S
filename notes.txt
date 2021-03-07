@@ -1,6 +1,9 @@
-setup nicer emulator defaults
-	gambatte
-	pokemini
+look into renaming cachefile to .cachefile
+	will need to patch something that isn't a shell script
+rename Logs to .logs
+
+versioning
+	MinUI-0.105-20210306.zip
 
 rescue things from old repo
 	art
@@ -13,7 +16,3 @@ pull in (need to find comparable source)
 	oswan
 	pcsx4all
 	temper
-
-
-versioning
-	MinUI-0.105-20210306.zip
