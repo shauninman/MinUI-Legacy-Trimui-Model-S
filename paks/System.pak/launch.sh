@@ -2,9 +2,9 @@
 
 cd /mnt/SDCARD/System.pak
 
-mkdir -p /mnt/SDCARD/Logs
+mkdir -p /mnt/SDCARD/.logs
 
-./MinUI &> "/mnt/SDCARD/Logs/MinUI.txt"
+./MinUI &> "/mnt/SDCARD/.logs/MinUI.txt"
 sync
 
 NEXT=./next.sh

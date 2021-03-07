@@ -1,9 +1,3 @@
-look into renaming cachefile to .cachefile
-	created in MainUI
-	so I can rename if it exists and create it if not
-rename Logs to .logs
-
-
 rescue things from old repo
 	art
 	todos

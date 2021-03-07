@@ -11,4 +11,4 @@ ROM=${1}
 
 HOME="$ROM_DIR"
 cd "$HOME"
-"/usr/trimui/bin/$EMU_EXE" "$ROM"  &> "/mnt/SDCARD/Logs/$EMU_NAME.txt"
+"/usr/trimui/bin/$EMU_EXE" "$ROM"  &> "/mnt/SDCARD/.logs/$EMU_NAME.txt"

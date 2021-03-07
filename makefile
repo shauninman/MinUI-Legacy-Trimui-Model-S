@@ -4,12 +4,8 @@ BUILD_TIME=`date +%Y%m%d`
 RELEASE_NAME=MinUI-0.105-$(BUILD_TIME)
 BUILD_PATH="build/$(RELEASE_NAME)"
 
-all: sd base extras trimui readme zip
+all: base extras trimui readme zip
 base: system tools emus
-
-sd:
-	mkdir -p "$(BUILD_PATH)/SDCARD/Logs"
-	mkdir -p "$(BUILD_PATH)/SDCARD/Roms"
 
 zip:
 	mkdir -p "release"
