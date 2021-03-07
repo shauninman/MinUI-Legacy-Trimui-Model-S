@@ -72,7 +72,7 @@ gg:
 
 # EXTRAS
 
-extras: gba sms gen stockui
+extras: gba sms gen stockui tyrian
 
 gba:
 	mkdir -p "dist/EXTRAS/Emus"
@@ -94,6 +94,10 @@ gen:
 stockui:
 	mkdir -p "dist/EXTRAS/Tools"
 	cp -R "paks/StockUI.pak" "dist/EXTRAS/Tools"
+
+tyrian:
+	mkdir -p "dist/EXTRAS/Games"
+	cp -R "paks/OpenTyrian.pak" "dist/EXTRAS/Games"
 
 # LIBMMENU
 
