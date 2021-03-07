@@ -1,4 +1,5 @@
-dist/*
+build/*
+release/*
 src/encode/encode
 src/show/show
 src/ui/MinUI
