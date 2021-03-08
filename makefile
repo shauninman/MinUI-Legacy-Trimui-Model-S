@@ -1,8 +1,12 @@
 .PHONY: clean
 
-BUILD_TIME=`date +%Y%m%d`
-RELEASE_NAME=MinUI-0.105-$(BUILD_TIME)
-BUILD_PATH="build/$(RELEASE_NAME)"
+TRIMUI_VERSION=0.105
+
+BUILD_TIME!=date +%Y%m%d
+RELEASE_BASE=MinUI-$(TRIMUI_VERSION)-$(BUILD_TIME)
+RELEASE_DOT!=find release/. -name "$(RELEASE_BASE)*.zip" -printf '.' | wc -m
+RELEASE_NAME=$(RELEASE_BASE)-$(RELEASE_DOT)
+BUILD_PATH=build/$(RELEASE_NAME)
 
 all: base extras trimui readme zip
 base: system tools emus
@@ -119,8 +123,6 @@ trimui: lib
 	mv "TrimuiUpdate/install/TrimuiUpdate_installMinUI.zip" "$(BUILD_PATH)"
 	cd ./TrimuiUpdate/uninstall && make
 	mv "TrimuiUpdate/uninstall/TrimuiUpdate_uninstallMinUI.zip" "$(BUILD_PATH)"
-	# cd ./TrimuiUpdate/exit && make
-	# mv "TrimuiUpdate/exit/TrimuiUpdate_exitStockUI.zip" "$(BUILD_PATH)"
 
 clean:
 	rm -rf ./build
