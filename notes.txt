@@ -3,11 +3,6 @@ rescue things from old repo
 	todos
 
 pull in (need to find comparable source)
-	oswan
-		- button settings randomly change
-		- take screenshot doesn't do anything
-		- audio is awful (is that just how the wonderswan was?)
-		- framerate is awful (again, is that just the wonderswan?)
 	fceux
 	picodrive
 	temper
