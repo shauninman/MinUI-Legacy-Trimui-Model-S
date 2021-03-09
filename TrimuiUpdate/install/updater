@@ -13,20 +13,22 @@ else
 	notify 25 renaming MainUI to StockUI
 	mv "/usr/trimui/bin/MainUI" "/usr/trimui/bin/StockUI"
 	
+	sync
 	sleep 1
 	
 	notify 50 installing faux MainUI
 	cp -f "$DIR/MainUI" "/usr/trimui/bin/MainUI"
 	
+	sync
 	sleep 1
 	
 	notify 75 installing libmmenu.so
 	cp "$DIR/libmmenu.so" "/usr/trimui/lib"
 	
+	sync
 	sleep 1
 	
 	notify 100 installed MinUI
-	sync
 fi
 
 sleep 1
