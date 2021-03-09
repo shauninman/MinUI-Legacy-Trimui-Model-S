@@ -34,7 +34,11 @@ readme:
 
 # TOOLS
 
-tools: commander poweroff
+tools: adbd commander poweroff
+
+adbd:
+	mkdir -p "$(BUILD_PATH)/SDCARD/Tools"
+	cp -R "paks/adbd.pak" "$(BUILD_PATH)/SDCARD/Tools"
 
 commander:
 	mkdir -p "$(BUILD_PATH)/SDCARD/Tools"
