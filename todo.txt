@@ -1,10 +1,13 @@
+switch to eggs' .tmp_update soft-install method?
+
 flag duplicate names
 	in Directory_new? loop over self->entries?
-	or add an EntryArray_push() to handle it
+	or add an EntryArray_push() to handle it?
 	display full name or an extension pill for adjacent dupes?
-track alphas for quick jump with L/R
 
-killall keymon
+scroll long names?
+
+killall keymon from System.pak/launch.sh
 	handle L/R shortcuts in MinUI and libmmenu?
 	lift restrictions on using those for custom bindings in libmmenu readme?
 
