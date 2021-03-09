@@ -851,56 +851,58 @@ int main(void) {
 				top->start = top->end - kMaxRows;
 			}
 		}
-		if (Input_justRepeated(kButtonL)) { // previous alpha
-			if (selected>0) {
-				Entry* entry = top->entries->items[selected];
-				char c = entry->name[0];
-				int seek = selected-1;
-				int found = 0;
-				while (seek>=0) {
-					entry = top->entries->items[seek];
-					if (!found) {
-						if (entry->name[0]!=c) {
-							c = entry->name[0];
-							found = 1;
+		if (!Input_isPressed(kButtonStart) && !Input_isPressed(kButtonSelect)) {
+			if (Input_justRepeated(kButtonL)) { // previous alpha
+				if (selected>0) {
+					Entry* entry = top->entries->items[selected];
+					char c = entry->name[0];
+					int seek = selected-1;
+					int found = 0;
+					while (seek>=0) {
+						entry = top->entries->items[seek];
+						if (!found) {
+							if (entry->name[0]!=c) {
+								c = entry->name[0];
+								found = 1;
+							}
 						}
-					}
-					else {
-						if (entry->name[0]!=c) {
-							seek += 1;
-							break;
+						else {
+							if (entry->name[0]!=c) {
+								seek += 1;
+								break;
+							}
 						}
+						seek -= 1;
 					}
-					seek -= 1;
-				}
-				if (seek<0) seek = 0;
-				selected = seek;
+					if (seek<0) seek = 0;
+					selected = seek;
 				
-				if (total>kMaxRows) {
-					top->start = selected;
-					top->end = top->start + kMaxRows;
-					if (top->end>total) top->end = total;
-					top->start = top->end - kMaxRows;
+					if (total>kMaxRows) {
+						top->start = selected;
+						top->end = top->start + kMaxRows;
+						if (top->end>total) top->end = total;
+						top->start = top->end - kMaxRows;
+					}
 				}
 			}
-		}
-		else if (Input_justRepeated(kButtonR)) { // next alpha
-			if (selected<total-1) {
-				Entry* entry = top->entries->items[selected];
-				char c = entry->name[0];
-				int seek = selected+1;
-				while (seek<total-1) {
-					entry = top->entries->items[seek];
-					if (entry->name[0]!=c) break;
-					seek += 1;
-				}
-				selected = seek;
+			else if (Input_justRepeated(kButtonR)) { // next alpha
+				if (selected<total-1) {
+					Entry* entry = top->entries->items[selected];
+					char c = entry->name[0];
+					int seek = selected+1;
+					while (seek<total-1) {
+						entry = top->entries->items[seek];
+						if (entry->name[0]!=c) break;
+						seek += 1;
+					}
+					selected = seek;
 			
-				if (total>kMaxRows) {
-					top->start = selected;
-					top->end = top->start + kMaxRows;
-					if (top->end>total) top->end = total;
-					top->start = top->end - kMaxRows;
+					if (total>kMaxRows) {
+						top->start = selected;
+						top->end = top->start + kMaxRows;
+						if (top->end>total) top->end = total;
+						top->start = top->end - kMaxRows;
+					}
 				}
 			}
 		}

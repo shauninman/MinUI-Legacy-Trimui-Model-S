@@ -1,5 +1,7 @@
 switch to eggs' .tmp_update soft-install method?
 
+ignore L/R if SELECT or START are pressed :sweat_smile:
+
 flag duplicate names
 	in Directory_new? loop over self->entries?
 	or add an EntryArray_push() to handle it?
