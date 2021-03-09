@@ -827,7 +827,7 @@ int main(void) {
 				top->end += 1;
 			}
 		}
-		if (Input_justPressed(kButtonLeft)) {
+		if (Input_justRepeated(kButtonLeft)) {
 			selected -= kMaxRows;
 			if (selected<0) {
 				selected = 0;
@@ -840,7 +840,7 @@ int main(void) {
 				top->end = top->start + kMaxRows;
 			}
 		}
-		else if (Input_justPressed(kButtonRight)) {
+		else if (Input_justRepeated(kButtonRight)) {
 			selected += kMaxRows;
 			if (selected>=total) {
 				selected = total-1;
@@ -853,6 +853,12 @@ int main(void) {
 				if (top->end>total) top->end = total;
 				top->start = top->end - kMaxRows;
 			}
+		}
+		if (Input_justRepeated(kButtonL)) {
+			// TODO: jump to previous letter
+		}
+		else if (Input_justRepeated(kButtonR)) {
+			// TODO: jump to next letter
 		}
 
 		if (selected!=top->selected) {

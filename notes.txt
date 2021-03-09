@@ -1,3 +1,13 @@
+flag duplicate names
+	in Directory_new? loop over self->entries?
+	or add an EntryArray_push() to handle it
+	display full name or an extension pill for adjacent dupes?
+track alphas for quick jump with L/R
+
+killall keymon
+	handle L/R shortcuts in MinUI and libmmenu?
+	lift restrictions on using those for custom bindings in libmmenu readme?
+
 rescue things from old repo
 	art
 	todos
