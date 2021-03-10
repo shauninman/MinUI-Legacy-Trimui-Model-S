@@ -837,6 +837,7 @@ int main(void) {
 	SDL_Event event;
 	int is_dirty = 1;
 	while (!quit) {
+		unsigned long frame_start = SDL_GetTicks();
 		Input_beforePoll();
 		while (SDL_PollEvent(&event)) {
 			int btn;
@@ -949,6 +950,7 @@ int main(void) {
 		if (selected!=top->selected) {
 			top->selected = selected;
 			is_dirty = 1;
+			// TODO: start timer for scroll
 		}
 		
 		if (Input_justPressed(kButtonA)) {
@@ -966,7 +968,6 @@ int main(void) {
 		// }
 		
 		if (is_dirty) {
-			
 			// clear
 			SDL_FillRect(buffer, &buffer->clip_rect, SDL_MapRGB(buffer->format, 0,0,0));
 			
@@ -1067,6 +1068,12 @@ int main(void) {
 			SDL_Flip(screen);
 			is_dirty = 0;
 		}
+		
+		// slow down to 60fps
+		unsigned long frame_duration = SDL_GetTicks() - frame_start; // 0-1 on non-dirty frames, 11-12 on dirty ones
+		// printf("frame_duration:%lu\n", frame_duration);
+		#define kTargetFrameDuration 17
+		if (frame_duration<kTargetFrameDuration) SDL_Delay(kTargetFrameDuration-frame_duration);
 	}
 	
 	// one last wipe

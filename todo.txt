@@ -1,14 +1,3 @@
-revise L/R alpha skip
-	create an index array that holds the index of the first entry by char (to lower with special case for non a-z chars)
-	add an alphaIndex to each entry
-	skipping is just +/- 1 to that index to lookup the corresponding first entry of that char
-	pass Dir* to get*() functions?
-	
-flag duplicate names
-	in Directory_new? loop over self->entries?
-	or add an EntryArray_push() to handle it?
-	display full name or an extension pill for adjacent dupes?
-
 scroll long names?
 
 killall keymon from System.pak/launch.sh
@@ -17,11 +6,16 @@ killall keymon from System.pak/launch.sh
 
 switch to eggs' .tmp_update soft-install method?
 
+figure out an update mechanism
+
+add a quickstart section to readme
+	make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
+
 rescue things from old repo
 	art
 	todos
 
-pull in (need to find comparable source)
+pull in (need to find base source repos closest to eggs)
 	fceux
 	picodrive
 	temper
