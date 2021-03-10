@@ -1,7 +1,9 @@
-switch to eggs' .tmp_update soft-install method?
-
-ignore L/R if SELECT or START are pressed :sweat_smile:
-
+revise L/R alpha skip
+	create an index array that holds the index of the first entry by char (to lower with special case for non a-z chars)
+	add an alphaIndex to each entry
+	skipping is just +/- 1 to that index to lookup the corresponding first entry of that char
+	pass Dir* to get*() functions?
+	
 flag duplicate names
 	in Directory_new? loop over self->entries?
 	or add an EntryArray_push() to handle it?
@@ -12,6 +14,8 @@ scroll long names?
 killall keymon from System.pak/launch.sh
 	handle L/R shortcuts in MinUI and libmmenu?
 	lift restrictions on using those for custom bindings in libmmenu readme?
+
+switch to eggs' .tmp_update soft-install method?
 
 rescue things from old repo
 	art

@@ -459,6 +459,7 @@ typedef struct Directory {
 static void Directory_index(Directory* self) {
 	Entry* prior = NULL;
 	int alpha = -1;
+	int index = 0;
 	for (int i=0; i<self->entries->count; i++) {
 		Entry* entry = self->entries->items[i];
 		if (prior!=NULL && exact_match(prior->name, entry->name)) {
@@ -467,10 +468,11 @@ static void Directory_index(Directory* self) {
 		}
 		int a = index_char(entry->name);
 		if (a!=alpha) {
+			index = self->alphas->count;
 			IntArray_push(self->alphas, i);
 			alpha = a;
 		}
-		entry->alpha = alpha;
+		entry->alpha = index;
 		
 		prior = entry;
 	}
@@ -917,31 +919,10 @@ int main(void) {
 		}
 		if (!Input_isPressed(kButtonStart) && !Input_isPressed(kButtonSelect)) {
 			if (Input_justRepeated(kButtonL)) { // previous alpha
-				if (selected>0) {
-					Entry* entry = top->entries->items[selected];
-					int i = index_char(entry->name);
-					int seek = selected-1;
-					int found = 0;
-					while (seek>=0) {
-						entry = top->entries->items[seek];
-						int j = index_char(entry->name);
-						if (!found) {
-							if (j!=i) {
-								i = j;
-								found = 1;
-							}
-						}
-						else {
-							if (j!=i) {
-								seek += 1;
-								break;
-							}
-						}
-						seek -= 1;
-					}
-					if (seek<0) seek = 0;
-					selected = seek;
-				
+				Entry* entry = top->entries->items[selected];
+				int i = entry->alpha-1;
+				if (i>=0) {
+					selected = top->alphas->items[i];
 					if (total>kMaxRows) {
 						top->start = selected;
 						top->end = top->start + kMaxRows;
@@ -951,17 +932,10 @@ int main(void) {
 				}
 			}
 			else if (Input_justRepeated(kButtonR)) { // next alpha
-				if (selected<total-1) {
-					Entry* entry = top->entries->items[selected];
-					int i = index_char(entry->name);
-					int seek = selected+1;
-					while (seek<total-1) {
-						entry = top->entries->items[seek];
-						if (index_char(entry->name)!=i) break;
-						seek += 1;
-					}
-					selected = seek;
-			
+				Entry* entry = top->entries->items[selected];
+				int i = entry->alpha+1;
+				if (i<top->alphas->count) {
+					selected = top->alphas->items[i];
 					if (total>kMaxRows) {
 						top->start = selected;
 						top->end = top->start + kMaxRows;
