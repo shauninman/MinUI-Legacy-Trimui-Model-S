@@ -4,8 +4,6 @@ cd /mnt/SDCARD/System.pak
 
 mkdir -p /mnt/SDCARD/.logs
 
-killall keymon
-
 ./MinUI &> "/mnt/SDCARD/.logs/MinUI.txt"
 sync
 

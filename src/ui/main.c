@@ -587,30 +587,6 @@ static int Input_getButton(SDL_Event *event) {
 
 ///////////////////////////////////////
 
-static int* key[10];
-static int volume = 10; // 0-19
-static int brightness = 5; // 0-9
-static int (*GetKeyShm)(void*,int);
-static void (*SetKeyShm)(void*,int,int);
-
-static void* (*_setVolume)(int);
-static void (*_setBrightness)(int);
-
-static void setVolume(int value) {
-	if (value<0) value = 0;
-	if (value>19) value = 19;
-	_setVolume(value);
-	SetKeyShm(key,0,value);
-	volume = value;
-}
-static void setBrightness(int value) {
-	if (value<0) value = 0;
-	if (value>9) value = 9;
-	_setBrightness(value);
-	SetKeyShm(key,1,value);
-	brightness = value;
-}
-
 static void restoreSettings(void) {
 	int		address = 0x01c20890;
 	int		pagesize = sysconf(_SC_PAGESIZE);
@@ -628,24 +604,26 @@ static void restoreSettings(void) {
 	void* libshmvar = dlopen("/usr/trimui/lib/libshmvar.so", RTLD_NOW|RTLD_GLOBAL);
 	void* libtmenu = dlopen("/usr/trimui/lib/libtmenu.so", RTLD_LAZY);
 
-	_setBrightness = dlsym(libtmenu, "setLCDBrightness");
-	_setVolume = dlsym(libtmenu, "sunxi_set_volume");
+	void (*setLCDBrightness)(int) = dlsym(libtmenu, "setLCDBrightness");
+	void* (*setVolume)(int) = dlsym(libtmenu, "sunxi_set_volume");
 
 	void (*InitKeyShm)(int* [10]) = dlsym(libshmvar, "InitKeyShm");
-	GetKeyShm = dlsym(libshmvar, "GetKeyShm");
-	SetKeyShm = dlsym(libshmvar, "SetKeyShm");
+	int (*GetKeyShm)(void*,int) = dlsym(libshmvar, "GetKeyShm");
 
+	int volume = 10;
+	int brightness = 5;
+
+	int* key[10];
 	InitKeyShm(key);
-	
 	volume = GetKeyShm(key, 0);
 	brightness = GetKeyShm(key, 1);
 
-	_setVolume(volume);
-	_setBrightness(brightness);
+	setVolume(volume);
+	setLCDBrightness(brightness);
 
-	// dlclose(libshmvar);
-	// dlclose(libtmenu);
-	// dlclose(libtinyalsa);
+	dlclose(libshmvar);
+	dlclose(libtmenu);
+	dlclose(libtinyalsa);
 }
 static int getBatteryLevel(void) {
 	char value[16];
@@ -940,16 +918,7 @@ int main(void) {
 				top->start = top->end - kMaxRows;
 			}
 		}
-		
-		if (Input_isPressed(kButtonSelect)) {
-			if (Input_justPressed(kButtonL)) setVolume(volume-1);
-			else if (Input_justPressed(kButtonR)) setVolume(volume+1);
-		}
-		else if (Input_isPressed(kButtonStart)) {
-			if (Input_justPressed(kButtonL)) setBrightness(brightness-1);
-			else if (Input_justPressed(kButtonR)) setBrightness(brightness+1);
-		}
-		else {
+		if (!Input_isPressed(kButtonStart) && !Input_isPressed(kButtonSelect)) {
 			if (Input_justRepeated(kButtonL)) { // previous alpha
 				Entry* entry = top->entries->items[selected];
 				int i = entry->alpha-1;
