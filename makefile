@@ -34,11 +34,11 @@ readme:
 
 # TOOLS
 
-tools: adbd commander poweroff
+tools: adb commander poweroff
 
-adbd:
+adb:
 	mkdir -p "$(BUILD_PATH)/SDCARD/Tools"
-	cp -R "paks/adbd.pak" "$(BUILD_PATH)/SDCARD/Tools"
+	cp -R "paks/Debug Bridge.pak" "$(BUILD_PATH)/SDCARD/Tools"
 
 commander:
 	mkdir -p "$(BUILD_PATH)/SDCARD/Tools"
