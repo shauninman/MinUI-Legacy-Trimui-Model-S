@@ -11,6 +11,8 @@ NEXT=./next.sh
 if [ -f $NEXT ] ; then
 	cmd=`cat $NEXT`
 	rm -f $NEXT
+	killall keymon
 	eval $cmd
 	sync
+	keymon &
 fi
