@@ -1,9 +1,5 @@
 scroll long names?
 
-killall keymon from System.pak/launch.sh
-	handle L/R shortcuts in MinUI and libmmenu?
-	lift restrictions on using those for custom bindings in libmmenu readme?
-
 switch to eggs' .tmp_update soft-install method?
 
 figure out an update mechanism
@@ -21,3 +17,9 @@ pull in (need to find base source repos closest to eggs)
 	temper
 	snes9x4d
 	pcsx4all
+
+killall keymon from System.pak/launch.sh
+	handle L/R shortcuts in MinUI and libmmenu?
+		this is doable but I need to store the changes to brightness/volume myself
+		but would conflict with keymon still running when emulators are launched from gmenu
+	lift restrictions on using those for custom bindings in libmmenu readme?
