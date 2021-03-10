@@ -134,17 +134,6 @@ static void Array_reverse(Array* self) {
 
 ///////////////////////////////////////
 
-enum EntryType {
-	kEntryDir,
-	kEntryPak,
-	kEntryRom,
-};
-typedef struct Entry {
-	char* path;
-	char* name;
-	int type;
-} Entry;
-
 static char* raw_name(char* path) {
 	char* tmp;
 	char name[128];
@@ -167,11 +156,35 @@ static char* raw_name(char* path) {
 	return copy_string(name);
 } // NOTE: caller must free() result!
 
+static int index_char(char* str) {
+	char i = 0;
+	char c = tolower(str[0]);
+	if (c>='a' && c<='z') i = (c-'a')+1;
+	return i;
+}
+
+///////////////////////////////////////
+
+enum EntryType {
+	kEntryDir,
+	kEntryPak,
+	kEntryRom,
+};
+typedef struct Entry {
+	char* path;
+	char* name;
+	int type;
+	int alpha; // index in parent Directory's alphas Array, which points to the index of an Entry in its entries Array :sweat_smile:
+	int conflict;
+} Entry;
+
 static Entry* Entry_new(char* path, int type) {
 	Entry* self = malloc(sizeof(Entry));
 	self->type = type;
 	self->name = raw_name(path);
 	self->path = copy_string(path);
+	self->alpha = 0;
+	self->conflict = 0;
 	return self;
 }
 static void Entry_free(Entry* self) {
@@ -179,6 +192,7 @@ static void Entry_free(Entry* self) {
 	free(self->name);
 	free(self);
 }
+
 static int EntryArray_indexOf(Array* self, char* path) {
 	for (int i=0; i<self->count; i++) {
 		Entry* entry = self->items[i];
@@ -408,14 +422,60 @@ static void addRecent(char* path) {
 
 ///////////////////////////////////////
 
+#define kIntArrayMax 27
+typedef struct IntArray {
+	int count;
+	int items[kIntArrayMax];
+} IntArray;
+static IntArray* IntArray_new(void) {
+	IntArray* self = malloc(sizeof(IntArray));
+	self->count = 0;
+	self->items[0] = 0; // TODO: zero all entries?
+	return self;
+}
+static void IntArray_push(IntArray* self, int i) {
+	if (self->count==kIntArrayMax) {
+		puts("IntArray items exceeded kIntArrayMax");
+		return;
+	}
+	self->items[self->count++] = i;
+}
+static void IntArray_free(IntArray* self) {
+	free(self);
+}
+
+///////////////////////////////////////
+
 typedef struct Directory {
 	char* path;
 	Array* entries;
+	IntArray* alphas;
 	// rendering
 	int selected;
 	int start;
 	int end;
 } Directory;
+
+static void Directory_index(Directory* self) {
+	Entry* prior = NULL;
+	int alpha = -1;
+	for (int i=0; i<self->entries->count; i++) {
+		Entry* entry = self->entries->items[i];
+		if (prior!=NULL && exact_match(prior->name, entry->name)) {
+			prior->conflict = 1;
+			entry->conflict = 1;
+		}
+		int a = index_char(entry->name);
+		if (a!=alpha) {
+			IntArray_push(self->alphas, i);
+			alpha = a;
+		}
+		entry->alpha = alpha;
+		
+		prior = entry;
+	}
+}
+
 static Directory* Directory_new(char* path, int selected) {
 	Directory* self = malloc(sizeof(Directory));
 	self->path = copy_string(path);
@@ -428,14 +488,18 @@ static Directory* Directory_new(char* path, int selected) {
 	else {
 		self->entries = getEntries(path);
 	}
+	self->alphas = IntArray_new();
 	self->selected = selected;
+	Directory_index(self);
 	return self;
 }
 static void Directory_free(Directory* self) {
 	free(self->path);
 	EntryArray_free(self->entries);
+	IntArray_free(self->alphas);
 	free(self);
 }
+
 static void DirectoryArray_pop(Array* self) {
 	Directory_free(Array_pop(self));
 }
@@ -855,19 +919,20 @@ int main(void) {
 			if (Input_justRepeated(kButtonL)) { // previous alpha
 				if (selected>0) {
 					Entry* entry = top->entries->items[selected];
-					char c = entry->name[0];
+					int i = index_char(entry->name);
 					int seek = selected-1;
 					int found = 0;
 					while (seek>=0) {
 						entry = top->entries->items[seek];
+						int j = index_char(entry->name);
 						if (!found) {
-							if (entry->name[0]!=c) {
-								c = entry->name[0];
+							if (j!=i) {
+								i = j;
 								found = 1;
 							}
 						}
 						else {
-							if (entry->name[0]!=c) {
+							if (j!=i) {
 								seek += 1;
 								break;
 							}
@@ -888,11 +953,11 @@ int main(void) {
 			else if (Input_justRepeated(kButtonR)) { // next alpha
 				if (selected<total-1) {
 					Entry* entry = top->entries->items[selected];
-					char c = entry->name[0];
+					int i = index_char(entry->name);
 					int seek = selected+1;
 					while (seek<total-1) {
 						entry = top->entries->items[seek];
-						if (entry->name[0]!=c) break;
+						if (index_char(entry->name)!=i) break;
 						seek += 1;
 					}
 					selected = seek;
@@ -992,19 +1057,35 @@ int main(void) {
 			int y = 0;
 			for (int i=top->start; i<top->end; i++) {
 				Entry* entry = top->entries->items[i];
+				char* fullname = strrchr(entry->path, '/')+1;
 
 				if (top->selected==i) {
+					char* name = entry->conflict ? fullname : entry->name;
+					
 					// bar
 					SDL_BlitSurface(ui_highlight_bar, NULL, buffer, &(SDL_Rect){0,38+y,0,0});
+					
 					// shadow
-					text = TTF_RenderUTF8_Blended(font, entry->name, (SDL_Color){0x68,0x5a,0x35});
+					text = TTF_RenderUTF8_Blended(font, name, (SDL_Color){0x68,0x5a,0x35});
 					SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16+1,38+y+6+2,0,0});
+					SDL_FreeSurface(text);
+					
+					text = TTF_RenderUTF8_Blended(font, name, color);
+					SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
+					SDL_FreeSurface(text);
+				}
+				else {
+					if (entry->conflict) {
+						text = TTF_RenderUTF8_Blended(font, fullname, (SDL_Color){0x66,0x66,0x66});
+						SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
+						SDL_FreeSurface(text);
+					}
+					
+					text = TTF_RenderUTF8_Blended(font, entry->name, color);
+					SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
 					SDL_FreeSurface(text);
 				}
 				
-				text = TTF_RenderUTF8_Blended(font, entry->name, color);
-				SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
-				SDL_FreeSurface(text);
 				y += 32;
 			}
 			
