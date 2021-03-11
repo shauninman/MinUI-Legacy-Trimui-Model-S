@@ -1,8 +1,8 @@
+figure out an update mechanism
+
 scroll long names?
 
 switch to eggs' .tmp_update soft-install method?
-
-figure out an update mechanism
 
 add a quickstart section to readme
 	make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
@@ -15,11 +15,7 @@ pull in (need to find base source repos closest to eggs)
 	fceux
 	picodrive
 	temper
-	snes9x4d
+	snes9x4d, this one https://github.com/m45t3r/snes9x4d?
+		or	https://github.com/gameblabla/snesemu?
+		see	https://git.crowdedwood.com/snesemu/
 	pcsx4all
-
-killall keymon from System.pak/launch.sh
-	handle L/R shortcuts in MinUI and libmmenu?
-		this is doable but I need to store the changes to brightness/volume myself
-		but would conflict with keymon still running when emulators are launched from gmenu
-	lift restrictions on using those for custom bindings in libmmenu readme?
