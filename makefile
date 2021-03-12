@@ -38,7 +38,7 @@ tools: adb commander poweroff
 
 adb:
 	mkdir -p "$(BUILD_PATH)/SDCARD/Tools"
-	cp -R "paks/Debug Bridge.pak" "$(BUILD_PATH)/SDCARD/Tools"
+	cp -R "paks/USB Bridge.pak" "$(BUILD_PATH)/SDCARD/Tools"
 
 commander:
 	mkdir -p "$(BUILD_PATH)/SDCARD/Tools"
