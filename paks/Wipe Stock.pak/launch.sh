@@ -5,6 +5,7 @@ SD=/mnt/SDCARD
 {
 	# rm -f "$SD/cachefile" # can't be erased while running...
 	rm -f "$SD/Roms/recentlist.json"
+	rm -f "$SD/update.log"
 
 	rm -rf "$SD/Apps"
 	rm -rf "$SD/Imgs"

@@ -1,6 +1,8 @@
 #!/bin/sh
 # TrimuiUpdate_MinUI.zip/updater
 
+read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW start updater"
+
 sync
 
 DIR=$(dirname "$0")
@@ -33,5 +35,7 @@ sync
 
 notify 100 "MinUI $ACTION done"
 sleep 1
+
+read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW finish updater"
 
 "$SD/System.pak/launch.sh"

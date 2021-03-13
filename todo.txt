@@ -1,6 +1,16 @@
 BUG:
 	with zero items in main list you can still select 1/0
 
+BUG:
+	sometimes launches into 100% complete bar
+	quit and launch notify/updateui as needed instead of trying to leave it running for updater
+		didn't work
+	use this time measure to figureout where we're stalling
+		read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW action name"
+		can't reproduce while this debugging code is on so it's probably a timing issue (at least with /mnt/SDCARD we'll see if /tmp is any different)
+	
+	
+
 add comments to the top all the files with identical names, eg. launch.sh and updater
 
 allow "000 - " before filename to control sorting
@@ -13,6 +23,7 @@ make a Backup Saves.pak and a Restore Saves.pak
 
 add a quickstart section to readme
 	make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
+	also note to use Power Off to make sure that save states don't get lost
 
 document new REMPAP launch.sh for multiple rom types that use the same emulator
 
