@@ -1,20 +1,7 @@
 BUG:
-	run update from MinUI
-	launch Stock UI
-	then open TrimuiUpdate_MinUI.zip
-		gets stuck at 100% quit
-
-BUG:
 	with zero items in main list you can still select 1/0
 
 add comments to the top all the files with identical names, eg. launch.sh and updater
-
-new installer installer/updater/launcher combo zip
-	update contents of System.pak
-	add Update.pak
-	rebuild makefile
-	rewrite readme
-	test test test
 
 allow "000 - " before filename to control sorting
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
@@ -41,14 +28,11 @@ pull in (need to find base source repos closest to eggs)
 	fceux
 	picodrive
 	temper
-	snes9x4d, this one https://github.com/m45t3r/snes9x4d?
-		or	https://github.com/gameblabla/snesemu?
-		see	https://git.crowdedwood.com/snesemu <-- exciting developments happening here
 	pcsx4all
 
 gambatte-dms
 	remove build date, replaced with last commit date
 
 sms_sdl
-	revisit gg arg to support new REMAP-ing launch.sh
+	revisit gg arg to support new REMAP-ing launch.sh (use strncmp() to check for "gg" specifically)
 	what does START do on SMS? it seems to change the volume on Phantasy Star's title screen, also A & B seem to start
