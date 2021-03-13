@@ -1,11 +1,37 @@
-figure out an update mechanism
+BUG:
+	run update from MinUI
+	launch Stock UI
+	then open TrimuiUpdate_MinUI.zip
+		gets stuck at 100% quit
 
-scroll long names?
+BUG:
+	with zero items in main list you can still select 1/0
 
-switch to eggs' .tmp_update soft-install method?
+add comments to the top all the files with identical names, eg. launch.sh and updater
+
+new installer installer/updater/launcher combo zip
+	update contents of System.pak
+	add Update.pak
+	rebuild makefile
+	rewrite readme
+	test test test
+
+allow "000 - " before filename to control sorting
+	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
+	or add entry->sortName
+
+scroll long names
+
+make a Backup Saves.pak and a Restore Saves.pak
 
 add a quickstart section to readme
 	make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
+
+document new REMPAP launch.sh for multiple rom types that use the same emulator
+
+update libmmenu README
+	if you are creating a custom launcher and want to support libmmenu you need to call
+		export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
 
 rescue things from old repo
 	art
@@ -17,5 +43,12 @@ pull in (need to find base source repos closest to eggs)
 	temper
 	snes9x4d, this one https://github.com/m45t3r/snes9x4d?
 		or	https://github.com/gameblabla/snesemu?
-		see	https://git.crowdedwood.com/snesemu/
+		see	https://git.crowdedwood.com/snesemu <-- exciting developments happening here
 	pcsx4all
+
+gambatte-dms
+	remove build date, replaced with last commit date
+
+sms_sdl
+	revisit gg arg to support new REMAP-ing launch.sh
+	what does START do on SMS? it seems to change the volume on Phantasy Star's title screen, also A & B seem to start

@@ -21,6 +21,7 @@
 #define kRootDir "/mnt/SDCARD"
 #define kRecentlyPlayedDir kRootDir "/Recently Played"
 #define kLastPath "/tmp/last.txt"
+#define kTrimuiUpdatePath kRootDir "/TrimuiUpdate_MinUI.zip"
 
 ///////////////////////////////////////
 
@@ -308,6 +309,16 @@ static int hasRoms(char* path) {
 	}
 	return has;
 }
+static int hasUpdate(void) {
+	int has = 0;
+	if (exists(kTrimuiUpdatePath)) {
+		struct stat st; 
+		if (stat(kTrimuiUpdatePath, &st)==0 && st.st_size>512) {
+			has = 1;
+		}
+	}
+	return has;
+}
 
 static Array* getRecents(void) {
 	Array* entries = Array_new();
@@ -358,6 +369,7 @@ static Array* getRoot(void) {
 	int has_recents = hasRecents();
 	int has_games = hasPaks(kRootDir "/Games");
 	int has_tools = hasPaks(kRootDir "/Tools");
+	int has_update = hasUpdate();
 	
 	if (has_recents) Array_push(entries, Entry_new(kRecentlyPlayedDir, kEntryDir));
 	
@@ -388,6 +400,7 @@ static Array* getRoot(void) {
 	
 	if (has_games) Array_push(entries, Entry_new(kRootDir "/Games", kEntryDir));
 	if (has_tools) Array_push(entries, Entry_new(kRootDir "/Tools", kEntryDir));
+	if (has_update) Array_push(entries, Entry_new(kRootDir "/Update.pak", kEntryPak));
 	
 	return entries;
 }

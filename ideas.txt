@@ -1,0 +1,27 @@
+an installer that deletes itself after installation
+	needs to run from StockUI and MinUI
+		MinUI should show TrimuiUpdate_MinUI.zip as Update below Tools
+	first I need to get MinUI running from .tmp_update
+	need to either figure out how to launch updateui from MinUI or create my own version
+	create a pak to remove stock cachefile and folders (Cleaner.pak?)
+		should explain what it does and request confirmation
+		deleting this stuff has caused issues on the stock card, haven't tried on my sandisk yet
+	
+	rename System.pak to .system?
+	
+	
+	NOTE: this might be out of date...
+	
+	MinUI-<TrimUI version>-<YYYYMMDD>-<release number>.zip/
+		readme.md
+		Roms/ (just an example of what folders will be added to card)
+		TrimuiUpdate_MinUI.zip/ (installer/updater)
+			Emus/
+			System.pak/
+				lib/libmmenu.so
+			Tools/
+			TrimuiUpdate_MinUI.zip
+			launch.sh (renamed to updater, same updater used by TrimuiUpdate_MinUI.zip)
+			updater
+
+	zip -r ../TrimuiUpdate_MinUI.zip updater updater.sh TrimuiUpdate_MinUI.zip System.pak Update.pak Tools -x "*.DS_Store"
