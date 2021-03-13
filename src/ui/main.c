@@ -575,6 +575,13 @@ static void Input_beforePoll(void) {
 		buttons[i].justRepeated = 0;
 	}
 }
+static void Input_reset(void) {
+	for (int i=0; i<kButtonCount; i++) {
+		buttons[i].justPressed = 0;
+		buttons[i].isPressed = 0;
+		buttons[i].justRepeated = 0;
+	}
+}
 #define Input_justPressed(btn) buttons[(btn)].justPressed
 #define Input_justRepeated(btn) buttons[(btn)].justRepeated
 #define Input_isPressed(btn) buttons[(btn)].isPressed
@@ -600,6 +607,11 @@ static int Input_getButton(SDL_Event *event) {
 
 ///////////////////////////////////////
 
+static int volume = 10;
+static int brightness = 5;
+static void* (*setVolume)(int);
+static void (*setBrightness)(int);
+
 static void restoreSettings(void) {
 	int		address = 0x01c20890;
 	int		pagesize = sysconf(_SC_PAGESIZE);
@@ -617,14 +629,11 @@ static void restoreSettings(void) {
 	void* libshmvar = dlopen("/usr/trimui/lib/libshmvar.so", RTLD_NOW|RTLD_GLOBAL);
 	void* libtmenu = dlopen("/usr/trimui/lib/libtmenu.so", RTLD_LAZY);
 
-	void (*setLCDBrightness)(int) = dlsym(libtmenu, "setLCDBrightness");
-	void* (*setVolume)(int) = dlsym(libtmenu, "sunxi_set_volume");
+	setBrightness = dlsym(libtmenu, "setLCDBrightness");
+	setVolume = dlsym(libtmenu, "sunxi_set_volume");
 
 	void (*InitKeyShm)(int* [10]) = dlsym(libshmvar, "InitKeyShm");
 	int (*GetKeyShm)(void*,int) = dlsym(libshmvar, "GetKeyShm");
-
-	int volume = 10;
-	int brightness = 5;
 
 	int* key[10];
 	InitKeyShm(key);
@@ -632,11 +641,11 @@ static void restoreSettings(void) {
 	brightness = GetKeyShm(key, 1);
 
 	setVolume(volume);
-	setLCDBrightness(brightness);
+	setBrightness(brightness);
 
-	dlclose(libshmvar);
-	dlclose(libtmenu);
-	dlclose(libtinyalsa);
+	// dlclose(libshmvar);
+	// dlclose(libtmenu);
+	// dlclose(libtinyalsa);
 }
 static int getBatteryLevel(void) {
 	char value[16];
@@ -784,6 +793,35 @@ static void Menu_init(void) {
 static void Menu_quit(void) {
 	StringArray_free(recents);
 	DirectoryArray_free(stack);
+}
+
+static void fauxSleep(void) {
+	// SDL_FillRect(buffer, NULL, 0);
+	// SDL_BlitSurface(buffer, NULL, screen, NULL);
+	// SDL_Flip(screen);
+	
+	int v = volume;
+	int b = brightness;
+	setVolume(0);
+	setBrightness(0);
+	
+	// TODO: check gmenunx_src/src/platform/trimui.h
+	// 0x00c00532 // 192MHz (lowest)
+	// 0x02d01d22 // 720MHz (default)
+	
+	SDL_Event event;
+	while (1) {
+		SDL_Delay(1000);
+		while (SDL_PollEvent(&event)) {
+			switch( event.type ){
+				case SDL_KEYDOWN:
+					setVolume(v);
+					setBrightness(b);
+					return; 
+				break;
+			}
+		}
+	}
 }
 
 int main(void) {
@@ -975,10 +1013,12 @@ int main(void) {
 			is_dirty = 1;
 		}
 		
-		// if (Input_justPressed(kButtonMenu)) {
-		// 	queue_next("/usr/trimui/bin/StockUI");
-		// 	break;
-		// }
+		if (Input_justPressed(kButtonMenu)) {
+			// TODO: move to timer
+			fauxSleep();
+			Input_reset();
+			is_dirty = 1;
+		}
 		
 		if (is_dirty) {
 			// clear

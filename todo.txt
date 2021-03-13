@@ -9,7 +9,14 @@ BUG:
 		read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW action name"
 		can't reproduce while this debugging code is on so it's probably a timing issue (at least with /mnt/SDCARD we'll see if /tmp is any different)
 	
-	
+add a sleep mode to MinUI and libmmennu.so
+	after 30s of inactivity
+		black out screen
+		set brightness to 0 (after storing current value)
+		delay 2s
+		check for inut
+			restore brightness
+			resume normal updates
 
 add comments to the top all the files with identical names, eg. launch.sh and updater
 
