@@ -1030,16 +1030,18 @@ int main(void) {
 			
 			SDL_Surface* text;
 			// x/y text
-			char mini[8];
-			sprintf(mini, "/%d", top->entries->count);
-			text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
-			SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184,9,0,0});
-			SDL_FreeSurface(text);
+			if (top->entries->count) {
+				char mini[8];
+				sprintf(mini, "/%d", top->entries->count);
+				text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
+				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184,9,0,0});
+				SDL_FreeSurface(text);
 			
-			sprintf(mini, "%d", top->selected+1);
-			text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
-			SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184-text->w,9,0,0});
-			SDL_FreeSurface(text);
+				sprintf(mini, "%d", top->selected+1);
+				text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
+				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184-text->w,9,0,0});
+				SDL_FreeSurface(text);
+			}
 
 			// logo
 			SDL_BlitSurface(ui_logo, NULL, buffer, &(SDL_Rect){10,10,0,0});
@@ -1054,32 +1056,34 @@ int main(void) {
 			else				ui_power_icon = ui_power_100_icon;
 			SDL_BlitSurface(ui_power_icon, NULL, buffer, &(SDL_Rect){294,6,0,0});
 			
-			// browse
-			SDL_BlitSurface(ui_browse_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
-			text = TTF_RenderUTF8_Blended(tiny, "BROWSE", (SDL_Color){0xff,0xff,0xff});
-			SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){36,212,0,0});
-			SDL_FreeSurface(text);
-			
-			// A Open
-			SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){251,210,0,0});
-			text = TTF_RenderUTF8_Blended(tiny, "OPEN", (SDL_Color){0xff,0xff,0xff});
-			SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){276,212,0,0});
-			SDL_FreeSurface(text);
-			
-			text = TTF_RenderUTF8_Blended(font, "A", (SDL_Color){0x9f,0x89,0x52});
-			SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){251+6,210+1,0,0});
-			SDL_FreeSurface(text);
-			
-			// B Back
-			if (stack->count>1) {
-				SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){251-68,210,0,0});
-				text = TTF_RenderUTF8_Blended(tiny, "BACK", (SDL_Color){0xff,0xff,0xff});
-				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){276-68,212,0,0});
+			if (top->entries->count) {
+				// browse
+				SDL_BlitSurface(ui_browse_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
+				text = TTF_RenderUTF8_Blended(tiny, "BROWSE", (SDL_Color){0xff,0xff,0xff});
+				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){36,212,0,0});
 				SDL_FreeSurface(text);
 			
-				text = TTF_RenderUTF8_Blended(font, "B", (SDL_Color){0x9f,0x89,0x52});
-				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){251+6-68+1,210+1,0,0});
+				// A Open
+				SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){251,210,0,0});
+				text = TTF_RenderUTF8_Blended(tiny, "OPEN", (SDL_Color){0xff,0xff,0xff});
+				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){276,212,0,0});
 				SDL_FreeSurface(text);
+			
+				text = TTF_RenderUTF8_Blended(font, "A", (SDL_Color){0x9f,0x89,0x52});
+				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){251+6,210+1,0,0});
+				SDL_FreeSurface(text);
+			
+				// B Back
+				if (stack->count>1) {
+					SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){251-68,210,0,0});
+					text = TTF_RenderUTF8_Blended(tiny, "BACK", (SDL_Color){0xff,0xff,0xff});
+					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){276-68,212,0,0});
+					SDL_FreeSurface(text);
+			
+					text = TTF_RenderUTF8_Blended(font, "B", (SDL_Color){0x9f,0x89,0x52});
+					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){251+6-68+1,210+1,0,0});
+					SDL_FreeSurface(text);
+				}
 			}
 			
 			int y = 0;

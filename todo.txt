@@ -8,9 +8,11 @@ BUG:
 	use this time measure to figureout where we're stalling
 		read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW action name"
 		can't reproduce while this debugging code is on so it's probably a timing issue (at least with /mnt/SDCARD we'll see if /tmp is any different)
-	
+
+add eggs tearing patch directly to MinUI
+
 add a sleep mode to MinUI and libmmennu.so
-	after 30s of inactivity
+	after 30s of inactivity or pressing MENU
 		black out screen
 		set brightness to 0 (after storing current value)
 		delay 2s
@@ -47,6 +49,9 @@ pull in (need to find base source repos closest to eggs)
 	picodrive
 	temper
 	pcsx4all
+
+gpsp
+	checkout drowsnug's scaler
 
 gambatte-dms
 	remove build date, replaced with last commit date
