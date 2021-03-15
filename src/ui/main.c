@@ -796,9 +796,9 @@ static void Menu_quit(void) {
 }
 
 static void fauxSleep(void) {
-	// SDL_FillRect(buffer, NULL, 0);
-	// SDL_BlitSurface(buffer, NULL, screen, NULL);
-	// SDL_Flip(screen);
+	SDL_FillRect(buffer, NULL, 0);
+	SDL_BlitSurface(buffer, NULL, screen, NULL);
+	SDL_Flip(screen);
 	
 	int v = volume;
 	int b = brightness;
