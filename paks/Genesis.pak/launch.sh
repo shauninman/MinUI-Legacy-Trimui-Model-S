@@ -1,4 +1,5 @@
 #!/bin/sh
+# Genesis.pak/launch.sh
 
 EMU_EXE=PicoDrive
 EMU_DIR=$(dirname "$0")

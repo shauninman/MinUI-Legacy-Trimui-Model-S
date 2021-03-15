@@ -1,4 +1,5 @@
 #!/bin/sh
+# Super Nintendo.pak/launch.sh
 
 EMU_EXE=snes9x2002
 EMU_DIR=$(dirname "$0")

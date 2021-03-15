@@ -1,4 +1,5 @@
 #!/bin/sh
+# Game Boy Advance.pak/launch.sh
 
 EMU_EXE=gpsp
 EMU_DIR=$(dirname "$0")

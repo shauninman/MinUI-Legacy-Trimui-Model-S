@@ -1,4 +1,4 @@
-# TrimuiUpdate
+# TrimuiUpdate/makefile
 
 .PHONY: clean
 

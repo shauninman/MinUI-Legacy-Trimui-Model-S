@@ -1,4 +1,5 @@
 #!/bin/sh
+# Nintendo.pak/launch.sh
 
 EMU_EXE=fceux.dge
 EMU_DIR=$(dirname "$0")

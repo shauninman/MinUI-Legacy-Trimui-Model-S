@@ -1,4 +1,5 @@
 #!/bin/sh
+# Neo Geo Pocket.pak/launch.sh
 
 EMU_EXE=race-od
 EMU_DIR=$(dirname "$0")

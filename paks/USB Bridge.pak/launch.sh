@@ -1,4 +1,5 @@
 #!/bin/sh
+# USB Bridge.pak/launch.sh
 
 DIR=$(dirname "$0")
 

@@ -1,4 +1,5 @@
 #!/bin/sh
+# Commander.pak/launch.sh
 
 cd $(dirname "$0")
 

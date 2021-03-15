@@ -1,4 +1,5 @@
 #!/bin/sh
+# Neo Geo Pocket Color.pak/launch.sh
 
 REMAP_FROM="Neo Geo Pocket Color"
 REMAP_ONTO="Neo Geo Pocket"

@@ -1,24 +1,15 @@
-BUG:
-	sometimes launches into 100% complete bar
-	quit and launch notify/updateui as needed instead of trying to leave it running for updater
-		didn't work
-	use this time measure to figureout where we're stalling
-		read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW action name"
-		can't reproduce while this debugging code is on so it's probably a timing issue
+ISSUE: updating is destructive
+	eg. deletes custom bios from PlayStation.pak/bios
+
+pak
+	add an ignore.txt
+		eg. PlayStation.pak ignore.txt could contain bin, etc (favors .cue)
 
 add eggs tearing patch directly to MinUI
 
 add a sleep mode to MinUI and libmmennu.so
 	after 30s of inactivity or pressing MENU
-		black out screen
-		set brightness and volume to 0
-		delay 2s
-		check for input (MENU or a button combo? L+R+SELECT+START?)
-			restore original brightness and volume values
-			resume normal updates
 	try with eggs underclocking code to 192MHz
-
-add comments to the top all the files with identical names, eg. launch.sh and updater
 
 allow "000 - " before filename to control sorting
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
@@ -52,10 +43,7 @@ pull in (need to find base source repos closest to eggs)
 	temper
 
 pcsx_rearmed
-	build with 
-		CROSS_COMPILE=/opt/trimui-toolchain/bin/arm-buildroot-linux-gnueabi- ./configure --platform=trimui && make
-	default to bios included in /usr/trimui? (they're PAL, is that a problem?)
-		copy into PlayStation.pak during install/update?
+	
 
 gpsp
 	make sure scaling settings are saved
@@ -64,5 +52,4 @@ gambatte-dms
 	remove build date, replaced with last commit date
 
 sms_sdl
-	revisit gg arg to support new REMAP-ing launch.sh (use strncmp() to check for "gg" specifically)
 	what does START do on SMS? it seems to change the volume on Phantasy Star's title screen, also A & B seem to start

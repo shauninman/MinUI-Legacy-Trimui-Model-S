@@ -1,4 +1,5 @@
 #!/bin/sh
+# Game Boy.pak/launch.sh
 
 EMU_EXE=gambatte-dms
 EMU_DIR=$(dirname "$0")

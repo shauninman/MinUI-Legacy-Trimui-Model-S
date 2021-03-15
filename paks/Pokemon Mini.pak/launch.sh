@@ -1,4 +1,5 @@
 #!/bin/sh
+# Pokemon Mini.pak/launch.sh
 
 EMU_EXE=pokemini
 EMU_DIR=$(dirname "$0")
