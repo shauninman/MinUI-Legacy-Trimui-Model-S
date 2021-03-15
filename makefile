@@ -47,7 +47,7 @@ emu:
 
 gb: emu
 	mkdir -p "$(ROMS_PATH)/Game Boy"
-	cd ./third-party/gambatte-dms && make
+	cd ./third-party/gambatte-dms && make -j
 	cp -R "paks/Game Boy.pak" "$(BUILD_PATH)/Emus"
 	cp "third-party/gambatte-dms/gambatte-dms" "$(BUILD_PATH)/Emus/Game Boy.pak"
 	
@@ -56,13 +56,13 @@ gb: emu
 
 pm: emu
 	mkdir -p "$(ROMS_PATH)/Pokemon Mini"
-	cd ./third-party/pokemini/platform/trimui && make
+	cd ./third-party/pokemini/platform/trimui && make -j
 	cp -R "paks/Pokemon Mini.pak" "$(BUILD_PATH)/Emus"
 	cp "third-party/pokemini/platform/trimui/pokemini" "$(BUILD_PATH)/Emus/Pokemon Mini.pak"
 
 ngp: emu
 	mkdir -p "$(ROMS_PATH)/Neo Geo Pocket"
-	cd ./third-party/race && make
+	cd ./third-party/race && make -j
 	cp -R "paks/Neo Geo Pocket.pak" "$(BUILD_PATH)/Emus"
 	cp "third-party/race/race-od" "$(BUILD_PATH)/Emus/Neo Geo Pocket.pak"
 	
@@ -71,7 +71,7 @@ ngp: emu
 
 gg: emu
 	mkdir -p "$(ROMS_PATH)/Game Gear"
-	cd ./third-party/sms_sdl && make
+	cd ./third-party/sms_sdl && make -j
 	cp -R "paks/Game Gear.pak" "$(BUILD_PATH)/Emus"
 	cp "third-party/sms_sdl/sms_sdl" "$(BUILD_PATH)/Emus/Game Gear.pak"
 	
@@ -80,7 +80,7 @@ gg: emu
 
 snes: emu
 	mkdir -p "$(ROMS_PATH)/Super Nintendo"
-	cd ./third-party/snes9x2002 && make
+	cd ./third-party/snes9x2002 && make -j
 	cp -R "paks/Super Nintendo.pak" "$(BUILD_PATH)/Emus"
 	cp "third-party/snes9x2002/snes9x2002" "$(BUILD_PATH)/Emus/Super Nintendo.pak"
 
@@ -120,7 +120,7 @@ bridge: tool
 	cp -R "paks/USB Bridge.pak" "$(BUILD_PATH)/Tools"
 
 commander: tool
-	cd ./third-party/DinguxCommander && make
+	cd ./third-party/DinguxCommander && make -j
 	cp -R "paks/Commander.pak" "$(BUILD_PATH)/Tools"
 	cp "third-party/DinguxCommander/output/trimui/DinguxCommander" "$(BUILD_PATH)/Tools/Commander.pak"
 	cp -R "third-party/DinguxCommander/res" "$(BUILD_PATH)/Tools/Commander.pak"
