@@ -16,6 +16,7 @@ add a sleep mode to MinUI and libmmennu.so
 		check for input (MENU or a button combo? L+R+SELECT+START?)
 			restore original brightness and volume values
 			resume normal updates
+	try with eggs underclocking code to 192MHz
 
 add comments to the top all the files with identical names, eg. launch.sh and updater
 
@@ -51,9 +52,8 @@ pull in (need to find base source repos closest to eggs)
 	temper
 
 pcsx_rearmed
-	get from https://git.crowdedwood.com/pcsx_rearmed/
-		need to add submodules manually
-			https://github.com/notaz/libpicofe to frontend/
+	build with 
+		CROSS_COMPILE=/opt/trimui-toolchain/bin/arm-buildroot-linux-gnueabi- ./configure --platform=trimui && make
 	default to bios included in /usr/trimui? (they're PAL, is that a problem?)
 		copy into PlayStation.pak during install/update?
 
