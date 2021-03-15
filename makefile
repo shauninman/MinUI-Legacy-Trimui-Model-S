@@ -39,7 +39,7 @@ sys: lib
 	cp -R "paks/Update.pak" 		"$(BUILD_PATH)"
 
 #--------------------------------------
-emus: gb pm ngp gg snes ps gba sms
+emus: gb pm ngp gg snes ps gba
 #--------------------------------------
 
 emu:
@@ -74,6 +74,9 @@ gg: emu
 	cd ./third-party/sms_sdl && make
 	cp -R "paks/Game Gear.pak" "$(BUILD_PATH)/Emus"
 	cp "third-party/sms_sdl/sms_sdl" "$(BUILD_PATH)/Emus/Game Gear.pak"
+	
+	mkdir -p "$(ROMS_PATH)/Master System"
+	cp -R "paks/Master System.pak" "$(BUILD_PATH)/Emus"
 
 snes: emu
 	mkdir -p "$(ROMS_PATH)/Super Nintendo"
@@ -95,11 +98,6 @@ gba: emu
 	cp "third-party/gpsp-bittboy/trimui/gpsp" "$(BUILD_PATH)/Emus/Game Boy Advance.pak"
 	cp "third-party/gpsp-bittboy/game_config.txt" "$(BUILD_PATH)/Emus/Game Boy Advance.pak"
 
-sms: emu
-	mkdir -p "$(ROMS_PATH)/Master System"
-	cd ./third-party/sms_sdl && make
-	cp -R "paks/Master System.pak" "$(BUILD_PATH)/Emus"
-	cp "third-party/sms_sdl/sms_sdl" "$(BUILD_PATH)/Emus/Master System.pak"
 
 #--------------------------------------
 games: na

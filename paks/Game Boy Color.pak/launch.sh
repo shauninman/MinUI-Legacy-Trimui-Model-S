@@ -1,4 +1,5 @@
 #!/bin/sh
+# Game Boy Color.pak/launch.sh
 
 REMAP_FROM="Game Boy Color"
 REMAP_ONTO="Game Boy"

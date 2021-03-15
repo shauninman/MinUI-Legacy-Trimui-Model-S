@@ -1,12 +1,12 @@
 #!/bin/sh
+# Game Gear.pak/launch.sh
 
 EMU_EXE=sms_sdl
 EMU_DIR=$(dirname "$0")
-ROM_DIR=${EMU_DIR/.pak/}
-ROM_DIR=${ROM_DIR/Emus/Roms}
+ROM_DIR=$(dirname "$1")
 EMU_NAME=${ROM_DIR/\/mnt\/SDCARD\/Roms\//}
 ROM=${1}
 
 HOME="$ROM_DIR"
 cd "$HOME"
-"$EMU_DIR/$EMU_EXE" "$ROM" gg &> "/mnt/SDCARD/.logs/$EMU_NAME.txt"
+"$EMU_DIR/$EMU_EXE" "$ROM" &> "/mnt/SDCARD/.logs/$EMU_NAME.txt"

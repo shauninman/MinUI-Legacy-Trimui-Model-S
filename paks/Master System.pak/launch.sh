@@ -1,12 +1,10 @@
 #!/bin/sh
+# Master System.pak/launch.sh
 
-EMU_EXE=sms_sdl
+REMAP_FROM="Master System"
+REMAP_ONTO="Game Gear"
 EMU_DIR=$(dirname "$0")
-ROM_DIR=${EMU_DIR/.pak/}
-ROM_DIR=${ROM_DIR/Emus/Roms}
-EMU_NAME=${ROM_DIR/\/mnt\/SDCARD\/Roms\//}
+EMU_DIR=${EMU_DIR/$REMAP_FROM/$REMAP_ONTO}
 ROM=${1}
 
-HOME="$ROM_DIR"
-cd "$HOME"
-"$EMU_DIR/$EMU_EXE" "$ROM" &> "/mnt/SDCARD/.logs/$EMU_NAME.txt"
+"$EMU_DIR/launch.sh" "$ROM"
