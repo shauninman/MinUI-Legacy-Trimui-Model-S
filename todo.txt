@@ -1,23 +1,20 @@
 BUG:
-	with zero items in main list you can still select 1/0
-
-BUG:
 	sometimes launches into 100% complete bar
 	quit and launch notify/updateui as needed instead of trying to leave it running for updater
 		didn't work
 	use this time measure to figureout where we're stalling
 		read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW action name"
-		can't reproduce while this debugging code is on so it's probably a timing issue (at least with /mnt/SDCARD we'll see if /tmp is any different)
+		can't reproduce while this debugging code is on so it's probably a timing issue
 
 add eggs tearing patch directly to MinUI
 
 add a sleep mode to MinUI and libmmennu.so
 	after 30s of inactivity or pressing MENU
 		black out screen
-		set brightness to 0 (after storing current value)
+		set brightness and volume to 0
 		delay 2s
-		check for inut
-			restore brightness
+		check for input (MENU or a button combo? L+R+SELECT+START?)
+			restore original brightness and volume values
 			resume normal updates
 
 add comments to the top all the files with identical names, eg. launch.sh and updater
@@ -33,13 +30,17 @@ make a Backup Saves.pak and a Restore Saves.pak
 add a quickstart section to readme
 	make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
 	also note to use Power Off to make sure that save states don't get lost
+	note PlayStation bios location
+	mention GBA, PSX, and 32x using dynarec which may have performance issues initially that go away after playing for a bit and it caches instructions
 
 document new REMPAP launch.sh for multiple rom types that use the same emulator
 
-update libmmenu README
-	if you are creating a custom launcher and want to support libmmenu you need to call
-		export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
-
+libmmenu
+	add support for switching discs on disc-based systems?
+	update README
+		if you are creating a custom launcher and want to support libmmenu you need to call
+			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
+	
 rescue things from old repo
 	art
 	todos
@@ -48,10 +49,16 @@ pull in (need to find base source repos closest to eggs)
 	fceux
 	picodrive
 	temper
-	pcsx4all
+
+pcsx_rearmed
+	get from https://git.crowdedwood.com/pcsx_rearmed/
+		need to add submodules manually
+			https://github.com/notaz/libpicofe to frontend/
+	default to bios included in /usr/trimui? (they're PAL, is that a problem?)
+		copy into PlayStation.pak during install/update?
 
 gpsp
-	checkout drowsnug's scaler
+	make sure scaling settings are saved
 
 gambatte-dms
 	remove build date, replaced with last commit date
