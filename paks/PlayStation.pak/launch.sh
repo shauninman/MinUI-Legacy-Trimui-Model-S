@@ -1,4 +1,5 @@
 #!/bin/sh
+# PlayStation.pak/launch.sh
 
 EMU_EXE=pcsx
 EMU_DIR=$(dirname "$0")
