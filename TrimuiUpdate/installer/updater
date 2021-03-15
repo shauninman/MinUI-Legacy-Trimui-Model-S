@@ -1,8 +1,6 @@
 #!/bin/sh
 # TrimuiUpdate_MinUI.zip/updater
 
-read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW start updater"
-
 sync
 
 DIR=$(dirname "$0")
@@ -20,22 +18,26 @@ sleep 1
 notify 33 "$ACTION system"
 rm -rf "$SD/System.pak" && sync
 mv -f "$DIR/System.pak" "$SD"
+wait $!
 
 rm -rf "$SD/Update.pak" && sync
 mv -f "$DIR/Update.pak" "$SD"
+wait $!
+
 sync
 
 notify 66 "$ACTION boot"
 rm -f "$DIR/updater" && sync
 mv -f "$DIR/launch.sh" "$DIR/updater"
+wait $!
 
 rm -f "$SD/TrimuiUpdate_MinUI.zip" && sync
 mv -f "$DIR/TrimuiUpdate_MinUI.zip" "$SD"
+wait $!
+
 sync
 
 notify 100 "MinUI $ACTION done"
 sleep 1
-
-read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW finish updater"
 
 "$SD/System.pak/launch.sh"

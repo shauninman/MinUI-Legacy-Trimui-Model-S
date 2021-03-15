@@ -1,8 +1,6 @@
 #!/bin/sh
 # System.pak/launch.sh
 
-read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW start launch.sh"
-
 a=`ps | grep keymon | grep -v grep`
 if [ "$a" == "" ]; then
 	keymon &
@@ -19,9 +17,7 @@ cd "$SD/System.pak"
 
 # TODO: just search .tmp_update for any .pak
 if [ -d "$UPDATE_TMP/Emus" ] || [ -d "$UPDATE_TMP/Games" ] || [ -d "$UPDATE_TMP/Tools" ]; then
-	read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW start update.sh"
 	./update.sh
-	read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW finish update.sh"
 fi
 
 notify 100 quit
@@ -34,7 +30,6 @@ sync
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
 
 while [ -f /tmp/minui_exec ]; do
-	read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW start MinUI"
 	./MinUI &> "$SD/.logs/MinUI.txt"
 	sync
 
@@ -51,19 +46,15 @@ killall keymon
 sync
 
 if [ -f /tmp/minui_update ]; then
-	read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW start Update"
-	
 	rm -f /tmp/minui_update
 	killall updater
 	
 	echo start updating | tee $UPDATE_LOG
 	updateui >> $UPDATE_LOG &
-	notify 0 "unzip update"
+	notify 0 "unzip Update"
 	mkdir -p ${UPDATE_TMP}
 	total=`unzip -l ${UPDATE_ZIP} | wc -l`
 	unzip -d ${UPDATE_TMP} -o ${UPDATE_ZIP} | awk -v total="$total" -v out="/tmp/.update_msg" 'function bname(file,a,n){n=split(file,a,"/");return a[n]}BEGIN{cnt=0}{printf "">out;cnt+=1;printf "%d unzip %s\n",cnt*100/total,bname($2)>>out;close(out)}'
-	
-	read up rest </proc/uptime; NOW="${up%.*}${up#*.}"; touch "/tmp/$NOW finish Update"
 	
 	updateui >> $UPDATE_LOG &
 	"$UPDATE_TMP/updater" | tee -a $UPDATE_LOG

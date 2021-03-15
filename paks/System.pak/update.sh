@@ -37,12 +37,24 @@ for SRC in `find . -name "*.pak"` ; do
 
 	notify $PERCENT "$ACTION $PAK_NAME"
 	mv -f "$SRC" "$DST_DIR"
+	wait $!
+	sync
+	
+	POST="$DST/post.sh"
+	if [ -f "$POST" ]; then
+		notify $PERCENT "post-$ACTION"
+		"$POST"
+		rm -f "$POST"
+	fi
 
 	if [ "$SRC" != ${SRC/.\/Emus\//} ]; then
-		notify $PERCENT "add Roms/$PAK_NAME"
 		ROM_DIR=${DST/.pak/}
 		ROM_DIR=${ROM_DIR/Emus/Roms}
-		mkdir -p "$ROM_DIR"
+		if [ ! -d "$ROM_DIR" ]; then
+			notify $PERCENT "add Roms/$PAK_NAME"
+			mkdir -p "$ROM_DIR"
+			sync
+		fi
 	fi
 done
 
@@ -50,7 +62,6 @@ sync
 
 notify 100 "paks done"
 sleep 1
-
 
 rm -rf ./Emus
 rm -rf ./Tools
