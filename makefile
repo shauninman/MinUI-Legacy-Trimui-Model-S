@@ -39,7 +39,7 @@ sys: lib
 	cp -R "paks/Update.pak" 		"$(BUILD_PATH)"
 
 #--------------------------------------
-emus: gb pm ngp gg snes gba sms
+emus: gb pm ngp gg snes ps gba sms
 #--------------------------------------
 
 emu:
@@ -81,9 +81,16 @@ snes: emu
 	cp -R "paks/Super Nintendo.pak" "$(BUILD_PATH)/Emus"
 	cp "third-party/snes9x2002/snes9x2002" "$(BUILD_PATH)/Emus/Super Nintendo.pak"
 
+ps: emu
+	mkdir -p "$(ROMS_PATH)/PlayStation"
+	if [ ! -f ./third-party/pcsx_rearmed/config.mak ]; then cd ./third-party/pcsx_rearmed && CROSS_COMPILE=/opt/trimui-toolchain/bin/arm-buildroot-linux-gnueabi- ./configure --platform=trimui; fi
+	cd ./third-party/pcsx_rearmed && make -j
+	cp -R "paks/PlayStation.pak" "$(BUILD_PATH)/Emus"
+	cp "third-party/pcsx_rearmed/pcsx" "$(BUILD_PATH)/Emus/PlayStation.pak"
+
 gba: emu
 	mkdir -p "$(ROMS_PATH)/Game Boy Advance"
-	cd ./third-party/gpsp-bittboy/trimui && make
+	cd ./third-party/gpsp-bittboy/trimui && make -j
 	cp -R "paks/Game Boy Advance.pak" "$(BUILD_PATH)/Emus"
 	cp "third-party/gpsp-bittboy/trimui/gpsp" "$(BUILD_PATH)/Emus/Game Boy Advance.pak"
 	cp "third-party/gpsp-bittboy/game_config.txt" "$(BUILD_PATH)/Emus/Game Boy Advance.pak"
@@ -150,4 +157,5 @@ clean:
 	cd ./third-party/sms_sdl && make clean
 	cd ./third-party/gpsp-bittboy/trimui && make clean
 	cd ./third-party/snes9x2002 && make clean
+	cd ./third-party/pcsx_rearmed && make clean
 	rm -rf ./build
