@@ -2,6 +2,6 @@ build/*
 release/*
 src/encode/encode
 src/show/show
-src/ui/MinUI
+src/MinUI/MinUI
 TrimuiUpdate_MinUI.zip
 .DS_Store
