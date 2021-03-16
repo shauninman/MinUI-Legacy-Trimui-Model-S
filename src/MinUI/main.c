@@ -643,6 +643,7 @@ static void initTrimuiAPI(void) {
 	InitKeyShm(key);
 }
 
+#define kCPUDead 0x0112 // 16MHz (dead)
 #define kCPULow 0x00c00532 // 192MHz (lowest)
 #define kCPUNormal 0x02d01d22 // 720MHz (default)
 #define kCPUHigh 0x03601a32 // 864MHz (highest stable)
@@ -675,7 +676,7 @@ static void fauxSleep(void) {
 	// printf("before v:%i b:%i\n",v,b);
 	setVolume(0);
 	setBrightness(0);
-	setCPU(kCPULow);
+	setCPU(kCPUDead);
 	
 	SDL_Event event;
 	int wake = 0;
@@ -1057,7 +1058,7 @@ int main(void) {
 		}
 		
 		if (cancel_sleep) cancel_start = SDL_GetTicks();
-		#define kSleepDelay 60000 // 1m
+		#define kSleepDelay 30000
 		if (Input_justPressed(kButtonMenu) || SDL_GetTicks()-cancel_start>=kSleepDelay) {
 			SDL_FillRect(buffer, NULL, 0);
 			SDL_BlitSurface(buffer, NULL, screen, NULL);
