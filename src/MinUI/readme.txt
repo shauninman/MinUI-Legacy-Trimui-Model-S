@@ -1,6 +1,6 @@
 MinUI Beta
 
-Already running a MinUI alpha? Nice, I hope you're enjoying it! Please uninstall your current version using the TrimuiUpdate_uninstallMinUI.zip that came with your beta before installing the latest. You probably already have it on your SD card but if not, the last of the NAND-based betas can be found here:
+Already running a MinUI alpha? Nice, I hope you're enjoying it! Please uninstall your current version using the TrimuiUpdate_uninstallMinUI.zip that came with your alpha before installing the latest. You probably already have it on your SD card but if not, the last of the NAND-based alphas can be found here:
 
 https://cdn.discordapp.com/attachments/540168599063756802/819049832676720640/MinUI-0.105-20210310-0.zip
 
