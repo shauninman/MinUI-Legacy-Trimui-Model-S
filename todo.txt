@@ -1,6 +1,7 @@
 add a sleep mode to MinUI and libmmennu.so
-	after 30s of inactivity or pressing MENU
+	restore L+R+any face button to wake
 	try with eggs underclocking code to 192MHz
+		setting brightness to 0 and underclocking to 192MHz has no effect on power consumption while "sleeping" :thinking_face:
 
 allow "000 - " before filename to control sorting
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name

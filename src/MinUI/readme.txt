@@ -4,7 +4,7 @@ Already running a MinUI alpha? Nice, I hope you're enjoying it! Please uninstall
 
 https://cdn.discordapp.com/attachments/540168599063756802/819049832676720640/MinUI-0.105-20210310-0.zip
 
-Once uninstalled (or if it says MinUI was not installed) continue to install the new beta. (You can also remove the old installer and uninstaller from your SD card.)
+Once uninstalled (or if it says MinUI was not installed) continue to install the new beta. (You can also remove the old installer and uninstaller from your SD card now.)
 
 ----------------------------------------
 Roms
@@ -25,7 +25,7 @@ Return to stock
 
 Navigate to Tools and launch Stock UI. See you soon!
 
-While unlikely to occur, if you ever have a problem with MinUI and cannot boot or return to stock, delete the hidden `.tmp_update` directory at the root of your SD card using your computer.
+While unlikely to occur, if you ever have a problem with MinUI and cannot boot or return to stock, delete the hidden .tmp_update directory at the root of your SD card using your computer.
 
 ----------------------------------------
 Return to MinUI
