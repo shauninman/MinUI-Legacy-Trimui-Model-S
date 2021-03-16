@@ -607,10 +607,19 @@ static int Input_getButton(SDL_Event *event) {
 
 ///////////////////////////////////////
 
+static int* key[10];
+static int (*GetKeyShm)(void*,int);
+
 static int volume = 10;
 static int brightness = 5;
 static void* (*setVolume)(int);
 static void (*setBrightness)(int);
+static int getVolume(void) {
+	return GetKeyShm(key, 0);
+}
+static int getBrightness(void) {
+	return GetKeyShm(key, 1);
+}
 
 static void restoreSettings(void) {
 	int		address = 0x01c20890;
@@ -633,19 +642,15 @@ static void restoreSettings(void) {
 	setVolume = dlsym(libtmenu, "sunxi_set_volume");
 
 	void (*InitKeyShm)(int* [10]) = dlsym(libshmvar, "InitKeyShm");
-	int (*GetKeyShm)(void*,int) = dlsym(libshmvar, "GetKeyShm");
+	GetKeyShm = dlsym(libshmvar, "GetKeyShm");
 
-	int* key[10];
 	InitKeyShm(key);
-	volume = GetKeyShm(key, 0);
-	brightness = GetKeyShm(key, 1);
+	volume = getVolume();
+	brightness = getBrightness();
+	// printf("init v:%i b:%i\n",volume,brightness);
 
 	setVolume(volume);
 	setBrightness(brightness);
-
-	// dlclose(libshmvar);
-	// dlclose(libtmenu);
-	// dlclose(libtinyalsa);
 }
 static int getBatteryLevel(void) {
 	char value[16];
@@ -826,32 +831,20 @@ static void fauxSleep(void) {
 	SDL_BlitSurface(buffer, NULL, screen, NULL);
 	SDL_Flip(screen);
 	
-	int v = volume;
-	int b = brightness;
+	int v = getVolume();
+	int b = getBrightness();
+	// printf("before v:%i b:%i\n",v,b);
 	setVolume(0);
 	setBrightness(0);
 	setCPU(kCPULow);
 	
 	SDL_Event event;
-	int L = 0;
-	int R = 0;
 	int wake = 0;
 	while (!wake) {
 		SDL_Delay(1000);
 		while (SDL_PollEvent(&event)) {
-			SDLKey btn = event.key.keysym.sym;
-			switch( event.type ){
-				case SDL_KEYDOWN:
-					if (btn==TRIMUI_L) L = 1;
-					else if (btn==TRIMUI_R) R = 1;
-					else {
-						if (L || R) wake = 1;
-					}
-				break;
-				case SDL_KEYUP:
-					if (btn==TRIMUI_L) L = 0;
-					else if (btn==TRIMUI_R) R = 0;
-				break;
+			if (event.type==SDL_KEYDOWN && event.key.keysym.sym==TRIMUI_MENU) {
+				wake = 1;
 			}
 		}
 	}
@@ -859,6 +852,10 @@ static void fauxSleep(void) {
 	setVolume(v);
 	setBrightness(b);
 	setCPU(kCPUNormal);
+	
+	// v = getVolume();
+	// b = getBrightness();
+	// printf("after v:%i b:%i\n",v,b);
 }
 
 int main(void) {
@@ -924,13 +921,16 @@ int main(void) {
 	
 	SDL_Event event;
 	int is_dirty = 1;
+	unsigned long act_start = SDL_GetTicks();
 	while (!quit) {
 		unsigned long frame_start = SDL_GetTicks();
+		int acted;
 		Input_beforePoll();
 		while (SDL_PollEvent(&event)) {
 			int btn;
 			switch( event.type ){
 				case SDL_KEYDOWN:
+					acted = 1;
 					btn = Input_getButton(&event);
 					if (btn==kButtonNull) continue;
 
@@ -943,6 +943,7 @@ int main(void) {
 				break;
 				
 				case SDL_KEYUP:
+					acted = 1;
 					btn = Input_getButton(&event);
 					if (btn==kButtonNull) continue;
 					
@@ -1050,10 +1051,11 @@ int main(void) {
 			is_dirty = 1;
 		}
 		
-		if (Input_justPressed(kButtonMenu)) {
-			// TODO: move to timer
+		#define kSleepDelay 60000 // 1m
+		if (Input_justPressed(kButtonMenu) || SDL_GetTicks()-act_start>=kSleepDelay) {
 			fauxSleep();
 			Input_reset();
+			act_start = SDL_GetTicks();
 			is_dirty = 1;
 		}
 		
