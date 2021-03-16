@@ -21,20 +21,21 @@ lib:
 
 readme:
 	mkdir -p "./build"
-	cp "readme.md" "./build"
-	
+	fmt -w 40 -s "src/MinUI/readme.txt" > "./build/readme.txt"
 
 sys: lib
 	mkdir -p "$(BUILD_PATH)"
 	cd ./TrimuiUpdate/ && make
 	cp -R ./TrimuiUpdate/installer/. "$(BUILD_PATH)"
-	cd ./src/ui && make
+	cd ./src/MinUI && make
 	cd ./src/encode && make
 	cd ./src/show && make
 	cp -R "paks/System.pak" 		"$(BUILD_PATH)"
-	cp "src/ui/MinUI" 				"$(BUILD_PATH)/System.pak"
-	cp "src/encode/encode" 			"$(BUILD_PATH)/System.pak"
-	cp "src/show/show" 				"$(BUILD_PATH)/System.pak"
+	mkdir -p "$(BUILD_PATH)/System.pak/bin"
+	mkdir -p "$(BUILD_PATH)/System.pak/lib"
+	cp "src/MinUI/MinUI" 			"$(BUILD_PATH)/System.pak"
+	cp "src/encode/encode" 			"$(BUILD_PATH)/System.pak/bin"
+	cp "src/show/show" 				"$(BUILD_PATH)/System.pak/bin"
 	cp "src/libmmenu/libmmenu.so"	"$(BUILD_PATH)/System.pak/lib"
 	cp -R "paks/Update.pak" 		"$(BUILD_PATH)"
 
@@ -138,13 +139,13 @@ wipe: tool
 
 zip:
 	cd "$(BUILD_PATH)" && zip -r ../TrimuiUpdate_MinUI.zip . -x "*.DS_Store"
-	cd ./build && zip -r ../release/$(RELEASE_NAME).zip readme.md Roms TrimuiUpdate_MinUI.zip
+	cd ./build && zip -r ../release/$(RELEASE_NAME).zip readme.txt Roms TrimuiUpdate_MinUI.zip
 
 #--------------------------------------
 
 clean:
 	cd ./src/libmmenu && make clean
-	cd ./src/ui && make clean
+	cd ./src/MinUI && make clean
 	cd ./src/encode && make clean
 	cd ./src/show && make clean
 	cd ./TrimuiUpdate/ && make clean

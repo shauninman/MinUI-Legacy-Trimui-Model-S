@@ -8,7 +8,7 @@ ROM_DIR=${ROM_DIR/Emus/Roms}
 EMU_NAME=${ROM_DIR/\/mnt\/SDCARD\/Roms\//}
 ROM=${1}
 
-"/mnt/SDCARD/System.pak/encode" "$ROM"
+"/mnt/SDCARD/System.pak/bin/encode" "$ROM"
 
 HOME="$ROM_DIR"
 cd "$HOME"

@@ -28,15 +28,21 @@ for SRC in `find . -name "*.pak"` ; do
 	NUM=`expr $NUM + 1`
 	PERCENT=`expr $NUM \* 100 \/ $TOTAL`
 	
+	if [ -f "$DST/no-update" ]; then
+		continue
+	fi
+	
+	# TODO: add pre.sh?
+	
 	if [ -d "$DST" ]; then
-		rm -rf "$DST"
 		ACTION="update"
 	else
 		ACTION="install"
 	fi
 
 	notify $PERCENT "$ACTION $PAK_NAME"
-	mv -f "$SRC" "$DST_DIR"
+	mkdir -p "$DST"
+	cp -r "$SRC/." "$DST/" &
 	wait $!
 	sync
 	

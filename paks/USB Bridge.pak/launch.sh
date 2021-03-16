@@ -3,6 +3,6 @@
 
 DIR=$(dirname "$0")
 
-/mnt/SDCARD/System.pak/show "$DIR/starting.png"
+/mnt/SDCARD/System.pak/bin/show "$DIR/starting.png"
 
 /etc/init.d/adbd start &

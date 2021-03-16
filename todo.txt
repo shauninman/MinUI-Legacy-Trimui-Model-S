@@ -1,12 +1,3 @@
-ISSUE: updating is destructive
-	eg. deletes custom bios from PlayStation.pak/bios
-
-pak
-	add an ignore.txt
-		eg. PlayStation.pak ignore.txt could contain bin, etc (favors .cue)
-
-add eggs tearing patch directly to MinUI
-
 add a sleep mode to MinUI and libmmennu.so
 	after 30s of inactivity or pressing MENU
 	try with eggs underclocking code to 192MHz
@@ -16,6 +7,12 @@ allow "000 - " before filename to control sorting
 	or add entry->sortName
 
 scroll long names
+
+add eggs tearing patch directly to MinUI
+
+pak
+	add an filter.txt to only show files with extensions in the filter list
+		eg. PlayStation.pak ignore.txt could contain bin, etc (favors .cue)
 
 make a Backup Saves.pak and a Restore Saves.pak
 
@@ -47,9 +44,3 @@ pcsx_rearmed
 
 gpsp
 	make sure scaling settings are saved
-
-gambatte-dms
-	remove build date, replaced with last commit date
-
-sms_sdl
-	what does START do on SMS? it seems to change the volume on Phantasy Star's title screen, also A & B seem to start
