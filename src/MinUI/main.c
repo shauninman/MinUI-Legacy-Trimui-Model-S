@@ -795,6 +795,32 @@ static void Menu_quit(void) {
 	DirectoryArray_free(stack);
 }
 
+#define kCPULow 0x00c00532 // 192MHz (lowest)
+#define kCPUNormal 0x02d01d22 // 720MHz (default)
+#define kCPUHigh 0x03601a32 // 864MHz (highest stable)
+
+static void setCPU(uint32_t mhz) {
+	uint32_t* mem;
+	uint8_t memdev = 0;
+	memdev = open("/dev/mem", O_RDWR);
+	if (memdev>0) {
+		mem = (uint32_t*)mmap(0, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, memdev, 0x01c20000);
+		if (mem==MAP_FAILED) {
+			puts("Could not mmap CPU hardware registers!");
+			close(memdev);
+			return;
+		}
+	}
+	else puts("Could not open /dev/mem");
+	
+	uint32_t v = mem[0];
+	v &= 0xffff0000;
+	v |= (mhz & 0x0000ffff);
+	mem[0] = v;
+	
+	if (memdev>0) close(memdev);
+}
+
 static void fauxSleep(void) {
 	SDL_FillRect(buffer, NULL, 0);
 	SDL_BlitSurface(buffer, NULL, screen, NULL);
@@ -804,24 +830,35 @@ static void fauxSleep(void) {
 	int b = brightness;
 	setVolume(0);
 	setBrightness(0);
-	
-	// TODO: check gmenunx_src/src/platform/trimui.h
-	// 0x00c00532 // 192MHz (lowest)
-	// 0x02d01d22 // 720MHz (default)
+	setCPU(kCPULow);
 	
 	SDL_Event event;
-	while (1) {
+	int L = 0;
+	int R = 0;
+	int wake = 0;
+	while (!wake) {
 		SDL_Delay(1000);
 		while (SDL_PollEvent(&event)) {
+			SDLKey btn = event.key.keysym.sym;
 			switch( event.type ){
 				case SDL_KEYDOWN:
-					setVolume(v);
-					setBrightness(b);
-					return; 
+					if (btn==TRIMUI_L) L = 1;
+					else if (btn==TRIMUI_R) R = 1;
+					else {
+						if (L || R) wake = 1;
+					}
+				break;
+				case SDL_KEYUP:
+					if (btn==TRIMUI_L) L = 0;
+					else if (btn==TRIMUI_R) R = 0;
 				break;
 			}
 		}
 	}
+	
+	setVolume(v);
+	setBrightness(b);
+	setCPU(kCPUNormal);
 }
 
 int main(void) {
