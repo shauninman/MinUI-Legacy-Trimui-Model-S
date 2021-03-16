@@ -607,11 +607,19 @@ static int Input_getButton(SDL_Event *event) {
 
 ///////////////////////////////////////
 
+SDL_Surface* screen;
+SDL_Surface* buffer;
+int quit = 0;
+
+Array* stack;
+Directory* top;
+#define kMaxRows 5
+
+///////////////////////////////////////
+
 static int* key[10];
 static int (*GetKeyShm)(void*,int);
 
-static int volume = 10;
-static int brightness = 5;
 static void* (*setVolume)(int);
 static void (*setBrightness)(int);
 static int getVolume(void) {
@@ -621,19 +629,7 @@ static int getBrightness(void) {
 	return GetKeyShm(key, 1);
 }
 
-static void restoreSettings(void) {
-	int		address = 0x01c20890;
-	int		pagesize = sysconf(_SC_PAGESIZE);
-	int		addrmask1 = address & (0-pagesize);
-	int		addrmask2 = address & (pagesize-1);
-	int		memhandle = open("/dev/mem",O_RDWR|O_SYNC);	//0x00101002 = O_RDWR + something unnecessary
-	unsigned char	*memaddress = mmap(NULL,pagesize,PROT_READ|PROT_WRITE,MAP_SHARED,memhandle,addrmask1);
-	unsigned char	*modaddress = (memaddress + addrmask2);
-	int		moddata = *(unsigned int*)modaddress;
-	if ((moddata & 1) != 0) { *(unsigned int*)modaddress = moddata & 0xF0FFFFFF | 0x03000000 ; }
-	munmap(memaddress,pagesize);
-	close(memhandle);
-	
+static void initTrimuiAPI(void) {
 	void* libtinyalsa = dlopen("/usr/lib/libtinyalsa.so", RTLD_NOW|RTLD_GLOBAL);
 	void* libshmvar = dlopen("/usr/trimui/lib/libshmvar.so", RTLD_NOW|RTLD_GLOBAL);
 	void* libtmenu = dlopen("/usr/trimui/lib/libtmenu.so", RTLD_LAZY);
@@ -645,12 +641,87 @@ static void restoreSettings(void) {
 	GetKeyShm = dlsym(libshmvar, "GetKeyShm");
 
 	InitKeyShm(key);
-	volume = getVolume();
-	brightness = getBrightness();
-	// printf("init v:%i b:%i\n",volume,brightness);
+}
 
-	setVolume(volume);
-	setBrightness(brightness);
+#define kCPULow 0x00c00532 // 192MHz (lowest)
+#define kCPUNormal 0x02d01d22 // 720MHz (default)
+#define kCPUHigh 0x03601a32 // 864MHz (highest stable)
+
+static void setCPU(uint32_t mhz) {
+	volatile uint32_t* mem;
+	volatile uint8_t memdev = 0;
+	memdev = open("/dev/mem", O_RDWR);
+	if (memdev>0) {
+		mem = (uint32_t*)mmap(0, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, memdev, 0x01c20000);
+		if (mem==MAP_FAILED) {
+			puts("Could not mmap CPU hardware registers!");
+			close(memdev);
+			return;
+		}
+	}
+	else puts("Could not open /dev/mem");
+	
+	uint32_t v = mem[0];
+	v &= 0xffff0000;
+	v |= (mhz & 0x0000ffff);
+	mem[0] = v;
+	
+	if (memdev>0) close(memdev);
+}
+
+static void fauxSleep(void) {
+	int v = getVolume();
+	int b = getBrightness();
+	// printf("before v:%i b:%i\n",v,b);
+	setVolume(0);
+	setBrightness(0);
+	setCPU(kCPULow);
+	
+	SDL_Event event;
+	int wake = 0;
+	while (!wake) {
+		SDL_Delay(1000);
+		while (SDL_PollEvent(&event)) {
+			if (event.type==SDL_KEYDOWN && event.key.keysym.sym==SDLK_ESCAPE) {
+				wake = 1;
+			}
+		}
+	}
+	
+	setVolume(v);
+	setBrightness(b);
+	setCPU(kCPUNormal);
+	
+	// v = getVolume();
+	// b = getBrightness();
+	// printf("after v:%i b:%i\n",v,b);
+}
+
+///////////////////////////////////////
+
+static void initLCD(void) {
+	int address = 0x01c20890;
+	int pagesize = sysconf(_SC_PAGESIZE);
+	int addrmask1 = address & (0-pagesize);
+	int addrmask2 = address & (pagesize-1);
+	int memhandle = open("/dev/mem",O_RDWR|O_SYNC);
+	unsigned char *memaddress = mmap(NULL,pagesize,PROT_READ|PROT_WRITE,MAP_SHARED,memhandle,addrmask1);
+	volatile unsigned char *modaddress = (memaddress + addrmask2);
+	volatile int moddata = *(unsigned int*)modaddress;
+	if ((moddata & 1) != 0) { *(unsigned int*)modaddress = moddata & 0xF0FFFFFF | 0x03000000 ; }
+	munmap(memaddress,pagesize);
+	close(memhandle);
+}
+static void restoreSettings(void) {
+	initLCD();
+	initTrimuiAPI();
+	
+	int v = getVolume();
+	int b = getBrightness();
+	// printf("init v:%i b:%i\n",v,b);
+
+	setVolume(v);
+	setBrightness(b);
 }
 static int getBatteryLevel(void) {
 	char value[16];
@@ -664,14 +735,6 @@ static int getBatteryLevel(void) {
 }
 
 ///////////////////////////////////////
-
-SDL_Surface* screen;
-SDL_Surface* buffer;
-int quit = 0;
-
-Array* stack;
-Directory* top;
-#define kMaxRows 5
 
 static void saveLast(char* path) {
 	// special case for recently played
@@ -800,64 +863,6 @@ static void Menu_quit(void) {
 	DirectoryArray_free(stack);
 }
 
-#define kCPULow 0x00c00532 // 192MHz (lowest)
-#define kCPUNormal 0x02d01d22 // 720MHz (default)
-#define kCPUHigh 0x03601a32 // 864MHz (highest stable)
-
-static void setCPU(uint32_t mhz) {
-	uint32_t* mem;
-	uint8_t memdev = 0;
-	memdev = open("/dev/mem", O_RDWR);
-	if (memdev>0) {
-		mem = (uint32_t*)mmap(0, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, memdev, 0x01c20000);
-		if (mem==MAP_FAILED) {
-			puts("Could not mmap CPU hardware registers!");
-			close(memdev);
-			return;
-		}
-	}
-	else puts("Could not open /dev/mem");
-	
-	uint32_t v = mem[0];
-	v &= 0xffff0000;
-	v |= (mhz & 0x0000ffff);
-	mem[0] = v;
-	
-	if (memdev>0) close(memdev);
-}
-
-static void fauxSleep(void) {
-	SDL_FillRect(buffer, NULL, 0);
-	SDL_BlitSurface(buffer, NULL, screen, NULL);
-	SDL_Flip(screen);
-	
-	int v = getVolume();
-	int b = getBrightness();
-	// printf("before v:%i b:%i\n",v,b);
-	setVolume(0);
-	setBrightness(0);
-	setCPU(kCPULow);
-	
-	SDL_Event event;
-	int wake = 0;
-	while (!wake) {
-		SDL_Delay(1000);
-		while (SDL_PollEvent(&event)) {
-			if (event.type==SDL_KEYDOWN && event.key.keysym.sym==TRIMUI_MENU) {
-				wake = 1;
-			}
-		}
-	}
-	
-	setVolume(v);
-	setBrightness(b);
-	setCPU(kCPUNormal);
-	
-	// v = getVolume();
-	// b = getBrightness();
-	// printf("after v:%i b:%i\n",v,b);
-}
-
 int main(void) {
 	// freopen(kRootDir "/stderr.txt", "w", stderr);
 	// freopen(kRootDir "/stdout.txt", "w", stdout);
@@ -887,6 +892,8 @@ int main(void) {
 		return 0;
 	}
 	
+	restoreSettings();
+	
 	screen = SDL_SetVideoMode(320, 240, 16, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
 	
@@ -898,8 +905,6 @@ int main(void) {
 	TTF_Font* tiny = TTF_OpenFont("/usr/res/BPreplayBold.otf", 14);
 	SDL_Color color = {0xff,0xff,0xff};
 	
-	restoreSettings();
-
 	SDL_Surface* ui_logo = IMG_Load("res/logo.png");
 	SDL_Surface* ui_highlight_bar = IMG_Load("/usr/trimui/res/skin/list-selected-bg.png");
 	SDL_Surface* ui_top_bar = IMG_Load("/usr/trimui/res/skin/title-bg.png");
@@ -921,16 +926,16 @@ int main(void) {
 	
 	SDL_Event event;
 	int is_dirty = 1;
-	unsigned long act_start = SDL_GetTicks();
+	unsigned long cancel_start = SDL_GetTicks();
 	while (!quit) {
 		unsigned long frame_start = SDL_GetTicks();
-		int acted;
+		int cancel_sleep = 0;
 		Input_beforePoll();
 		while (SDL_PollEvent(&event)) {
 			int btn;
 			switch( event.type ){
 				case SDL_KEYDOWN:
-					acted = 1;
+					cancel_sleep = 1;
 					btn = Input_getButton(&event);
 					if (btn==kButtonNull) continue;
 
@@ -943,7 +948,7 @@ int main(void) {
 				break;
 				
 				case SDL_KEYUP:
-					acted = 1;
+					cancel_sleep = 1;
 					btn = Input_getButton(&event);
 					if (btn==kButtonNull) continue;
 					
@@ -1051,11 +1056,17 @@ int main(void) {
 			is_dirty = 1;
 		}
 		
+		if (cancel_sleep) cancel_start = SDL_GetTicks();
 		#define kSleepDelay 60000 // 1m
-		if (Input_justPressed(kButtonMenu) || SDL_GetTicks()-act_start>=kSleepDelay) {
+		if (Input_justPressed(kButtonMenu) || SDL_GetTicks()-cancel_start>=kSleepDelay) {
+			SDL_FillRect(buffer, NULL, 0);
+			SDL_BlitSurface(buffer, NULL, screen, NULL);
+			SDL_Flip(screen);
+	
 			fauxSleep();
+	
 			Input_reset();
-			act_start = SDL_GetTicks();
+			cancel_start = SDL_GetTicks();
 			is_dirty = 1;
 		}
 		
