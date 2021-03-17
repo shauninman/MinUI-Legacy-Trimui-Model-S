@@ -25,6 +25,3 @@
 [submodule "third-party/pcsx_rearmed"]
 	path = third-party/pcsx_rearmed
 	url = git@github.com:shauninman/pcsx_rearmed.git
-[submodule "third-party/fceux"]
-	path = third-party/fceux
-	url = https://github.com/shauninman/fceux
