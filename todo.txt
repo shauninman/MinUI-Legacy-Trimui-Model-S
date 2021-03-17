@@ -1,11 +1,3 @@
-add eggs tearing patch directly to MinUI
-
-add a sleep mode to MinUI and libmmennu.so
-	restore L+R+any face button to wake
-	try with eggs underclocking code to 192MHz
-		setting brightness to 0 and underclocking to 192MHz has no effect on power consumption while "sleeping" :thinking_face:
-		trying dropping to 16MHz (!)
-
 allow "000 - " before filename to control sorting
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
 	or add entry->sortName
@@ -42,7 +34,4 @@ pull in (need to find base source repos closest to eggs)
 	temper
 
 pcsx_rearmed
-	updated
-
-gpsp
-	make sure scaling settings are saved
+	need to note that you need to delete your Roms/PlayStation/.pcsx/pcsx.config file
