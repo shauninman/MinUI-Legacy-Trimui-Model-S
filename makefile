@@ -40,7 +40,7 @@ sys: lib
 	cp -R "paks/Update.pak" 		"$(BUILD_PATH)"
 
 #--------------------------------------
-emus: gb pm ngp gg snes ps gba
+emus: gb pm ngp gg snes ps gba nes
 #--------------------------------------
 
 emu:
@@ -99,6 +99,14 @@ gba: emu
 	cp "third-party/gpsp-bittboy/trimui/gpsp" "$(BUILD_PATH)/Emus/Game Boy Advance.pak"
 	cp "third-party/gpsp-bittboy/game_config.txt" "$(BUILD_PATH)/Emus/Game Boy Advance.pak"
 
+nes: emu
+	mkdir -p "$(ROMS_PATH)/Nintendo"
+	cd ./third-party/fceux && make -j
+	cp -R "paks/Nintendo.pak" "$(BUILD_PATH)/Emus"
+	cp "third-party/fceux/fceux/fceux.dge" "$(BUILD_PATH)/Emus/Nintendo.pak"
+	cp "third-party/fceux/fceux/backdrop.png" "$(BUILD_PATH)/Emus/Nintendo.pak"
+	cp "third-party/fceux/fceux/sp.bmp" "$(BUILD_PATH)/Emus/Nintendo.pak"
+	cp -R "third-party/fceux/fceux/palettes" "$(BUILD_PATH)/Emus/Nintendo.pak"
 
 #--------------------------------------
 games: na

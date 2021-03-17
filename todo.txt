@@ -1,3 +1,6 @@
+tearing fix
+	is this causing garbage to draw to screen when closing emulators?
+
 allow "000 - " before filename to control sorting
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
 	or add entry->sortName
@@ -34,4 +37,4 @@ pull in (need to find base source repos closest to eggs)
 	temper
 
 pcsx_rearmed
-	need to note that you need to delete your Roms/PlayStation/.pcsx/pcsx.config file
+	need to note that you need to delete your /Roms/PlayStation/.pcsx/pcsx.cfg file
