@@ -22,3 +22,6 @@
 [submodule "third-party/snes9x2002"]
 	path = third-party/snes9x2002
 	url = git@github.com:shauninman/snes9x2002.git
+[submodule "third-party/pcsx_rearmed"]
+	path = third-party/pcsx_rearmed
+	url = git@github.com:shauninman/pcsx_rearmed.git
