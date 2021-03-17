@@ -1,4 +1,7 @@
-tearing fix
+fceux
+	add mmenu
+
+ISSUE: tearing fix
 	is this causing garbage to draw to screen when closing emulators?
 
 allow "000 - " before filename to control sorting
@@ -32,7 +35,6 @@ rescue things from old repo
 	todos
 
 pull in (need to find base source repos closest to eggs)
-	fceux
 	picodrive
 	temper
 
