@@ -735,6 +735,23 @@ static int getBatteryLevel(void) {
 	return atol(value);
 }
 
+static void applyTearingPatch(void) {
+	//	https://linux-sunxi.org/images/2/21/Allwinner_F1C200s_User_Manual_V1.0.pdf	Page 187,188
+	int		address = 0x01c0c04c;		//TCON0_BASIC_TIMING_REG1
+	int		pagesize = sysconf(_SC_PAGESIZE);
+	int		addrmask1 = address & (0-pagesize);
+	int		addrmask2 = address & (pagesize-1);
+
+	int			memhandle = open("/dev/mem",O_RDWR);
+	unsigned char		*memaddress = mmap(NULL,pagesize,PROT_READ|PROT_WRITE,MAP_SHARED,memhandle,addrmask1);
+	volatile unsigned char	*modaddress = (memaddress + addrmask2);
+
+	*(unsigned int*)modaddress = 0x03e70025;	// HT , HBP	0x3e7 lowest	(for my device)
+
+	munmap(memaddress,pagesize);
+	close(memhandle);
+}
+
 ///////////////////////////////////////
 
 static void saveLast(char* path) {
@@ -894,6 +911,7 @@ int main(void) {
 	}
 	
 	restoreSettings();
+	applyTearingPatch();
 	
 	screen = SDL_SetVideoMode(320, 240, 16, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
