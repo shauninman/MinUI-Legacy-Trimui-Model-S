@@ -679,12 +679,25 @@ static void fauxSleep(void) {
 	setCPU(kCPUDead);
 	
 	SDL_Event event;
+	int L = 0;
+	int R = 0;
 	int wake = 0;
 	while (!wake) {
 		SDL_Delay(1000);
 		while (SDL_PollEvent(&event)) {
-			if (event.type==SDL_KEYDOWN && event.key.keysym.sym==SDLK_ESCAPE) {
-				wake = 1;
+			SDLKey btn = event.key.keysym.sym;
+			switch( event.type ){
+				case SDL_KEYDOWN:
+					if (btn==TRIMUI_L) L = 1;
+					else if (btn==TRIMUI_R) R = 1;
+					else { // any face button
+						if (L && R) wake = 1;
+					}
+				break;
+				case SDL_KEYUP:
+					if (btn==TRIMUI_L) L = 0;
+					else if (btn==TRIMUI_R) R = 0;
+				break;
 			}
 		}
 	}
