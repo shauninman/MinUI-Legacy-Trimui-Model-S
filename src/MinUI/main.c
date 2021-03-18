@@ -738,14 +738,13 @@ static void restoreSettings(void) {
 	setBrightness(b);
 }
 static int getBatteryLevel(void) {
-	char value[16];
-	memset(value, '\0', 16);
+	int value = -1;
 	FILE* file = fopen("/sys/devices/soc/1c23400.battery/adc", "r");
 	if (file!=NULL) {
-		fgets(value, 16, file);
+		fscanf(file, "%i", &value);
 		fclose(file);
 	}
-	return atol(value);
+	return value;
 }
 
 static void applyTearingPatch(void) {
@@ -1088,9 +1087,10 @@ int main(void) {
 			is_dirty = 1;
 		}
 		
-		if (cancel_sleep) cancel_start = SDL_GetTicks();
 		#define kSleepDelay 30000
-		if (Input_justPressed(kButtonMenu) || SDL_GetTicks()-cancel_start>=kSleepDelay) {
+		unsigned long now = SDL_GetTicks();
+		if (cancel_sleep) cancel_start = now;
+		if (Input_justPressed(kButtonMenu) || now-cancel_start>=kSleepDelay) {
 			SDL_FillRect(buffer, NULL, 0);
 			SDL_BlitSurface(buffer, NULL, screen, NULL);
 			SDL_Flip(screen);
