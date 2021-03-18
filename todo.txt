@@ -1,14 +1,18 @@
 check all emulators
 	to make sure save data is persisted to disk when only using ShowMenu()
+	eg. pokemini should poweroff before exiting
 
 fceux
-	add mmenu
+	remove text overlays
+	remove menu from key congif options
 
 allow "000 - " before filename to control sorting	
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
 	or add entry->sortName
 	check sorting logic to make sure it isn't converting all non-alpha to 0
 		sort dir above rom
+
+move saves to common folder
 
 scroll long names
 

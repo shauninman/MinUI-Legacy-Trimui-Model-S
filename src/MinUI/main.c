@@ -688,7 +688,7 @@ static void fauxSleep(void) {
 	int b = getBrightness();
 	// printf("before v:%i b:%i\n",v,b);
 	setVolume(0);
-	// setBrightness(0);
+	setBrightness(0);
 	setCPU(kCPUDead);
 	
 	system("echo 1 > /sys/devices/virtual/disp/disp/attr/suspend");
@@ -718,7 +718,7 @@ static void fauxSleep(void) {
 	}
 	
 	setVolume(v);
-	// setBrightness(b);
+	setBrightness(b);
 	setCPU(kCPUNormal);
 
 	system("echo 0 > /sys/devices/virtual/disp/disp/attr/suspend");
