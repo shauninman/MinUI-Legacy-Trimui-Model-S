@@ -1097,9 +1097,14 @@ int main(void) {
 		unsigned long now = SDL_GetTicks();
 		if (cancel_sleep) cancel_start = now;
 		if (Input_justPressed(kButtonMenu) || now-cancel_start>=kSleepDelay) {
+			SDL_FillRect(buffer, NULL, 0);
+			SDL_BlitSurface(buffer, NULL, screen, NULL);
+			SDL_Flip(screen);
+			
 			fauxSleep();
 			Input_reset();
 			cancel_start = SDL_GetTicks();
+			is_dirty = 1;
 		}
 		
 		if (is_dirty) {
