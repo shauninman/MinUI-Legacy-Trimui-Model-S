@@ -669,14 +669,29 @@ static void setCPU(uint32_t mhz) {
 	
 	if (memdev>0) close(memdev);
 }
+static void initLCD(void) {
+	int address = 0x01c20890;
+	int pagesize = sysconf(_SC_PAGESIZE);
+	int addrmask1 = address & (0-pagesize);
+	int addrmask2 = address & (pagesize-1);
+	int memhandle = open("/dev/mem",O_RDWR|O_SYNC);
+	unsigned char *memaddress = mmap(NULL,pagesize,PROT_READ|PROT_WRITE,MAP_SHARED,memhandle,addrmask1);
+	volatile unsigned char *modaddress = (memaddress + addrmask2);
+	volatile int moddata = *(unsigned int*)modaddress;
+	if ((moddata & 1) != 0) { *(unsigned int*)modaddress = moddata & 0xF0FFFFFF | 0x03000000 ; }
+	munmap(memaddress,pagesize);
+	close(memhandle);
+}
 
 static void fauxSleep(void) {
 	int v = getVolume();
 	int b = getBrightness();
 	// printf("before v:%i b:%i\n",v,b);
 	setVolume(0);
-	setBrightness(0);
+	// setBrightness(0);
 	setCPU(kCPUDead);
+	
+	system("echo 1 > /sys/devices/virtual/disp/disp/attr/suspend");
 	
 	SDL_Event event;
 	int L = 0;
@@ -703,8 +718,12 @@ static void fauxSleep(void) {
 	}
 	
 	setVolume(v);
-	setBrightness(b);
+	// setBrightness(b);
 	setCPU(kCPUNormal);
+
+	system("echo 0 > /sys/devices/virtual/disp/disp/attr/suspend");
+	initLCD();
+	setBrightness(b);
 	
 	// v = getVolume();
 	// b = getBrightness();
@@ -713,19 +732,6 @@ static void fauxSleep(void) {
 
 ///////////////////////////////////////
 
-static void initLCD(void) {
-	int address = 0x01c20890;
-	int pagesize = sysconf(_SC_PAGESIZE);
-	int addrmask1 = address & (0-pagesize);
-	int addrmask2 = address & (pagesize-1);
-	int memhandle = open("/dev/mem",O_RDWR|O_SYNC);
-	unsigned char *memaddress = mmap(NULL,pagesize,PROT_READ|PROT_WRITE,MAP_SHARED,memhandle,addrmask1);
-	volatile unsigned char *modaddress = (memaddress + addrmask2);
-	volatile int moddata = *(unsigned int*)modaddress;
-	if ((moddata & 1) != 0) { *(unsigned int*)modaddress = moddata & 0xF0FFFFFF | 0x03000000 ; }
-	munmap(memaddress,pagesize);
-	close(memhandle);
-}
 static void restoreSettings(void) {
 	initLCD();
 	initTrimuiAPI();
@@ -1091,15 +1097,9 @@ int main(void) {
 		unsigned long now = SDL_GetTicks();
 		if (cancel_sleep) cancel_start = now;
 		if (Input_justPressed(kButtonMenu) || now-cancel_start>=kSleepDelay) {
-			SDL_FillRect(buffer, NULL, 0);
-			SDL_BlitSurface(buffer, NULL, screen, NULL);
-			SDL_Flip(screen);
-	
 			fauxSleep();
-	
 			Input_reset();
 			cancel_start = SDL_GetTicks();
-			is_dirty = 1;
 		}
 		
 		if (is_dirty) {
