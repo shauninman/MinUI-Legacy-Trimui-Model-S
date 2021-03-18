@@ -1,10 +1,8 @@
+check all emulators
+	to make sure save data is persisted to disk when only using ShowMenu()
+
 fceux
 	add mmenu
-
-snes9x2002
-	only saves sram when quitting with emulator's build-in menu
-		fix should be similar to gpsp
-		check other emulators
 
 allow "000 - " before filename to control sorting	
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
