@@ -1,0 +1,62 @@
+kill/relaunch keymon on sleep/wake? or killall -s STOP/CONT keymon
+	makes relaunching MinUI crashy, the audio device disappears, seemingly permanently
+
+show charging status
+	prevent auto sleep when charging
+	can't
+		/sys/devices/soc/1c23400.battery/charging is always present and always empty :sob:
+
+---------------------------------------
+
+interesting dirs
+	/sys/bus/platform/drivers/ leds_pwm & sunxi-leds
+	
+	/sys/devices/soc/1c21000.pwm/pwm/pwmchip0
+		echo 0 > export -- to create pwm0
+		cd pwm0
+		ls
+			-- modifying and enabling doesn't do anything visibly
+		echo 0 > unexport -- to remove pwm0
+		
+		can't export 1, it's in use?
+		
+		
+	/sys/devices/soc/sdc0
+		cat sunxi_dump_gpio_register
+		
+			add the following to a pak and check it's output when connected to power and not
+				cat /sys/devices/soc/sdc0/sunxi_dump_gpio_register (I wonder if these are input or led values)
+				cat /sys/devices/soc/sdc0/sunxi_dump_host_register
+				
+	cat /sys/devices/virtual/disp/disp/attr/sys
+		screen 0:
+			lcd output	backlight( 70)	 320x 240
+		    type  |  status  |  id  | pipe | z | pre_mult|    alpha   | colorkey | fmt | framebuffer |source crop      |       frame       |   trd   |address
+		----------+--------+------+------+---+----------+------------+----------+-----+-------------+-----------------------+-------------------+---------+-----------------------------
+		   NORAML |  disable |    0 |    0 | 0 |        N | pixel(  0) |  disable |   0 | [   0,   0] | [   0,   0,   0,   0] | [   0,   0,   0,   0] | [00,00] | [       0,       0,       0] |
+		   NORAML |  disable |    1 |    0 | 0 |        N | pixel(  0) |  disable |   0 | [   0,   0] | [   0,   0,   0,   0] | [   0,   0,   0,   0] | [00,00] | [       0,       0,       0] |
+		   NORAML |  disable |    2 |    0 | 0 |        N | pixel(  0) |  disable |   0 | [   0,   0] | [   0,   0,   0,   0] | [   0,   0,   0,   0] | [00,00] | [       0,       0,       0] |
+		   NORAML |   enable |    3 |    1 | 0 |        N | pixel(255) |  disable |  10 | [ 320, 240] | [   0,   0, 320, 240] | [   0,   0, 320, 240] | [00,00] | [83880000,       0,       0] |
+	
+	turn off display
+		echo 1 > /sys/devices/virtual/disp/disp/attr/suspend
+	turn it back on (doesn't restore original brightness setting)
+		echo 0 > /sys/devices/virtual/disp/disp/attr/suspend
+	
+	is there an equivalent for audio or memory?
+
+try running find in /sys on device
+	https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-devices-power
+	look for files named wakeup or suspend
+		find . -name wakeup
+			./sys/devices/soc/uart1/tty/ttyS1/power/wakeup
+			./sys/devices/soc/1c13000.otghci0-controller/usb1/power/wakeup
+			
+			neither did anything to wakwup from echo "standby" > /sys/power/state
+		
+		find . -name suspend
+			./sys/devices/virtual/disp/disp/attr/suspend
+		
+		find . -name pwm
+			./sys/devices/soc/1c21000.pwm/pwm
+			./sys/class/pwm
