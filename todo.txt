@@ -1,10 +1,6 @@
 check all emulators
 	to make sure save data is persisted to disk when only using ShowMenu()
-	eg. pokemini should poweroff before exiting
-
-fceux
-	remove text overlays
-	remove menu from key congif options
+	also pokemini should poweroff before exiting
 
 allow "000 - " before filename to control sorting	
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
@@ -12,17 +8,31 @@ allow "000 - " before filename to control sorting
 	check sorting logic to make sure it isn't converting all non-alpha to 0
 		sort dir above rom
 
+cavestory
+	how does ShowMenu() work with games? does it?
+		can I just hack it to create a save anywhere? (probably not...right?)
+		look into SaveProfile() and LoadProfile()
+	font is too small
+		game_english/data/Font/font_bitmap_6x12.png/dat
+		I can redraw it but the dat file will be problematic
+			I could create my own data format and write a shim to get the runtime data into the expected shape...but not tonight
+			see LoadBitmapFont()
+		
 move saves to common folder
+	but which common folder?
+	on second thought, since these folders are all invisible,
+		I don't love the idea of saves being too far away from 
+		a folder highly trafficked by the player...
 
 scroll long names
 
 pak
 	clean up various launch.sh. Use base name on rom dir for emu name.
+		redo emulator name detection to support subfolders
 	add an filter.txt to only show files with extensions in the filter list
-		eg. PlayStation.pak ignore.txt could contain bin, etc (favors .cue)
-	redo emulator name detection to support subfolders
+		eg. PlayStation.pak ignore.txt could contain bin since it favors .cue
 
-make a Backup Saves.pak and a Restore Saves.pak
+make a Backup Saves.pak and a Restore Saves.pak?
 
 add a quickstart section to readme
 	make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
@@ -48,3 +58,6 @@ pull in (need to find base source repos closest to eggs)
 
 pcsx_rearmed
 	need to note that you need to delete your /Roms/PlayStation/.pcsx/pcsx.cfg file
+
+fceux
+	might have performance issues (or adbd could have been dragging the system down)
