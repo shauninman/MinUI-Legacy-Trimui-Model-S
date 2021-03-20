@@ -948,6 +948,7 @@ int main(void) {
 	SDL_Surface* ui_bottom_bar = IMG_Load("/usr/trimui/res/skin/tips-bar-bg.png");
 	SDL_Surface* ui_browse_icon = IMG_Load("/usr/trimui/res/skin/stat-nav-icon.png");
 	SDL_Surface* ui_round_button = IMG_Load("res/nav-bar-item-bg.png");
+	SDL_Surface* ui_menu_icon = IMG_Load("/usr/trimui/res/skin/stat-menu-icon.png");
 	
 	SDL_Surface* ui_power_0_icon   = IMG_Load("/usr/trimui/res/skin/power-0%-icon.png");
 	SDL_Surface* ui_power_20_icon  = IMG_Load("/usr/trimui/res/skin/power-20%-icon.png");
@@ -1145,9 +1146,9 @@ int main(void) {
 			
 			if (top->entries->count) {
 				// browse
-				SDL_BlitSurface(ui_browse_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
-				text = TTF_RenderUTF8_Blended(tiny, "BROWSE", (SDL_Color){0xff,0xff,0xff});
-				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){36,212,0,0});
+				SDL_BlitSurface(ui_menu_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
+				text = TTF_RenderUTF8_Blended(tiny, "SLEEP", (SDL_Color){0xff,0xff,0xff});
+				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){56,212,0,0});
 				SDL_FreeSurface(text);
 			
 				// A Open
@@ -1237,6 +1238,7 @@ int main(void) {
 	SDL_FreeSurface(ui_bottom_bar);
 	SDL_FreeSurface(ui_browse_icon);
 	SDL_FreeSurface(ui_round_button);
+	SDL_FreeSurface(ui_menu_icon);
 	SDL_FreeSurface(ui_power_0_icon);
 	SDL_FreeSurface(ui_power_20_icon);
 	SDL_FreeSurface(ui_power_50_icon);

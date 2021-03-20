@@ -1,3 +1,18 @@
+redo emulator name detection to support subfolders
+	it should be working as is...
+	
+cavestory
+	how does ShowMenu() work with games? does it?
+		can I just hack it to create a save anywhere? (probably not...right?)
+			look into SaveProfile() and LoadProfile()
+				got saving working, could not figure out loading...
+				
+move saves to common folder
+	but which common folder?
+	on second thought, since these folders are all invisible,
+		I don't love the idea of saves being too far away from 
+		a folder highly trafficked by the player...
+
 kill/relaunch keymon on sleep/wake? or killall -s STOP/CONT keymon
 	makes relaunching MinUI crashy, the audio device disappears, seemingly permanently
 

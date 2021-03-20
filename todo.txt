@@ -1,3 +1,27 @@
+reorg System.pak?
+	
+	System/
+		bin/
+			encode
+			show
+		lib/
+			libmmenu.so
+		res/
+		System.pak
+		Update.pak
+		
+	
+	so a Trimui-less SD root would look like
+	
+		Emus
+		Games
+		Roms
+		System
+		Tools
+		TrimuiUpdate_MinUI.zip
+	
+	requiring updater to delete System.pak and Update.pak
+
 check all emulators
 	to make sure save data is persisted to disk when only using ShowMenu()
 	also pokemini should poweroff before exiting
@@ -9,28 +33,14 @@ allow "000 - " before filename to control sorting
 		sort dir above rom
 
 cavestory
-	how does ShowMenu() work with games? does it?
-		can I just hack it to create a save anywhere? (probably not...right?)
-		look into SaveProfile() and LoadProfile()
-	font is too small
-		game_english/data/Font/font_bitmap_6x12.png/dat
-		I can redraw it but the dat file will be problematic
-			I could create my own data format and write a shim to get the runtime data into the expected shape...but not tonight
-			see LoadBitmapFont()
-		
-move saves to common folder
-	but which common folder?
-	on second thought, since these folders are all invisible,
-		I don't love the idea of saves being too far away from 
-		a folder highly trafficked by the player...
+	add SetMenuMode() && ShowMenu()
 
 scroll long names
 
 pak
 	clean up various launch.sh. Use base name on rom dir for emu name.
-		redo emulator name detection to support subfolders
 	add an filter.txt to only show files with extensions in the filter list
-		eg. PlayStation.pak ignore.txt could contain bin since it favors .cue
+		eg. PlayStation.pak/filter.txt could contain bin since it favors .cue
 
 make a Backup Saves.pak and a Restore Saves.pak?
 
@@ -44,6 +54,7 @@ document new REMPAP launch.sh for multiple rom types that use the same emulator
 
 libmmenu
 	add support for switching discs on disc-based systems?
+	add a SetMenuMode() so games can get a Continue/Advanced/Exit menu with no Save/Load (and get standby mode?)
 	update README
 		if you are creating a custom launcher and want to support libmmenu you need to call
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
@@ -60,4 +71,4 @@ pcsx_rearmed
 	need to note that you need to delete your /Roms/PlayStation/.pcsx/pcsx.cfg file
 
 fceux
-	might have performance issues (or adbd could have been dragging the system down)
+	unacceptable performance issues
