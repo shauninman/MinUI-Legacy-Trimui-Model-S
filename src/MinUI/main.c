@@ -683,16 +683,7 @@ static void initLCD(void) {
 	close(memhandle);
 }
 
-static void fauxSleep(void) {
-	int v = getVolume();
-	int b = getBrightness();
-	// printf("before v:%i b:%i\n",v,b);
-	setVolume(0);
-	setBrightness(0);
-	setCPU(kCPUDead);
-	
-	// system("echo 1 > /sys/devices/virtual/disp/disp/attr/suspend");
-	
+static void waitForWakeCombo(void) {
 	SDL_Event event;
 	int L = 0;
 	int R = 0;
@@ -716,6 +707,19 @@ static void fauxSleep(void) {
 			}
 		}
 	}
+}
+
+static void fauxSleep(void) {
+	int v = getVolume();
+	int b = getBrightness();
+	// printf("before v:%i b:%i\n",v,b);
+	setVolume(0);
+	setBrightness(0);
+	setCPU(kCPUDead);
+	
+	// system("echo 1 > /sys/devices/virtual/disp/disp/attr/suspend");
+	
+	waitForWakeCombo();
 	
 	setVolume(v);
 	setBrightness(b);
@@ -941,6 +945,19 @@ int main(void) {
 	TTF_Font* font = TTF_OpenFont("/usr/res/BPreplayBold.otf", 16);
 	TTF_Font* tiny = TTF_OpenFont("/usr/res/BPreplayBold.otf", 14);
 	SDL_Color color = {0xff,0xff,0xff};
+	
+	// one-time instruction for wake from sleep
+	if (access("can-sleep", 4)!=0) {
+		SDL_Surface* ui_wake = IMG_Load("res/wake.png");
+		SDL_BlitSurface(ui_wake, NULL, screen, NULL);
+		SDL_Flip(screen);
+		
+		waitForWakeCombo();
+		
+		SDL_FreeSurface(ui_wake);
+		close(open("can-sleep", O_RDWR|O_CREAT, 0777)); // basically touch
+	}
+	
 	
 	SDL_Surface* ui_logo = IMG_Load("res/logo.png");
 	SDL_Surface* ui_highlight_bar = IMG_Load("/usr/trimui/res/skin/list-selected-bg.png");
@@ -1222,7 +1239,7 @@ int main(void) {
 	}
 	
 	// one last wipe
-	SDL_FillRect(buffer, &buffer->clip_rect, SDL_MapRGB(buffer->format, 0, 0, 0));
+	SDL_FillRect(buffer, NULL, 0);
 	SDL_BlitSurface(buffer, NULL, screen, NULL);
 	SDL_Flip(screen);
 	

@@ -1,3 +1,11 @@
+Remember the goals
+	no configuration
+	near 1:1 relationship to SD card (like a flash cart)
+	easy to maintain (for me because I only have limited time)
+	quality over quantity
+	
+	remember, there are other fine options for tinkerers
+
 reorg System.pak?
 	
 	System/
@@ -9,6 +17,8 @@ reorg System.pak?
 		res/
 		System.pak
 		Update.pak
+		userdata/
+			can-sleep
 		
 	
 	so a Trimui-less SD root would look like
@@ -21,6 +31,15 @@ reorg System.pak?
 		TrimuiUpdate_MinUI.zip
 	
 	requiring updater to delete System.pak and Update.pak
+	relocate recent.txt?
+		not in Roms because it includes Games too...
+
+add wake instructions
+	on boot, if file allow-sleep isn't present, also prevent sleep if not present so it doesn't sleep before they can see it
+		
+		To wake from sleep
+		hold L + R and press
+		any other buttonm
 
 check all emulators
 	to make sure save data is persisted to disk when only using ShowMenu()
@@ -38,7 +57,6 @@ cavestory
 scroll long names
 
 pak
-	clean up various launch.sh. Use base name on rom dir for emu name.
 	add an filter.txt to only show files with extensions in the filter list
 		eg. PlayStation.pak/filter.txt could contain bin since it favors .cue
 
