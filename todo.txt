@@ -1,15 +1,21 @@
-Remember the goals
+=======================================
+
+Remember the goals:
+
 	no configuration
 	near 1:1 relationship to SD card (like a console flash cart)
-	easy to maintain (for me because I only have limited time, and for the user)
 	quality over quantity (don't seek to answer the question "can it run?" but rather "is the resulting experience worth having?")
+	easy to maintain (for me because I only have limited time, and of course for the user)
 	
-	remember, there are other fine options for tinkerers
+	there are other options for tinkerers
+
+=======================================
 
 reorg System.pak?
 	
 	System/
 		bin/
+			confirm
 			encode
 			show
 		lib/
@@ -20,7 +26,6 @@ reorg System.pak?
 		userdata/
 			recent.txt
 			can-sleep
-		
 	
 	so a Trimui-less SD root would look like
 	
@@ -32,9 +37,7 @@ reorg System.pak?
 		TrimuiUpdate_MinUI.zip
 	
 	requiring updater to delete System.pak and Update.pak
-	relocate recent.txt?
-		not in Roms because it includes Games too...
-		to System/userdata?
+	relocate recent.txt to System/userdata
 
 
 check all emulators

@@ -1,6 +1,9 @@
 #!/bin/sh
 # System.pak/launch.sh
 
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
+export PATH="/mnt/SDCARD/System.pak/bin:$PATH"
+
 a=`ps | grep keymon | grep -v grep`
 if [ "$a" == "" ]; then
 	keymon &
@@ -26,8 +29,6 @@ rm -f "$SD/update.log"
 
 touch /tmp/minui_exec
 sync
-
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
 
 while [ -f /tmp/minui_exec ]; do
 	./MinUI &> "$SD/.logs/MinUI.txt"
