@@ -1,8 +1,8 @@
 Remember the goals
 	no configuration
-	near 1:1 relationship to SD card (like a flash cart)
-	easy to maintain (for me because I only have limited time)
-	quality over quantity
+	near 1:1 relationship to SD card (like a console flash cart)
+	easy to maintain (for me because I only have limited time, and for the user)
+	quality over quantity (don't seek to answer the question "can it run?" but rather "is the resulting experience worth having?")
 	
 	remember, there are other fine options for tinkerers
 
@@ -18,6 +18,7 @@ reorg System.pak?
 		System.pak
 		Update.pak
 		userdata/
+			recent.txt
 			can-sleep
 		
 	
@@ -33,13 +34,8 @@ reorg System.pak?
 	requiring updater to delete System.pak and Update.pak
 	relocate recent.txt?
 		not in Roms because it includes Games too...
+		to System/userdata?
 
-add wake instructions
-	on boot, if file allow-sleep isn't present, also prevent sleep if not present so it doesn't sleep before they can see it
-		
-		To wake from sleep
-		hold L + R and press
-		any other buttonm
 
 check all emulators
 	to make sure save data is persisted to disk when only using ShowMenu()

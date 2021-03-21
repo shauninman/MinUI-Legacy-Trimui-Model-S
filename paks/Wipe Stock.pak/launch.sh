@@ -1,9 +1,15 @@
 #!/bin/sh
 # Wipe Stock.pak/launch.sh
 
-SD=/mnt/SDCARD
-{
-	# rm -f "$SD/cachefile" # can't be erased while running...
+DIR=$(dirname "$0")
+cd "$DIR"
+
+/mnt/SDCARD/System.pak/bin/confirm "$DIR/wipe.png"
+
+if [ -f ./OKAY ]; then
+	SD=/mnt/SDCARD
+	swapoff -a
+	rm -f "$SD/cachefile"
 	rm -f "$SD/Roms/recentlist.json"
 	rm -f "$SD/update.log"
 
@@ -19,5 +25,4 @@ SD=/mnt/SDCARD
 	rm -rf "$SD/Roms/PCE"
 	rm -rf "$SD/Roms/PS"
 	rm -rf "$SD/Roms/SFC"
-	
-} &> "$SD/.logs/Wipe Stock.txt"
+fi

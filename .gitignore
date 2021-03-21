@@ -1,5 +1,6 @@
 build/*
 release/*
+src/confirm/confirm
 src/encode/encode
 src/show/show
 src/MinUI/MinUI

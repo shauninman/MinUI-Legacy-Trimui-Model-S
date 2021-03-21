@@ -30,12 +30,14 @@ sys: lib
 	cd ./src/MinUI && make
 	cd ./src/encode && make
 	cd ./src/show && make
+	cd ./src/confirm && make
 	cp -R "paks/System.pak" 		"$(BUILD_PATH)"
 	mkdir -p "$(BUILD_PATH)/System.pak/bin"
 	mkdir -p "$(BUILD_PATH)/System.pak/lib"
 	cp "src/MinUI/MinUI" 			"$(BUILD_PATH)/System.pak"
 	cp "src/encode/encode" 			"$(BUILD_PATH)/System.pak/bin"
 	cp "src/show/show" 				"$(BUILD_PATH)/System.pak/bin"
+	cp "src/confirm/confirm" 		"$(BUILD_PATH)/System.pak/bin"
 	cp "src/libmmenu/libmmenu.so"	"$(BUILD_PATH)/System.pak/lib"
 	cp -R "paks/Update.pak" 		"$(BUILD_PATH)"
 
