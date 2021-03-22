@@ -7,41 +7,9 @@ Remember the goals:
 	quality over quantity (don't seek to answer the question "can it run?" but rather "is the resulting experience worth having?")
 	easy to maintain (for me because I only have limited time, and of course for the user)
 	
-	there are other options for tinkerers
-
+	there are other, better options for tinkerers and archivists
+	
 =======================================
-
-reorg System.pak?
-	
-	System/
-		bin/
-			confirm
-			encode
-			show
-		lib/
-			libmmenu.so
-		res/
-		System.pak
-		Update.pak
-	
-	so a Trimui-less SD root would look like
-	
-		Emus
-		Games
-		Roms
-		System
-		Tools
-		TrimuiUpdate_MinUI.zip
-	
-	requiring updater to delete System.pak and Update.pak
-	relocate recent.txt and can-sleep to .minui/
-	
-		update paths to recent.txt
-		update paths that use System.pak
-		update makefile
-	
-	test on stock card first :sweat_smile:
-
 
 check all emulators
 	to make sure save data is persisted to disk when only using ShowMenu()
@@ -77,7 +45,7 @@ figure out how to distribute Wipe Stock.pak
 
 libmmenu
 	add support for switching discs on disc-based systems?
-	add a SetMenuMode() so games can get a Continue/Advanced/Exit menu with no Save/Load (and get standby mode?)
+	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
 	update README
 		if you are creating a custom launcher and want to support libmmenu you need to call
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"

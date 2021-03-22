@@ -10,4 +10,4 @@ ROM=${1}
 
 HOME="$ROM_DIR"
 cd "$HOME"
-"$EMU_DIR/$EMU_EXE" "$ROM" &> "/mnt/SDCARD/.logs/$EMU_NAME.txt"
+"$EMU_DIR/$EMU_EXE" "$ROM" &> "/mnt/SDCARD/.minui/logs/$EMU_NAME.txt"

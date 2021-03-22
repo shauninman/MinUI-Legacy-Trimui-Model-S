@@ -1,8 +1,8 @@
 #!/bin/sh
 # System.pak/launch.sh
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
-export PATH="/mnt/SDCARD/System.pak/bin:$PATH"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
+export PATH="/mnt/SDCARD/System/bin:$PATH"
 
 a=`ps | grep keymon | grep -v grep`
 if [ "$a" == "" ]; then
@@ -15,8 +15,8 @@ UPDATE_LOG="$SD/update.log"
 UPDATE_ZIP="$SD/TrimuiUpdate_MinUI.zip"
 UPDATE_TMP="$SD/.tmp_update"
 
-mkdir -p "$SD/.logs"
-cd "$SD/System.pak"
+mkdir -p "$SD/.minui/logs"
+cd "$SD/System/System.pak"
 
 # TODO: just search .tmp_update for any .pak
 if [ -d "$UPDATE_TMP/Emus" ] || [ -d "$UPDATE_TMP/Games" ] || [ -d "$UPDATE_TMP/Tools" ]; then
@@ -31,10 +31,10 @@ touch /tmp/minui_exec
 sync
 
 while [ -f /tmp/minui_exec ]; do
-	./MinUI &> "$SD/.logs/MinUI.txt"
+	./MinUI &> "$SD/.minui/logs/MinUI.txt"
 	sync
 
-	NEXT=./next.sh
+	NEXT="$SD/.minui/next.sh"
 	if [ -f $NEXT ]; then
 		CMD=`cat $NEXT`
 		rm -f $NEXT

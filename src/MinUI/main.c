@@ -241,7 +241,7 @@ Array* recents;
 static int hasRecents(void) {
 	int has = 0;
 	
-	FILE* file = fopen(kRootDir "/recent.txt", "r"); // newest at top
+	FILE* file = fopen(kRootDir "/.minui/recent.txt", "r"); // newest at top
 	if (file) {
 		char line[256];
 		while (fgets(line,256,file)!=NULL) {
@@ -400,13 +400,13 @@ static Array* getRoot(void) {
 	
 	if (has_games) Array_push(entries, Entry_new(kRootDir "/Games", kEntryDir));
 	if (has_tools) Array_push(entries, Entry_new(kRootDir "/Tools", kEntryDir));
-	if (has_update) Array_push(entries, Entry_new(kRootDir "/Update.pak", kEntryPak));
+	if (has_update) Array_push(entries, Entry_new(kRootDir "/System/Update.pak", kEntryPak));
 	
 	return entries;
 }
 
 static void saveRecents(void) {
-	FILE* file = fopen(kRootDir "/recent.txt", "w");
+	FILE* file = fopen(kRootDir "/.minui/recent.txt", "w");
 	if (file) {
 		for (int i=0; i<recents->count; i++) {
 			fputs(recents->items[i], file);
@@ -797,7 +797,7 @@ static void saveLast(char* path) {
 
 static void queue_next(char* cmd) {
 	// queue up next command
-	FILE* file = fopen(kRootDir "/System.pak/next.sh", "w");
+	FILE* file = fopen(kRootDir "/.minui/next.sh", "w");
 	if (file) {
 		int len = strlen(cmd);
 		fwrite(cmd,1,strlen(cmd),file);
@@ -950,24 +950,24 @@ int main(void) {
 	SDL_Color color = {0xff,0xff,0xff};
 	
 	// one-time instruction for wake from sleep
-	if (access("can-sleep", 4)!=0) {
-		SDL_Surface* ui_wake = IMG_Load("res/wake.png");
+	if (access("/mnt/SDCARD/.minui/can-sleep", 4)!=0) {
+		SDL_Surface* ui_wake = IMG_Load("/mnt/SDCARD/System/res/wake.png");
 		SDL_BlitSurface(ui_wake, NULL, screen, NULL);
 		SDL_Flip(screen);
 		
 		waitForWakeCombo();
 		
 		SDL_FreeSurface(ui_wake);
-		close(open("can-sleep", O_RDWR|O_CREAT, 0777)); // basically touch
+		close(open("/mnt/SDCARD/.minui/can-sleep", O_RDWR|O_CREAT, 0777)); // basically touch
 	}
 	
 	
-	SDL_Surface* ui_logo = IMG_Load("res/logo.png");
+	SDL_Surface* ui_logo = IMG_Load("/mnt/SDCARD/System/res/logo.png");
 	SDL_Surface* ui_highlight_bar = IMG_Load("/usr/trimui/res/skin/list-selected-bg.png");
 	SDL_Surface* ui_top_bar = IMG_Load("/usr/trimui/res/skin/title-bg.png");
 	SDL_Surface* ui_bottom_bar = IMG_Load("/usr/trimui/res/skin/tips-bar-bg.png");
 	SDL_Surface* ui_browse_icon = IMG_Load("/usr/trimui/res/skin/stat-nav-icon.png");
-	SDL_Surface* ui_round_button = IMG_Load("res/nav-bar-item-bg.png");
+	SDL_Surface* ui_round_button = IMG_Load("/mnt/SDCARD/System/res/nav-bar-item-bg.png");
 	SDL_Surface* ui_menu_icon = IMG_Load("/usr/trimui/res/skin/stat-menu-icon.png");
 	
 	SDL_Surface* ui_power_0_icon   = IMG_Load("/usr/trimui/res/skin/power-0%-icon.png");

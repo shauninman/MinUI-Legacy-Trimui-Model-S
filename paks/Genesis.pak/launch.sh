@@ -12,4 +12,4 @@ encode "$ROM"
 
 HOME="$ROM_DIR"
 cd "$HOME"
-"/usr/trimui/bin/$EMU_EXE" "$ROM"  &> "/mnt/SDCARD/.logs/$EMU_NAME.txt"
+"/usr/trimui/bin/$EMU_EXE" "$ROM"  &> "/mnt/SDCARD/.minui/logs/$EMU_NAME.txt"

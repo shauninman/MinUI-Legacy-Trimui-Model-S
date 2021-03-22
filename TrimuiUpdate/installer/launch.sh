@@ -1,4 +1,4 @@
 #!/bin/sh
 # .tmp_update/updater (persistent)
 
-/mnt/SDCARD/System.pak/launch.sh
+/mnt/SDCARD/System/System.pak/launch.sh

@@ -25,21 +25,23 @@ readme:
 
 sys: lib
 	mkdir -p "$(BUILD_PATH)"
+	mkdir -p "$(BUILD_PATH)/System"
 	cd ./TrimuiUpdate/ && make
 	cp -R ./TrimuiUpdate/installer/. "$(BUILD_PATH)"
 	cd ./src/MinUI && make
 	cd ./src/encode && make
 	cd ./src/show && make
 	cd ./src/confirm && make
-	cp -R "paks/System.pak" 		"$(BUILD_PATH)"
-	mkdir -p "$(BUILD_PATH)/System.pak/bin"
-	mkdir -p "$(BUILD_PATH)/System.pak/lib"
-	cp "src/MinUI/MinUI" 			"$(BUILD_PATH)/System.pak"
-	cp "src/encode/encode" 			"$(BUILD_PATH)/System.pak/bin"
-	cp "src/show/show" 				"$(BUILD_PATH)/System.pak/bin"
-	cp "src/confirm/confirm" 		"$(BUILD_PATH)/System.pak/bin"
-	cp "src/libmmenu/libmmenu.so"	"$(BUILD_PATH)/System.pak/lib"
-	cp -R "paks/Update.pak" 		"$(BUILD_PATH)"
+	cp -R "paks/System.pak" 		"$(BUILD_PATH)/System"
+	cp "src/MinUI/MinUI" 			"$(BUILD_PATH)/System/System.pak"
+	mkdir -p "$(BUILD_PATH)/System/bin"
+	mkdir -p "$(BUILD_PATH)/System/lib"
+	cp -R "res" "$(BUILD_PATH)/System"
+	cp "src/encode/encode" 			"$(BUILD_PATH)/System/bin"
+	cp "src/show/show" 				"$(BUILD_PATH)/System/bin"
+	cp "src/confirm/confirm" 		"$(BUILD_PATH)/System/bin"
+	cp "src/libmmenu/libmmenu.so"	"$(BUILD_PATH)/System/lib"
+	cp -R "paks/Update.pak" 		"$(BUILD_PATH)/System"
 
 #--------------------------------------
 emus: gb pm ngp gg snes ps gba nes
@@ -111,7 +113,7 @@ nes: emu
 	cp -R "third-party/fceux/fceux/palettes" "$(BUILD_PATH)/Emus/Nintendo.pak"
 
 #--------------------------------------
-games: na
+games: na # cs
 #--------------------------------------
 
 game:
@@ -148,6 +150,7 @@ wipe: tool
 #--------------------------------------
 
 zip:
+	mkdir -p "$(RELEASE_PATH)"
 	cd "$(BUILD_PATH)" && zip -r ../TrimuiUpdate_MinUI.zip . -x "*.DS_Store"
 	cd ./build && zip -r ../release/$(RELEASE_NAME).zip readme.txt Roms TrimuiUpdate_MinUI.zip
 

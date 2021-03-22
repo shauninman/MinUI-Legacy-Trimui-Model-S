@@ -6,27 +6,24 @@ sync
 DIR=$(dirname "$0")
 SD=/mnt/SDCARD
 
-if [ -d "$SD/System.pak" ]; then
+if [ -d "$SD/System/System.pak" ]; then
 	ACTION="update"
 else
 	ACTION="install"
+	mkdir -p "$SD/System"
 fi
 
 notify 0 "$ACTION MinUI"
 sleep 1
 
-notify 33 "$ACTION system"
-rm -rf "$SD/System.pak" && sync
-mv -f "$DIR/System.pak" "$SD"
-wait $!
+mkdir -p "$SD/.minui/logs"
 
-rm -rf "$SD/Update.pak" && sync
-mv -f "$DIR/Update.pak" "$SD"
+mkdir -p "$SD/System"
+cp -r "$DIR/System/." "$SD/System/" &
 wait $!
-
+rm -rf "$DIR/System"
 sync
 
-notify 66 "$ACTION boot"
 rm -f "$DIR/updater" && sync
 mv -f "$DIR/launch.sh" "$DIR/updater"
 wait $!
@@ -37,7 +34,24 @@ wait $!
 
 sync
 
+# clean up from old beta
+if [ -d "$SD/System.pak" ]; then
+	rm -rf "$SD/System.pak" 
+	rm -rf "$SD/Update.pak" 
+fi
+
+if [ -f "$SD/recent.txt" ]; then
+	mv -f "$SD/recent.txt" "$SD/.minui"
+fi
+
+if [ -d "$SD/.logs" ]; then
+	mv -f "$SD/.logs/." "$SD/.minui/logs/"
+	rm -rf "$SD/.logs"
+fi
+
+sync
+
 notify 100 "MinUI $ACTION done"
 sleep 1
 
-"$SD/System.pak/launch.sh"
+"$SD/System/System.pak/launch.sh"
