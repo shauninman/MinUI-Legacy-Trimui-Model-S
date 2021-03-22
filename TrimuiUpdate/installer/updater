@@ -16,8 +16,6 @@ fi
 notify 0 "$ACTION MinUI"
 sleep 1
 
-mkdir -p "$SD/.minui/logs"
-
 mkdir -p "$SD/System"
 cp -r "$DIR/System/." "$SD/System/" &
 wait $!
@@ -35,18 +33,22 @@ wait $!
 sync
 
 # clean up from old beta
-if [ -d "$SD/System.pak" ]; then
+if [ -d "$SD/System.pak" ]; then # moved to System/
 	rm -rf "$SD/System.pak" 
 	rm -rf "$SD/Update.pak" 
 fi
 
 if [ -f "$SD/recent.txt" ]; then
+	mkdir -p "$SD/.minui"
 	mv -f "$SD/recent.txt" "$SD/.minui"
 fi
 
 if [ -d "$SD/.logs" ]; then
-	mv -f "$SD/.logs/." "$SD/.minui/logs/"
-	rm -rf "$SD/.logs"
+	rm -rf "$SD/.logs" # moved to .minui/logs/
+fi
+
+if [ -d "$SD/Tools/USB Bridge.pak" ]; then
+	rm -rf "$SD/Tools/USB Bridge.pak" # now a folder with separate Start and Stop USB Bridge paks
 fi
 
 sync

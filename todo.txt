@@ -11,6 +11,8 @@ Remember the goals:
 	
 =======================================
 
+look into GMenuNX's brightness modifications
+
 check all emulators
 	to make sure save data is persisted to disk when only using ShowMenu()
 	also pokemini should poweroff before exiting
