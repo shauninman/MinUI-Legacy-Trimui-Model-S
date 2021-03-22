@@ -23,9 +23,6 @@ reorg System.pak?
 		res/
 		System.pak
 		Update.pak
-		userdata/
-			recent.txt
-			can-sleep
 	
 	so a Trimui-less SD root would look like
 	
@@ -37,7 +34,13 @@ reorg System.pak?
 		TrimuiUpdate_MinUI.zip
 	
 	requiring updater to delete System.pak and Update.pak
-	relocate recent.txt to System/userdata
+	relocate recent.txt and can-sleep to .minui/
+	
+		update paths to recent.txt
+		update paths that use System.pak
+		update makefile
+	
+	test on stock card first :sweat_smile:
 
 
 check all emulators
@@ -69,6 +72,9 @@ add a quickstart section to readme
 
 document new REMPAP launch.sh for multiple rom types that use the same emulator
 
+figure out how to distribute Wipe Stock.pak
+	maybe make a separate TrimuiUpdate_MinUIExtras.zip for installing and updating extras?
+
 libmmenu
 	add support for switching discs on disc-based systems?
 	add a SetMenuMode() so games can get a Continue/Advanced/Exit menu with no Save/Load (and get standby mode?)
@@ -89,3 +95,7 @@ pcsx_rearmed
 
 fceux
 	unacceptable performance issues
+
+gpsp
+	grab latest from https://git.crowdedwood.com/picogpsp/commit/
+	add mmenu

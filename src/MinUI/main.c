@@ -718,9 +718,12 @@ static void fauxSleep(void) {
 	setCPU(kCPUDead);
 	
 	// system("echo 1 > /sys/devices/virtual/disp/disp/attr/suspend");
+	system("killall -s STOP keymon");
 	
 	waitForWakeCombo();
 	
+	system("killall -s CONT keymon");
+
 	setVolume(v);
 	setBrightness(b);
 	setCPU(kCPUNormal);

@@ -15,6 +15,7 @@ move saves to common folder
 
 kill/relaunch keymon on sleep/wake? or killall -s STOP/CONT keymon
 	makes relaunching MinUI crashy, the audio device disappears, seemingly permanently
+	was this interacting poorly with suspending the display? or independent of that?
 
 show charging status
 	prevent auto sleep when charging
@@ -67,7 +68,7 @@ try running find in /sys on device
 			./sys/devices/soc/uart1/tty/ttyS1/power/wakeup
 			./sys/devices/soc/1c13000.otghci0-controller/usb1/power/wakeup
 			
-			neither did anything to wakwup from echo "standby" > /sys/power/state
+			neither did anything to wakeup from echo "standby" > /sys/power/state
 		
 		find . -name suspend
 			./sys/devices/virtual/disp/disp/attr/suspend
