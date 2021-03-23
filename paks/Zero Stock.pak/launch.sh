@@ -4,7 +4,7 @@
 DIR=$(dirname "$0")
 cd "$DIR"
 
-confirm "$DIR/wipe.png"
+confirm "$DIR/delete.png"
 
 if [ -f ./OKAY ]; then
 	SD=/mnt/SDCARD
