@@ -1,10 +1,22 @@
-MinUI Beta
+MinUI is a minimal launcher for the TrimUI Model S
 
-Already running a MinUI alpha? Nice, I hope you're enjoying it! Please uninstall your current version using the TrimuiUpdate_uninstallMinUI.zip that came with your alpha before installing the latest. You probably already have it on your SD card but if not, the last of the NAND-based alphas can be found here:
+----------------------------------------
+Features
 
-https://cdn.discordapp.com/attachments/540168599063756802/819049832676720640/MinUI-0.105-20210310-0.zip
-
-Once uninstalled (or if it says MinUI was not installed) continue to install the new beta. (You can also remove the old installer and uninstaller from your SD card now.)
+- No settings or configuration
+- A no frills file browser with an
+  almost 1:1 relationship to the 
+  contents of your SD card
+- Quick access to save states and 
+  full access to each emulator's 
+  unique settings
+- Instant sleep, just press MENU in
+  the file browser or menu (hold L 
+  and R and then press any other 
+  button to wake)
+- Emulator defaults curated to match
+  the unique strengths and limitations
+  of the device
 
 ----------------------------------------
 Roms
@@ -31,3 +43,12 @@ While unlikely to occur, if you ever have a problem with MinUI and cannot boot o
 Return to MinUI
 
 Navigate to FILE and open TrimuiUpdate_MinUI.zip. Welcome back!
+
+----------------------------------------
+Thanks
+
+To eggs for his early and frequent hacking and porting, figuring out the LCD initialization code, the screen tearing patch, under- and over-clocking, the list continues to grow every day, but above all for sharing these discoveries.
+
+To neonloop for putting together the Trimui buildroot and discovering that the device shipped with adbd, which together turned hacking on the device into developing for the device, literally overnight.
+
+And to the entire Retro Game Handhelds Trimui Model S and dev community for their enthusiasm and encouragement. 
