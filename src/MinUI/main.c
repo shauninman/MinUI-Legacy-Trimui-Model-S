@@ -984,16 +984,22 @@ int main(void) {
 	
 	SDL_Event event;
 	int is_dirty = 1;
+	int needs_scrolling = 0;
+	int is_scrolling = 0;
+	int scroll_ox = 0;
 	unsigned long cancel_start = SDL_GetTicks();
+	unsigned long wait_start = SDL_GetTicks();
 	while (!quit) {
 		unsigned long frame_start = SDL_GetTicks();
 		int cancel_sleep = 0;
+		int cancel_wait = 0;
 		Input_beforePoll();
 		while (SDL_PollEvent(&event)) {
 			int btn;
 			switch( event.type ){
 				case SDL_KEYDOWN:
 					cancel_sleep = 1;
+					cancel_wait = 1;
 					btn = Input_getButton(&event);
 					if (btn==kButtonNull) continue;
 
@@ -1007,6 +1013,7 @@ int main(void) {
 				
 				case SDL_KEYUP:
 					cancel_sleep = 1;
+					cancel_wait = 1;
 					btn = Input_getButton(&event);
 					if (btn==kButtonNull) continue;
 					
@@ -1114,8 +1121,19 @@ int main(void) {
 			is_dirty = 1;
 		}
 		
-		#define kSleepDelay 30000
 		unsigned long now = SDL_GetTicks();
+		#define kWaitDelay 1000
+		if (cancel_wait) {
+			wait_start = now;
+			scroll_ox = 0;
+			is_scrolling = 0;
+		}
+		if (now-wait_start>=kWaitDelay) {
+			is_scrolling = 1;
+			scroll_ox += 1;
+		}
+		
+		#define kSleepDelay 30000
 		if (cancel_sleep) cancel_start = now;
 		if (Input_justPressed(kButtonMenu) || now-cancel_start>=kSleepDelay) {
 			SDL_FillRect(buffer, NULL, 0);
@@ -1128,7 +1146,10 @@ int main(void) {
 			is_dirty = 1;
 		}
 		
+		#define kMaxTextWidth 288 // 320-32
 		if (is_dirty) {
+			needs_scrolling = 0;
+			
 			// clear
 			SDL_FillRect(buffer, &buffer->clip_rect, SDL_MapRGB(buffer->format, 0,0,0));
 			
@@ -1207,22 +1228,23 @@ int main(void) {
 					
 					// shadow
 					text = TTF_RenderUTF8_Blended(font, name, (SDL_Color){0x68,0x5a,0x35});
-					SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16+1,38+y+6+2,0,0});
+					if (text->w>kMaxTextWidth) needs_scrolling = 1;
+					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16+1,38+y+6+2,0,0});
 					SDL_FreeSurface(text);
 					
 					text = TTF_RenderUTF8_Blended(font, name, color);
-					SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
+					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
 					SDL_FreeSurface(text);
 				}
 				else {
 					if (entry->conflict) {
 						text = TTF_RenderUTF8_Blended(font, fullname, (SDL_Color){0x66,0x66,0x66});
-						SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
+						SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
 						SDL_FreeSurface(text);
 					}
 					
 					text = TTF_RenderUTF8_Blended(font, entry->name, color);
-					SDL_BlitSurface(text, &(SDL_Rect){0,0,320-32,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
+					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
 					SDL_FreeSurface(text);
 				}
 				
@@ -1232,6 +1254,37 @@ int main(void) {
 			SDL_BlitSurface(buffer, NULL, screen, NULL);
 			SDL_Flip(screen);
 			is_dirty = 0;
+		}
+		
+		if (needs_scrolling && is_scrolling) {
+			SDL_Surface* text;
+			int i = top->selected;
+			int y = 32 * (i - top->start);
+			
+			Entry* entry = top->entries->items[i];
+			char* fullname = strrchr(entry->path, '/')+1;
+			char* name = entry->conflict ? fullname : entry->name;
+			
+			text = TTF_RenderUTF8_Blended(font, name, (SDL_Color){0x68,0x5a,0x35});
+			if (text->w-scroll_ox>kMaxTextWidth) {
+				// bar
+				SDL_BlitSurface(ui_highlight_bar, NULL, buffer, &(SDL_Rect){0,38+y,0,0});
+			
+				// shadow
+				// NOTE: text creation moved outside conditional
+				SDL_BlitSurface(text, &(SDL_Rect){scroll_ox,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16+1,38+y+6+2,kMaxTextWidth,text->h});
+				SDL_FreeSurface(text);
+			
+				text = TTF_RenderUTF8_Blended(font, name, color);
+				SDL_BlitSurface(text, &(SDL_Rect){scroll_ox,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16,38+y+6,kMaxTextWidth,text->h});
+				SDL_FreeSurface(text);
+			
+				SDL_BlitSurface(buffer, NULL, screen, NULL);
+			}
+			else {
+				needs_scrolling = 0;
+				SDL_FreeSurface(text);
+			}
 		}
 		
 		// slow down to 60fps
