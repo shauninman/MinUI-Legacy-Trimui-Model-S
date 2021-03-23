@@ -1,3 +1,6 @@
+figure out how to distribute Zero Stock.pak
+	or maybe don't?
+
 redo emulator name detection to support subfolders
 	it should be working as is...
 	

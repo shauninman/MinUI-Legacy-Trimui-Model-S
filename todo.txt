@@ -19,6 +19,10 @@ Release Notes
 	- underclocks CPU while sleeping in attempt to conserve battery (thanks eggs!)
 	- moved around some folders to tidy up the root of the SD card
 	- lcd tearing patch to reduce tearing (thanks eggs!)
+	- added Nintendo emulator
+	- misc emulator fixes
+
+=======================================
 
 get picodrive in next so I can remove bin/encode
 
@@ -28,24 +32,18 @@ can MinUI load directly into a save slot?
 	we can detect saves in the .mmenu folder
 		each emulator would have to be updated to load a slot by number (most are probably by filename...)
 
-subfolders in Tools won't get copied over during install/update
-	or maybe they will since the full path relative to .tmp_update is used when update/installing
-
-check all emulators
-	to make sure save data is persisted to disk when only using ShowMenu()
-	also pokemini should poweroff before exiting
-
 allow "000 - " before filename to control sorting	
 	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
 	or add entry->sortName
 	check sorting logic to make sure it isn't converting all non-alpha to 0
-		sort dir above rom
+		sort dir above rom?
 
 cavestory
 	add SetMenuMode() && ShowMenu()
 
 pak
-	add an filter.txt to only show files with extensions in the filter list
+	add a filter.txt to only show files with extensions in the filter list
+		should it be an ignore list or a match list? match makes more sense I think
 		eg. PlayStation.pak/filter.txt could contain bin since it favors .cue
 
 make a Backup Saves.pak and a Restore Saves.pak?
@@ -57,9 +55,6 @@ add a quickstart section to readme
 	mention GBA, PSX, and 32x using dynarec which may have performance issues initially that go away after playing for a bit and it caches instructions
 
 document new REMPAP launch.sh for multiple rom types that use the same emulator
-
-figure out how to distribute Wipe Stock.pak
-	maybe make a separate TrimuiUpdate_MinUIExtras.zip for installing and updating extras?
 
 libmmenu
 	add support for switching discs on disc-based systems?
@@ -77,10 +72,13 @@ pull in (need to find base source repos closest to eggs)
 	temper
 
 pcsx_rearmed
-	need to note that you need to delete your /Roms/PlayStation/.pcsx/pcsx.cfg file
+	get latest config fix
+
+pokemini
+	should power down before exiting
 
 fceux
-	unacceptable performance issues
+	unacceptable performance issues?
 
 gpsp
 	grab latest from https://git.crowdedwood.com/picogpsp/commit/
