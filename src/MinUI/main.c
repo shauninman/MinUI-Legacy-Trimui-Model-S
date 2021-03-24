@@ -1023,6 +1023,11 @@ int main(void) {
 			}
 		}
 		
+		// if (Input_justPressed(kButtonX)) {
+		// 	SDL_RWops* out = SDL_RWFromFile("/mnt/SDCARD/.minui/screenshot.bmp", "wb");
+		// 	SDL_SaveBMP_RW(screen, out, 1);
+		// }
+		
 		int selected = top->selected;
 		int total = top->entries->count;
 		if (Input_justRepeated(kButtonUp)) {

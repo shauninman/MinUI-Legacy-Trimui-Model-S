@@ -12,23 +12,25 @@ Remember the goals:
 =======================================
 
 Release Notes
-	- you'll need to delete your /Roms/PlayStation/.pcsx/pcsx.cfg file if updating from last beta
-	- wake from sleep by holding L and R and then pressing any other button
-	- sleep is now available from the in-emulator menu too
-	- ignores system brightness and volume shortcuts while sleeping
-	- underclocks CPU while sleeping in attempt to conserve battery (thanks eggs!)
-	- moved around some folders to tidy up the root of the SD card
-	- lcd tearing patch to reduce tearing (thanks eggs!)
-	- added Nintendo emulator
-	- misc emulator fixes
+- you'll need to delete your /Roms/PlayStation/.pcsx/pcsx.cfg file if updating from last beta
+- wake from sleep by holding L and R and then pressing any other button
+- sleep is now available from the in-emulator menu too
+- ignores system brightness and volume shortcuts while sleeping
+- underclocks CPU while sleeping in attempt to conserve battery (thanks eggs!)
+- moved around some folders to tidy up the root of the SD card
+- lcd tearing patch to reduce tearing (thanks eggs!)
+- added Nintendo emulator
+- misc emulator fixes
 
 =======================================
+
+add secret screenshot key to MinUI and mmenu?
 
 kill tee whenever we kill updateui?
 
 is tearing patch affecting battery?
 	can we reverse it to improve battery when sleeping?
-		check eggs tearing test source
+		check eggs tearing test source	
 	also look into CPU Timer, page 84 of F1C200s manual
 
 get picodrive in next so I can remove bin/encode
