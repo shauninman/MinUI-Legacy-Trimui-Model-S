@@ -12,17 +12,12 @@ Remember the goals:
 =======================================
 
 Release Notes
-- you'll need to delete your /Roms/PlayStation/.pcsx/pcsx.cfg file if updating from last beta
-- wake from sleep by holding L and R and then pressing any other button
-- sleep is now available from the in-emulator menu too
-- ignores system brightness and volume shortcuts while sleeping
-- underclocks CPU while sleeping in attempt to conserve battery (thanks eggs!)
-- moved around some folders to tidy up the root of the SD card
-- lcd tearing patch to reduce tearing (thanks eggs!)
-- added Nintendo emulator
-- misc emulator fixes
+
+- pulled latest changes to Game Gear/Master System emulator
 
 =======================================
+
+ugh, my submodules have all lost their upstream remotes?
 
 add secret screenshot key to MinUI and mmenu?
 
