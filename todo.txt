@@ -13,50 +13,46 @@ Remember the goals:
 
 Release Notes
 
-- pulled latest changes to Game Gear/Master System emulator
+- pulled latest changes to Game Gear/Master System emulator (menu audio fix)
+- pulled latest changes to PlayStation emulator (per game configs)
 
 =======================================
 
-kill tee whenever we kill updateui?
+general
+	kill tee whenever we kill updateui?
+	
+	add a quickstart section to readme
+		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
+		also note to use Power Off to make sure that save states don't get lost
+		mention GBA, PSX, and 32x using dynarec which may have performance issues initially that go away after playing for a bit and it caches instructions?
 
-is tearing patch affecting battery?
-	can we reverse it to improve battery when sleeping?
-		check eggs tearing test source	
-	also look into CPU Timer, page 84 of F1C200s manual
+	document new REMPAP launch.sh for multiple rom types that use the same emulator
+	
 
-get picodrive in next so I can remove bin/encode
+MinUI
+	load directly into a save slot?
+		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
+		we can detect saves in the .mmenu folder
+			each emulator would have to be updated to load a slot by number (most are probably by filename...)
 
-look into GMenuNX's brightness modifications
+	allow "000 - " before filename to control sorting	
+		update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
+		or add entry->sortName
+		check sorting logic to make sure it isn't converting all non-alpha to 0
+			sort dir above rom?
+	
+	look into GMenuNX's brightness modifications
+	
+	is tearing patch affecting battery?
+		can we reverse it to improve battery when sleeping?
+			check eggs tearing test source	
+		also look into CPU Timer, page 84 of F1C200s manual
 
-can MinUI load directly into a save slot?
-	press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
-	we can detect saves in the .mmenu folder
-		each emulator would have to be updated to load a slot by number (most are probably by filename...)
-
-allow "000 - " before filename to control sorting	
-	update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
-	or add entry->sortName
-	check sorting logic to make sure it isn't converting all non-alpha to 0
-		sort dir above rom?
-
-games
-	cavestory
-		add SetMenuMode() && ShowMenu()
-
-pak
+paks
 	add a filter.txt to only show files with extensions in the filter list
 		should it be an ignore list or a match list? match makes more sense I think
 		eg. PlayStation.pak/filter.txt could contain bin since it favors .cue
-
-make a Backup Saves.pak and a Restore Saves.pak?
-
-add a quickstart section to readme
-	make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
-	also note to use Power Off to make sure that save states don't get lost
-	note PlayStation bios location
-	mention GBA, PSX, and 32x using dynarec which may have performance issues initially that go away after playing for a bit and it caches instructions
-
-document new REMPAP launch.sh for multiple rom types that use the same emulator
+	make a Backup Saves.pak and a Restore Saves.pak?	
 
 libmmenu
 	add support for switching discs on disc-based systems?
@@ -66,24 +62,29 @@ libmmenu
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
 
 emulators
+	picodrive
+		identify src
+		fork and branch
+		add mmenu
+		remove encode from System/bin
+	temper
+		identify src
+		fork and branch
+		add mmenu
 	pokemini
 		should power down before exiting
-
 	fceux
 		inconsistent performance issues
-
 	gpsp
 		grab latest from https://git.crowdedwood.com/picogpsp/commit/
 		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
 		add mmenu
-		
 	pcsx_rearmed
 		
+games
+	cavestory
+		add SetMenuMode() && ShowMenu()
 
 rescue things from old repo
 	art
 	todos
-
-pull in (need to find base source repos closest to eggs)
-	picodrive
-	temper

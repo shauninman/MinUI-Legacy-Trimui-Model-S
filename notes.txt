@@ -1,5 +1,13 @@
+ugh, my submodules have all lost their upstream remotes?
+	need to re-add everytime you clone apparently
+		git remote add upstream ...
+
+add secret screenshot key to MinUI and mmenu?
+	how to name? Trimui doesn't have a system clock :sob:
+		just straight increment?
+
 figure out how to distribute Zero Stock.pak
-	or maybe don't?
+	or maybe don't? I did, for people who use separate cards
 
 redo emulator name detection to support subfolders
 	it should be working as is...
@@ -79,3 +87,9 @@ try running find in /sys on device
 		find . -name pwm
 			./sys/devices/soc/1c21000.pwm/pwm
 			./sys/class/pwm
+
+hwclock -r
+	
+	hwclock: can't open '/dev/misc/rtc': No such file or directory
+
+/sys/class/rtc exists but is empty
