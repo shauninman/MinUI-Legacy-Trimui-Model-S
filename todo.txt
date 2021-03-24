@@ -24,6 +24,13 @@ Release Notes
 
 =======================================
 
+kill tee whenever we kill updateui?
+
+is tearing patch affecting battery?
+	can we reverse it to improve battery when sleeping?
+		check eggs tearing test source
+	also look into CPU Timer, page 84 of F1C200s manual
+
 get picodrive in next so I can remove bin/encode
 
 look into GMenuNX's brightness modifications

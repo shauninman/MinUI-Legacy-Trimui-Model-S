@@ -1,4 +1,6 @@
-MinUI is a minimal launcher for the TrimUI Model S
+MinUI is a minimal launcher for the Trimui Model S
+
+Source: https://github.com/shauninman/minui
 
 ----------------------------------------
 Features
@@ -47,8 +49,14 @@ Navigate to FILE and open TrimuiUpdate_MinUI.zip. Welcome back!
 ----------------------------------------
 Thanks
 
-To eggs for his early and frequent hacking and porting, figuring out the LCD initialization code, the screen tearing patch, under- and over-clocking, the list continues to grow every day, but above all for sharing these discoveries.
+To eggs for his early and frequent hacking and porting, LCD initialization code, screen tearing patch, under- and over-clocking; the list continues to grow every day, but above all for sharing these constant discoveries.
+
+Check out eggs' releases: https://www.dropbox.com/sh/5e9xwvp672vt8cr/AAAkfmYQeqdAalPiTramOz9Ma?dl=0
 
 To neonloop for putting together the Trimui buildroot and discovering that the device shipped with adbd, which together turned hacking on the device into developing for the device, literally overnight.
 
-And to the entire Retro Game Handhelds Trimui Model S and dev community for their enthusiasm and encouragement. 
+Check out neonloop's repos: https://git.crowdedwood.com
+
+And to the entire Retro Game Handhelds Trimui Model S and dev Discord community for their enthusiasm and encouragement. 
+
+Checkout the channel on the Retro Game Handhelds Discord: https://discord.com/channels/529983248114122762/780563189434941460
