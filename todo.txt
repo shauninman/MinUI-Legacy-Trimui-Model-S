@@ -17,10 +17,6 @@ Release Notes
 
 =======================================
 
-ugh, my submodules have all lost their upstream remotes?
-
-add secret screenshot key to MinUI and mmenu?
-
 kill tee whenever we kill updateui?
 
 is tearing patch affecting battery?
@@ -33,6 +29,7 @@ get picodrive in next so I can remove bin/encode
 look into GMenuNX's brightness modifications
 
 can MinUI load directly into a save slot?
+	press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
 	we can detect saves in the .mmenu folder
 		each emulator would have to be updated to load a slot by number (most are probably by filename...)
 
@@ -42,8 +39,9 @@ allow "000 - " before filename to control sorting
 	check sorting logic to make sure it isn't converting all non-alpha to 0
 		sort dir above rom?
 
-cavestory
-	add SetMenuMode() && ShowMenu()
+games
+	cavestory
+		add SetMenuMode() && ShowMenu()
 
 pak
 	add a filter.txt to only show files with extensions in the filter list
@@ -66,7 +64,22 @@ libmmenu
 	update README
 		if you are creating a custom launcher and want to support libmmenu you need to call
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
-	
+
+emulators
+	pokemini
+		should power down before exiting
+
+	fceux
+		inconsistent performance issues
+
+	gpsp
+		grab latest from https://git.crowdedwood.com/picogpsp/commit/
+		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
+		add mmenu
+		
+	pcsx_rearmed
+		
+
 rescue things from old repo
 	art
 	todos
@@ -74,16 +87,3 @@ rescue things from old repo
 pull in (need to find base source repos closest to eggs)
 	picodrive
 	temper
-
-pcsx_rearmed
-	get latest config fix
-
-pokemini
-	should power down before exiting
-
-fceux
-	unacceptable performance issues?
-
-gpsp
-	grab latest from https://git.crowdedwood.com/picogpsp/commit/
-	add mmenu
