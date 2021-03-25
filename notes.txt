@@ -1,3 +1,11 @@
+git submodules are back on their bullshit
+	Fork is asking for my password to push my fork of picodrive used as a submodule by minui...
+	I can't remember how I resolved this before...
+	the issue was gitmodules and the individual .git/config files were using the url of the repo
+		https://github.com/shauninman/picodrive
+	not git@github.com:shauninman/picodrive.git
+	once I manually changed it over it started working
+	
 ugh, my submodules have all lost their upstream remotes?
 	need to re-add everytime you clone apparently
 		git remote add upstream ...

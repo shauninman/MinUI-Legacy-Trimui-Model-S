@@ -18,12 +18,6 @@ Release Notes
 
 =======================================
 
-git submodules are back on their bullshit
-	Fork is asking for my password to checkin my fork of picodrive used as a submodule by minui...
-	I can't remember how I resolved this before...
-
-=======================================
-
 general
 	kill tee whenever we kill updateui?
 	
