@@ -28,6 +28,16 @@ general
 
 	document new REMPAP launch.sh for multiple rom types that use the same emulator
 	
+	wrap functions shared by MinUI and libmmenu into a shared source file?
+	
+	document submodule upstream urls since they get lost when cloned
+		automate somehow?
+	
+	poke at audio when I have free night
+		put this in a loop but track state and only putenv when it changes
+			
+			if (access("/dev/dsp1", 4)==0) putenv("AUDIODEV=/dev/dsp1"); // assuming headphones
+			else putenv("AUDIODEV=/dev/dsp"); // speaker
 
 MinUI
 	load directly into a save slot?
@@ -49,10 +59,10 @@ MinUI
 		also look into CPU Timer, page 84 of F1C200s manual
 
 paks
+	make a Backup Saves.pak and a Restore Saves.pak?
 	add a filter.txt to only show files with extensions in the filter list
 		should it be an ignore list or a match list? match makes more sense I think
 		eg. PlayStation.pak/filter.txt could contain bin since it favors .cue
-	make a Backup Saves.pak and a Restore Saves.pak?	
 
 libmmenu
 	add support for switching discs on disc-based systems?
@@ -80,7 +90,8 @@ emulators
 		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
 		add mmenu
 	pcsx_rearmed
-		
+		-
+
 games
 	cavestory
 		add SetMenuMode() && ShowMenu()
