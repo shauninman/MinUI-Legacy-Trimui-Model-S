@@ -25,6 +25,7 @@ fi
 
 notify 100 quit
 killall -s KILL updateui
+killall -s KILL tee
 rm -f "$SD/update.log"
 
 touch /tmp/minui_exec
