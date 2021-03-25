@@ -28,3 +28,6 @@
 [submodule "third-party/fceux"]
 	path = third-party/fceux
 	url = git@github.com:shauninman/fceux.git
+[submodule "third-party/picodrive"]
+	path = third-party/picodrive
+	url = https://github.com/shauninman/picodrive
