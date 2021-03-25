@@ -13,11 +13,37 @@ Remember the goals:
 
 Release Notes
 
+- added Genesis (with MinUI in-emulator menu)
+- fixed Master System scaling preference (no longer resets to native)
 - pulled latest changes to Game Gear/Master System emulator (menu audio fix)
 - pulled latest changes to PlayStation emulator (per game configs)
 
 =======================================
 
+emulators
+	picodrive
+		add mmenu
+			figure out how to address BUF_LEN living in the libpicofe submodule I don't have access to
+				#define BUF_LEN 4096	// TRIMUI Modified : fixed delay sound
+		patch sound from 1.95 per eggs suggestion
+		remove encode from System/bin
+	temper
+		identify src
+		fork and branch
+		add mmenu
+	pokemini
+		should power down before exiting
+	fceux
+		inconsistent performance issues
+	gpsp
+		grab latest from https://git.crowdedwood.com/picogpsp/commit/
+		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
+		add mmenu
+	pcsx_rearmed
+		-
+	sms_sdl
+		-
+		
 general
 	kill tee whenever we kill updateui?
 	
@@ -54,6 +80,7 @@ MinUI
 	look into GMenuNX's brightness modifications
 	
 	is tearing patch affecting battery?
+		is the device running hotter?
 		can we reverse it to improve battery when sleeping?
 			check eggs tearing test source	
 		also look into CPU Timer, page 84 of F1C200s manual
@@ -70,27 +97,6 @@ libmmenu
 	update README
 		if you are creating a custom launcher and want to support libmmenu you need to call
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
-
-emulators
-	picodrive
-		identify src
-		fork and branch
-		add mmenu
-		remove encode from System/bin
-	temper
-		identify src
-		fork and branch
-		add mmenu
-	pokemini
-		should power down before exiting
-	fceux
-		inconsistent performance issues
-	gpsp
-		grab latest from https://git.crowdedwood.com/picogpsp/commit/
-		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
-		add mmenu
-	pcsx_rearmed
-		-
 
 games
 	cavestory
