@@ -30,7 +30,6 @@ sys: lib
 	cd ./TrimuiUpdate/ && make
 	cp -R ./TrimuiUpdate/installer/. "$(PAYLOAD_PATH)"
 	cd ./src/MinUI && make
-	cd ./src/encode && make
 	cd ./src/show && make
 	cd ./src/confirm && make
 	cp -R "paks/System.pak" 		"$(PAYLOAD_PATH)/System"
@@ -38,14 +37,13 @@ sys: lib
 	mkdir -p "$(PAYLOAD_PATH)/System/bin"
 	mkdir -p "$(PAYLOAD_PATH)/System/lib"
 	cp -R "res" "$(PAYLOAD_PATH)/System"
-	cp "src/encode/encode" 			"$(PAYLOAD_PATH)/System/bin"
 	cp "src/show/show" 				"$(PAYLOAD_PATH)/System/bin"
 	cp "src/confirm/confirm" 		"$(PAYLOAD_PATH)/System/bin"
 	cp "src/libmmenu/libmmenu.so"	"$(PAYLOAD_PATH)/System/lib"
 	cp -R "paks/Update.pak" 		"$(PAYLOAD_PATH)/System"
 
 #--------------------------------------
-emus: gb pm ngp gg snes ps gba nes
+emus: gb pm ngp gg snes ps gba nes gen
 #--------------------------------------
 
 emu:
@@ -113,6 +111,14 @@ nes: emu
 	cp "third-party/fceux/fceux/sp.bmp" "$(PAYLOAD_PATH)/Emus/Nintendo.pak"
 	cp -R "third-party/fceux/fceux/palettes" "$(PAYLOAD_PATH)/Emus/Nintendo.pak"
 
+gen: emu
+	mkdir -p "$(ROMS_PATH)/Genesis"
+	if [ ! -f ./third-party/picodrive/config.mak ]; then cd ./third-party/picodrive && CROSS_COMPILE=/opt/trimui-toolchain/bin/arm-buildroot-linux-gnueabi- ./configure --platform=trimui; fi
+	cd ./third-party/picodrive && make -j
+	cp -R "paks/Genesis.pak" "$(PAYLOAD_PATH)/Emus"
+	cp "third-party/picodrive/PicoDrive" "$(PAYLOAD_PATH)/Emus/Genesis.pak"
+	cp -R "third-party/picodrive/platform/trimui/skin" "$(PAYLOAD_PATH)/Emus/Genesis.pak"
+	
 #--------------------------------------
 tools: bridge commander poweroff reload stock # zero
 #--------------------------------------
@@ -153,7 +159,6 @@ zip:
 clean:
 	cd ./src/libmmenu && make clean
 	cd ./src/MinUI && make clean
-	cd ./src/encode && make clean
 	cd ./src/show && make clean
 	cd ./TrimuiUpdate/ && make clean
 	cd ./third-party/DinguxCommander && make clean

@@ -13,6 +13,7 @@ Remember the goals:
 
 Release Notes
 
+- removed /System/bin/encode
 - added Genesis (with MinUI in-emulator menu)
 - fixed Master System scaling preference (no longer resets to native)
 - pulled latest changes to Game Gear/Master System emulator (menu audio fix)
