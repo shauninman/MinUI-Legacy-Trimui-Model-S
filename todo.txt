@@ -13,8 +13,9 @@ Remember the goals:
 
 Release Notes
 
+- added TurboGrafx-16
 - removed /System/bin/encode
-- added Genesis (with MinUI in-emulator menu)
+- added Genesis
 - updated Master System scaling preference (no longer resets to native)
 - updated Game Gear/Master System emulator (menu audio fix)
 - updated PlayStation emulator (per game configs)
@@ -23,9 +24,7 @@ Release Notes
 
 emulators
 	temper
-		identify src
-		fork and branch
-		add mmenu
+		test
 	pokemini
 		should power down before exiting
 	gpsp
