@@ -15,17 +15,15 @@ Release Notes
 
 - removed /System/bin/encode
 - added Genesis (with MinUI in-emulator menu)
-- fixed Master System scaling preference (no longer resets to native)
-- pulled latest changes to Game Gear/Master System emulator (menu audio fix)
-- pulled latest changes to PlayStation emulator (per game configs)
+- updated Master System scaling preference (no longer resets to native)
+- updated Game Gear/Master System emulator (menu audio fix)
+- updated PlayStation emulator (per game configs)
 
 =======================================
 
 emulators
 	picodrive
-		add mmenu
-			figure out how to address BUF_LEN living in the libpicofe submodule I don't have access to
-				#define BUF_LEN 4096	// TRIMUI Modified : fixed delay sound
+		figure out how to address BUF_LEN living in the libpicofe submodule I don't have access to
 		patch sound from 1.95 per eggs suggestion
 		remove encode from System/bin
 	temper
