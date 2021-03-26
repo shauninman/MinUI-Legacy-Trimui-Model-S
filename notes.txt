@@ -1,3 +1,7 @@
+problem cloning or adding a submodule with this error?
+	The authenticity of host 'github.com (IP address)' can't be established.
+	you're probably trying to use git from the toolchain environment :face_palm:
+
 git submodules are back on their bullshit
 	Fork is asking for my password to push my fork of picodrive used as a submodule by minui...
 	I can't remember how I resolved this before...
