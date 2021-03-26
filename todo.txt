@@ -22,10 +22,6 @@ Release Notes
 =======================================
 
 emulators
-	picodrive
-		figure out how to address BUF_LEN living in the libpicofe submodule I don't have access to
-		patch sound from 1.95 per eggs suggestion
-		remove encode from System/bin
 	temper
 		identify src
 		fork and branch
@@ -42,10 +38,10 @@ emulators
 		-
 	sms_sdl
 		-
+	picodrive
+		- 
 		
 general
-	kill tee whenever we kill updateui?
-	
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
 		also note to use Power Off to make sure that save states don't get lost

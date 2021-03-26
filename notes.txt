@@ -1,3 +1,8 @@
+picodrive
+	patch sound from 1.95 per eggs suggestion
+		didn't work, Sonic title just had percussion, tried this: https://discord.com/channels/529983248114122762/540168599063756802/824470219497537586
+		also tried just replacing my pico/sound/ with the one from eggs source, but that wouldn't build
+
 problem cloning or adding a submodule with this error?
 	The authenticity of host 'github.com (IP address)' can't be established.
 	you're probably trying to use git from the toolchain environment :face_palm:
