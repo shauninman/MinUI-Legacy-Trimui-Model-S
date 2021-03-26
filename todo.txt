@@ -28,12 +28,12 @@ emulators
 		add mmenu
 	pokemini
 		should power down before exiting
-	fceux
-		inconsistent performance issues
 	gpsp
 		grab latest from https://git.crowdedwood.com/picogpsp/commit/
 		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
 		add mmenu
+	fceux
+		inconsistent performance issues
 	pcsx_rearmed
 		-
 	sms_sdl
