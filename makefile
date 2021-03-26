@@ -43,7 +43,7 @@ sys: lib
 	cp -R "paks/Update.pak" 		"$(PAYLOAD_PATH)/System"
 
 #--------------------------------------
-emus: gb pm ngp gg snes ps gba nes gen
+emus: gb pm ngp gg snes ps gba nes gen pce
 #--------------------------------------
 
 emu:
@@ -118,6 +118,12 @@ gen: emu
 	cp -R "paks/Genesis.pak" "$(PAYLOAD_PATH)/Emus"
 	cp "third-party/picodrive/PicoDrive" "$(PAYLOAD_PATH)/Emus/Genesis.pak"
 	cp -R "third-party/picodrive/platform/trimui/skin" "$(PAYLOAD_PATH)/Emus/Genesis.pak"
+
+pce: emu
+	mkdir -p "$(ROMS_PATH)/TurboGrafx-16"
+	cd ./third-party/temper/SDL && make -j
+	cp -R "paks/TurboGrafx-16.pak" "$(PAYLOAD_PATH)/Emus"
+	cp "third-party/temper/SDL/temper" "$(PAYLOAD_PATH)/Emus/TurboGrafx-16.pak"
 	
 #--------------------------------------
 tools: bridge commander poweroff reload stock # zero
@@ -169,4 +175,7 @@ clean:
 	cd ./third-party/gpsp-bittboy/trimui && make clean
 	cd ./third-party/snes9x2002 && make clean
 	cd ./third-party/pcsx_rearmed && make clean
+	cd ./third-party/fceux && make clean
+	cd ./third-party/picodrive && make clean
+	cd ./third-party/temper/SDL && make clean
 	rm -rf ./build

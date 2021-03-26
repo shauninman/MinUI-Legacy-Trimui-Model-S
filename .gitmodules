@@ -31,3 +31,6 @@
 [submodule "third-party/picodrive"]
 	path = third-party/picodrive
 	url = git@github.com:shauninman/picodrive.git
+[submodule "third-party/temper"]
+	path = third-party/temper
+	url = git@github.com:shauninman/temper.git
