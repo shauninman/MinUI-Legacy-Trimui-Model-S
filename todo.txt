@@ -17,14 +17,12 @@ Release Notes
 - added Genesis emulator
 - removed /System/bin/encode
 - updated Master System emulator (scaling preference no longer resets to Native)
-- updated Game Gear/Master System emulator (menu audio fix)
+- updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option)
 - updated PlayStation emulator (per game configs)
 
 =======================================
 
 emulators
-	sms_sdl
-		grab eggs latest changes
 	temper
 		revise makefile with eggs suggestion? https://discord.com/channels/529983248114122762/540168599063756802/824894214856245319
 		test (Rondo of Blood might be the most interesting to me?)
@@ -40,6 +38,8 @@ emulators
 		-
 	picodrive
 		- 
+	sms_sdl
+		-
 		
 general
 	add a quickstart section to readme
