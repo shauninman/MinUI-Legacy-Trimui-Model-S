@@ -13,18 +13,21 @@ Remember the goals:
 
 Release Notes
 
-- added TurboGrafx-16
+- added TurboGrafx-16 emulator
+- added Genesis emulator
 - removed /System/bin/encode
-- added Genesis
-- updated Master System scaling preference (no longer resets to native)
+- updated Master System emulator (scaling preference no longer resets to Native)
 - updated Game Gear/Master System emulator (menu audio fix)
 - updated PlayStation emulator (per game configs)
 
 =======================================
 
 emulators
+	sms_sdl
+		grab eggs latest changes
 	temper
-		test
+		revise makefile with eggs suggestion? https://discord.com/channels/529983248114122762/540168599063756802/824894214856245319
+		test (Rondo of Blood might be the most interesting to me?)
 	pokemini
 		should power down before exiting
 	gpsp
@@ -34,8 +37,6 @@ emulators
 	fceux
 		inconsistent performance issues
 	pcsx_rearmed
-		-
-	sms_sdl
 		-
 	picodrive
 		- 
