@@ -22,6 +22,8 @@ As always, thanks @eggs and @neonloop!
 =======================================
 
 emulators
+	sms_sdl
+		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/825292677750325249
 	temper
 		revise makefile with eggs suggestion? https://discord.com/channels/529983248114122762/540168599063756802/824894214856245319
 		test (Rondo of Blood might be the most interesting to me?)
@@ -37,10 +39,10 @@ emulators
 		-
 	picodrive
 		- 
-	sms_sdl
-		-
-		
+
 general
+	figure out how to gracefully recover from a bad update
+		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
 		also note to use Power Off to make sure that save states don't get lost
