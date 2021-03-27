@@ -11,14 +11,13 @@ Remember the goals:
 	
 =======================================
 
-Release Notes
-
+Release Notes:
 - added TurboGrafx-16 emulator
 - added Genesis emulator
-- removed /System/bin/encode
-- updated Master System emulator (scaling preference no longer resets to Native)
 - updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option)
 - updated PlayStation emulator (per game configs)
+- removed /System/bin/encode (only used by betas to launch stock emus)
+As always, thanks @eggs and @neonloop!
 
 =======================================
 

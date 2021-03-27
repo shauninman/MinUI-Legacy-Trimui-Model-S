@@ -25,8 +25,8 @@ fi
 
 notify 100 quit
 killall -s KILL updateui
-killall -s KILL tee
-rm -f "$SD/update.log"
+# killall -s KILL tee
+rm -f "$UPDATE_LOG"
 
 touch /tmp/minui_exec
 sync
@@ -44,12 +44,11 @@ while [ -f /tmp/minui_exec ]; do
 	fi
 done
 
-killall keymon
-sync
+killall -s KILL keymon
 
 if [ -f /tmp/minui_update ]; then
 	rm -f /tmp/minui_update
-	killall updater
+	killall -s KILL updater
 	
 	echo start updating | tee $UPDATE_LOG
 	updateui >> $UPDATE_LOG &
@@ -57,7 +56,5 @@ if [ -f /tmp/minui_update ]; then
 	mkdir -p ${UPDATE_TMP}
 	total=`unzip -l ${UPDATE_ZIP} | wc -l`
 	unzip -d ${UPDATE_TMP} -o ${UPDATE_ZIP} | awk -v total="$total" -v out="/tmp/.update_msg" 'function bname(file,a,n){n=split(file,a,"/");return a[n]}BEGIN{cnt=0}{printf "">out;cnt+=1;printf "%d unzip %s\n",cnt*100/total,bname($2)>>out;close(out)}'
-	
-	updateui >> $UPDATE_LOG &
 	"$UPDATE_TMP/updater" | tee -a $UPDATE_LOG
 fi
