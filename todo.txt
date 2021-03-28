@@ -12,6 +12,7 @@ Remember the goals:
 =======================================
 
 Release Notes:
+- Roms folder now supports nested folders (useful for multi-file disc-based games)
 - added TurboGrafx-16 emulator
 - added Genesis emulator
 - updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option, new toggle FM Sound)
@@ -25,6 +26,7 @@ emulators
 	temper
 		revise makefile with eggs suggestion? https://discord.com/channels/529983248114122762/540168599063756802/824894214856245319
 		test (Rondo of Blood might be the most interesting to me?)
+			needs syscard3.bin (tried with smaller syscard3.pce got static but that might be caused by audio)
 	pokemini
 		should power off before exiting
 	gpsp
@@ -41,6 +43,7 @@ emulators
 		-
 
 general
+	switch to github releases instead of just uploading a zip to #releases-trimui
 	figure out how to gracefully recover from a bad update
 		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
 	add a quickstart section to readme
@@ -86,6 +89,7 @@ paks
 	add a filter.txt to only show files with extensions in the filter list
 		should it be an ignore list or a match list? match makes more sense I think
 		eg. PlayStation.pak/filter.txt could contain bin since it favors .cue
+		eg. TurboGrafx-16.pak should only display .pce or .cue (check others)
 
 libmmenu
 	add support for switching discs on disc-based systems?

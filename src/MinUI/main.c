@@ -799,7 +799,6 @@ static void queue_next(char* cmd) {
 	// queue up next command
 	FILE* file = fopen(kRootDir "/.minui/next.sh", "w");
 	if (file) {
-		int len = strlen(cmd);
 		fwrite(cmd,1,strlen(cmd),file);
 		fclose(file);
 		quit = 1;
@@ -820,11 +819,13 @@ static void Entry_open(Entry* self) {
 	char launch[256];
 	launch[0] = '"';
 	if (self->type==kEntryRom) {
-		strcpy(launch+1, self->path);
-		char* slash = strrchr(launch, '/');
-		launch[(slash-launch)] = '\0';
-		char* emus = kRootDir "/Emus/";
-		strncpy(launch+1, emus, strlen(emus));
+		strcpy(launch+1, kRootDir "/Emus/");
+		char* roms = kRootDir "/Roms/";
+		char name[256];
+		strcpy(name, self->path + strlen(roms));
+		char* slash = strchr(name, '/');
+		name[slash-name] = '\0';
+		concat(launch, name, 256);
 		concat(launch, ".pak/launch.sh\" \"", 256);
 		concat(launch, self->path, 256);
 		concat(launch, "\"", 256);
