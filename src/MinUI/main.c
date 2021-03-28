@@ -78,6 +78,7 @@ static char* copy_string(char* str) {
 static int hide(char* name) {
 	if (name[0]=='.') return 1;
 	
+	// TODO: these might not be necessary? unless a user just renames their stock folders...
 	if (match_suffix("_cache.db", name)) return 1;
 	if (match_prefix("COPYING", name)) return 1;
 	if (exact_match("license", name)) return 1;
@@ -301,7 +302,7 @@ static int hasRoms(char* path) {
 		struct dirent *dp;
 		while((dp = readdir(dh)) != NULL) {
 			if (hide(dp->d_name)) continue;
-			if (dp->d_type==DT_DIR) continue;
+			// if (dp->d_type==DT_DIR) continue;
 			has = 1;
 			break;
 		}

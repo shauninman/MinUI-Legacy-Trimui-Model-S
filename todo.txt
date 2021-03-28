@@ -27,6 +27,7 @@ emulators
 		revise makefile with eggs suggestion? https://discord.com/channels/529983248114122762/540168599063756802/824894214856245319
 		test (Rondo of Blood might be the most interesting to me?)
 			needs syscard3.bin (tried with smaller syscard3.pce got static but that might be caused by audio)
+			how to distribute or communicate the need?
 	pokemini
 		should power off before exiting
 	gpsp
