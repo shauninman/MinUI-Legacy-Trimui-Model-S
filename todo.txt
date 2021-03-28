@@ -14,7 +14,7 @@ Remember the goals:
 Release Notes:
 - added TurboGrafx-16 emulator
 - added Genesis emulator
-- updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option)
+- updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option, new toggle FM Sound)
 - updated PlayStation emulator (per game configs)
 - removed /System/bin/encode (only used by betas to launch stock emus)
 As always, thanks @eggs and @neonloop!
@@ -22,13 +22,11 @@ As always, thanks @eggs and @neonloop!
 =======================================
 
 emulators
-	sms_sdl
-		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/825292677750325249
 	temper
 		revise makefile with eggs suggestion? https://discord.com/channels/529983248114122762/540168599063756802/824894214856245319
 		test (Rondo of Blood might be the most interesting to me?)
 	pokemini
-		should power down before exiting
+		should power off before exiting
 	gpsp
 		grab latest from https://git.crowdedwood.com/picogpsp/commit/
 		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
@@ -39,6 +37,8 @@ emulators
 		-
 	picodrive
 		- 
+	sms_sdl
+		-
 
 general
 	figure out how to gracefully recover from a bad update
