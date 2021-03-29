@@ -22,11 +22,18 @@ As always, thanks @eggs and @neonloop!
 
 =======================================
 
+revise MinUI's check for non-empty Roms folders
+	currently a folder containing just empty folders will show up as valid
+	use `find . -type f` (or whatever the syntax is)?
+
+auto launch the cue file in folders that only contain a single cue file?
+
 emulators
 	temper
 		revise makefile with eggs suggestion? https://discord.com/channels/529983248114122762/540168599063756802/824894214856245319
 		test (Rondo of Blood might be the most interesting to me?)
-			needs syscard3.bin (tried with smaller syscard3.pce got static but that might be caused by audio)
+			patched version audio is just static noise
+		needs syscard3.bin or syscard3.pce
 			how to distribute or communicate the need?
 	pokemini
 		should power off before exiting
@@ -66,6 +73,9 @@ general
 			else putenv("AUDIODEV=/dev/dsp"); // speaker
 
 MinUI
+	disc handling
+		if a folder contains a cue with the same name as the folder, open the cue instead of a folder
+		if a folder contains a m3u with the same name as the folder, open a disc chooser instead of the folder
 	load directly into a save slot?
 		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
 		we can detect saves in the .mmenu folder

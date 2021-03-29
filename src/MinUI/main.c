@@ -805,7 +805,56 @@ static void queue_next(char* cmd) {
 		quit = 1;
 	}
 }
-static void open_directory(char* path) {
+static void open_rom(char* path, char* last) {
+	char launch[256];
+	launch[0] = '"';
+	strcpy(launch+1, kRootDir "/Emus/");
+	char* roms = kRootDir "/Roms/";
+	char name[256];
+	strcpy(name, path + strlen(roms));
+	char* slash = strchr(name, '/');
+	name[slash-name] = '\0';
+	concat(launch, name, 256);
+	concat(launch, ".pak/launch.sh\" \"", 256);
+	concat(launch, path, 256);
+	concat(launch, "\"", 256);
+	addRecent(path);
+	saveLast(last==NULL ? path : last);
+	queue_next(launch);
+}
+static void open_game(char*path) {
+	char launch[256];
+	launch[0] = '"';
+	strcpy(launch+1, path);
+	concat(launch, "/launch.sh\"", 256);
+	if (match_prefix(kRootDir "/Games", path)) {
+		addRecent(path);
+	}
+	saveLast(path);
+	queue_next(launch);
+}
+static void open_directory(char* path, int special) {
+	// TODO: only do this in sub folders of Roms
+	if (special) {
+		char auto_path[256];
+		char* tmp = strrchr(path, '/') + 1; // folder name
+		strcpy(auto_path, path);
+		concat(auto_path, "/", 256);
+		concat(auto_path, tmp, 256);
+		concat(auto_path, ".cue", 256);
+		if (exists(auto_path)) {
+			printf("found .cue! %s\n", auto_path);
+			open_rom(auto_path, path);
+			return;
+		}
+	
+		tmp = strrchr(auto_path, '.') + 1; // extension
+		strcpy(tmp, "m3u");
+		if (exists(auto_path)) {
+			printf("found .m3u! %s\n", auto_path);
+		}
+	}
+	
 	top = Directory_new(path, 0);
 	top->start = 0;
 	top->end = (top->entries->count<kMaxRows) ? top->entries->count : kMaxRows;
@@ -815,36 +864,16 @@ static void close_directory(void) {
 	DirectoryArray_pop(stack);
 	top = stack->items[stack->count-1];
 }
-	
+
 static void Entry_open(Entry* self) {
-	char launch[256];
-	launch[0] = '"';
 	if (self->type==kEntryRom) {
-		strcpy(launch+1, kRootDir "/Emus/");
-		char* roms = kRootDir "/Roms/";
-		char name[256];
-		strcpy(name, self->path + strlen(roms));
-		char* slash = strchr(name, '/');
-		name[slash-name] = '\0';
-		concat(launch, name, 256);
-		concat(launch, ".pak/launch.sh\" \"", 256);
-		concat(launch, self->path, 256);
-		concat(launch, "\"", 256);
-		addRecent(self->path);
-		saveLast(self->path);
-		queue_next(launch);
+		open_rom(self->path, NULL);
 	}
 	else if (self->type==kEntryPak) {
-		strcpy(launch+1, self->path);
-		concat(launch, "/launch.sh\"", 256);
-		if (match_prefix(kRootDir "/Games", self->path)) {
-			addRecent(self->path);
-		}
-		saveLast(self->path);
-		queue_next(launch);
+		open_game(self->path);
 	}
 	else if (self->type==kEntryDir) {
-		open_directory(self->path);
+		open_directory(self->path, 1);
 	}
 }
 
@@ -883,8 +912,10 @@ static void loadLast(void) { // call after loading root directory
 								top->start = top->end - kMaxRows;
 							}
 						}
+						if (last->count==0 && !exact_match(entry->path, kRecentlyPlayedDir)) break; // don't show contents of auto-launch dirs
+						
 						if (entry->type==kEntryDir) {
-							open_directory(entry->path);
+							open_directory(entry->path, 0);
 						}
 					}
 				}
@@ -900,7 +931,7 @@ static void Menu_init(void) {
 	stack = Array_new(); // array of open Directories
 	recents = Array_new();
 	
-	open_directory(kRootDir);
+	open_directory(kRootDir, 0);
 	loadLast(); // restore state when available
 }
 static void Menu_quit(void) {
