@@ -413,11 +413,11 @@ static Array* getDiscs(char* path) {
 	char* tmp = strrchr(base_path, '/') + 1;
 	tmp[0] = '\0';
 	
-	printf("using base_path: %s\n", base_path);
-	
+	// TODO: limit number of discs supported (to 9?)
 	FILE* file = fopen(path, "r");
 	if (file) {
 		char line[256];
+		int disc = 0;
 		while (fgets(line,256,file)!=NULL) {
 			int len = strlen(line);
 			if (len>0 && line[len-1]=='\n') line[len-1] = 0; // trim newline
@@ -428,19 +428,16 @@ static Array* getDiscs(char* path) {
 			concat(disc_path, line, 256);
 						
 			if (exists(disc_path)) {
-				printf("\tfound disc! %s", disc_path);
-				Array_push(entries, Entry_new(disc_path, kEntryRom));
+				disc += 1;
+				Entry* entry = Entry_new(disc_path, kEntryRom);
+				free(entry->name);
+				char name[16];
+				sprintf(name, "Disc %i", disc);
+				entry->name = copy_string(name);
+				Array_push(entries, entry);
 			}
 		}
 		fclose(file);
-	}
-	EntryArray_sort(entries);
-	for (int i=0; i<entries->count; i++) {
-		Entry* entry = entries->items[i];
-		free(entry->name);
-		char name[16];
-		sprintf(name, "Disc %i", i+1);
-		entry->name = copy_string(name);
 	}
 	return entries;
 }
@@ -878,26 +875,22 @@ static void open_game(char*path) {
 }
 static void open_directory(char* path, int auto_launch) {
 	// TODO: only do this in sub folders of Roms, or better yet if the emulator supports cue files
-	if (auto_launch) {
-		char auto_path[256];
-		char* tmp = strrchr(path, '/') + 1; // folder name
-		strcpy(auto_path, path);
-		concat(auto_path, "/", 256);
-		concat(auto_path, tmp, 256);
-		concat(auto_path, ".cue", 256);
-		if (exists(auto_path)) {
-			open_rom(auto_path, path);
-			return;
-		}
+	char auto_path[256];
+	char* tmp = strrchr(path, '/') + 1; // folder name
+	strcpy(auto_path, path);
+	concat(auto_path, "/", 256);
+	concat(auto_path, tmp, 256);
+	concat(auto_path, ".cue", 256);
+	if (auto_launch && exists(auto_path)) {
+		open_rom(auto_path, path);
+		return;
+	}
+
+	tmp = strrchr(auto_path, '.') + 1; // extension
+	strcpy(tmp, "m3u"); // replace with m3u
 	
-		tmp = strrchr(auto_path, '.') + 1; // extension
-		strcpy(tmp, "m3u"); // replace with m3u
-		
-		printf("check for m3u: %s\n", auto_path);
-		if (exists(auto_path)) {
-			puts("\tding! ding! ding!");
-			path = auto_path;
-		}
+	if (exists(auto_path)) {
+		path = auto_path;
 	}
 	
 	top = Directory_new(path, 0);
