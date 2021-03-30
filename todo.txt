@@ -13,27 +13,20 @@ Remember the goals:
 
 Release Notes:
 - Roms folder now supports nested folders (useful for multi-file disc-based games)
+- when a folder contains a cue file with the same name as the folder itself, the cue is launched instead of navigating into the folder 
+- when a folder contains an m3u file with the same name as the folder itself, the cues listed in the m3u file are displayed as Disc 1, Disc 2, etc
 - added TurboGrafx-16 emulator
 - added Genesis emulator
-- updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option, new toggle FM Sound)
+- updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option, new FM Sound option, new Country option)
 - updated PlayStation emulator (per game configs)
 - removed /System/bin/encode (only used by betas to launch stock emus)
 As always, thanks @eggs and @neonloop!
 
 =======================================
 
-revise MinUI's check for non-empty Roms folders
-	currently a folder containing just empty folders will show up as valid
-	use `find . -type f` (or whatever the syntax is)?
-
-auto launch the cue file in folders that only contain a single cue file?
-
 emulators
 	temper
-		revise makefile with eggs suggestion? https://discord.com/channels/529983248114122762/540168599063756802/824894214856245319
-		test (Rondo of Blood might be the most interesting to me?)
-			patched version audio is just static noise
-		needs syscard3.bin or syscard3.pce
+		needs syscard3.pce
 			how to distribute or communicate the need?
 	pokemini
 		should power off before exiting
@@ -51,6 +44,8 @@ emulators
 		-
 
 general
+	update readme with note about syscard3.bin/pce goes in TurboGrafx-16/.temper/syscards/
+	update readme with example of cue and m3u support
 	switch to github releases instead of just uploading a zip to #releases-trimui
 	figure out how to gracefully recover from a bad update
 		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
@@ -73,9 +68,6 @@ general
 			else putenv("AUDIODEV=/dev/dsp"); // speaker
 
 MinUI
-	disc handling
-		if a folder contains a cue with the same name as the folder, open the cue instead of a folder
-		if a folder contains a m3u with the same name as the folder, open a disc chooser instead of the folder
 	load directly into a save slot?
 		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
 		we can detect saves in the .mmenu folder
@@ -104,6 +96,8 @@ paks
 
 libmmenu
 	add support for switching discs on disc-based systems?
+		maybe Continue can detect an m3u and if you press left or right it changes to Change?
+			it would only require an additional MenuStatus enum
 	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
 	update README
 		if you are creating a custom launcher and want to support libmmenu you need to call

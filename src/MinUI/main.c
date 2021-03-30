@@ -405,6 +405,45 @@ static Array* getRoot(void) {
 	
 	return entries;
 }
+static Array* getDiscs(char* path) {
+	Array* entries = Array_new();
+	
+	char base_path[256];
+	strcpy(base_path, path);
+	char* tmp = strrchr(base_path, '/') + 1;
+	tmp[0] = '\0';
+	
+	printf("using base_path: %s\n", base_path);
+	
+	FILE* file = fopen(path, "r");
+	if (file) {
+		char line[256];
+		while (fgets(line,256,file)!=NULL) {
+			int len = strlen(line);
+			if (len>0 && line[len-1]=='\n') line[len-1] = 0; // trim newline
+			if (strlen(line)==0) continue; // skip empty lines
+			
+			char disc_path[256];
+			strcpy(disc_path, base_path);
+			concat(disc_path, line, 256);
+						
+			if (exists(disc_path)) {
+				printf("\tfound disc! %s", disc_path);
+				Array_push(entries, Entry_new(disc_path, kEntryRom));
+			}
+		}
+		fclose(file);
+	}
+	EntryArray_sort(entries);
+	for (int i=0; i<entries->count; i++) {
+		Entry* entry = entries->items[i];
+		free(entry->name);
+		char name[16];
+		sprintf(name, "Disc %i", i+1);
+		entry->name = copy_string(name);
+	}
+	return entries;
+}
 
 static void saveRecents(void) {
 	FILE* file = fopen(kRootDir "/.minui/recent.txt", "w");
@@ -500,6 +539,10 @@ static Directory* Directory_new(char* path, int selected) {
 	}
 	else if (exact_match(path, kRecentlyPlayedDir)) {
 		self->entries = getRecents();
+	}
+	else if (match_suffix(".m3u", path)) {
+		printf("found m3u! %s\n", path);
+		self->entries = getDiscs(path);
 	}
 	else {
 		self->entries = getEntries(path);
@@ -833,9 +876,9 @@ static void open_game(char*path) {
 	saveLast(path);
 	queue_next(launch);
 }
-static void open_directory(char* path, int special) {
-	// TODO: only do this in sub folders of Roms
-	if (special) {
+static void open_directory(char* path, int auto_launch) {
+	// TODO: only do this in sub folders of Roms, or better yet if the emulator supports cue files
+	if (auto_launch) {
 		char auto_path[256];
 		char* tmp = strrchr(path, '/') + 1; // folder name
 		strcpy(auto_path, path);
@@ -843,15 +886,17 @@ static void open_directory(char* path, int special) {
 		concat(auto_path, tmp, 256);
 		concat(auto_path, ".cue", 256);
 		if (exists(auto_path)) {
-			printf("found .cue! %s\n", auto_path);
 			open_rom(auto_path, path);
 			return;
 		}
 	
 		tmp = strrchr(auto_path, '.') + 1; // extension
-		strcpy(tmp, "m3u");
+		strcpy(tmp, "m3u"); // replace with m3u
+		
+		printf("check for m3u: %s\n", auto_path);
 		if (exists(auto_path)) {
-			printf("found .m3u! %s\n", auto_path);
+			puts("\tding! ding! ding!");
+			path = auto_path;
 		}
 	}
 	
