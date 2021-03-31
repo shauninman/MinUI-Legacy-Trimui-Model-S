@@ -240,6 +240,33 @@ static int StringArray_indexOf(Array* self, char* str) {
 
 #define kMaxRecents 40
 Array* recents;
+static void saveRecents(void) {
+	FILE* file = fopen(kRootDir "/.minui/recent.txt", "w");
+	if (file) {
+		for (int i=0; i<recents->count; i++) {
+			fputs(recents->items[i], file);
+			putc('\n', file);
+		}
+		fclose(file);
+	}
+}
+static void addRecent(char* path) {
+	int id = StringArray_indexOf(recents, path);
+	if (id==-1) { // add
+		while (recents->count>=kMaxRecents) {
+			free(Array_pop(recents));
+		}
+		Array_unshift(recents, copy_string(path));
+	}
+	else if (id>0) { // bump to top
+		for (int i=id; i>0; i--) {
+			void* tmp = recents->items[i-1];
+			recents->items[i-1] = recents->items[i];
+			recents->items[i] = tmp;
+		}
+	}
+	saveRecents();
+}
 static int hasRecents(void) {
 	int has = 0;
 	
@@ -286,6 +313,8 @@ static int hasRecents(void) {
 		}
 		fclose(file);
 	}
+	
+	if (ignore_previous_discs) saveRecents();
 	return has;
 }
 static int hasPaks(char* path) {
@@ -468,34 +497,6 @@ static Array* getDiscs(char* path) {
 		fclose(file);
 	}
 	return entries;
-}
-
-static void saveRecents(void) {
-	FILE* file = fopen(kRootDir "/.minui/recent.txt", "w");
-	if (file) {
-		for (int i=0; i<recents->count; i++) {
-			fputs(recents->items[i], file);
-			putc('\n', file);
-		}
-		fclose(file);
-	}
-}
-static void addRecent(char* path) {
-	int id = StringArray_indexOf(recents, path);
-	if (id==-1) { // add
-		while (recents->count>=kMaxRecents) {
-			free(Array_pop(recents));
-		}
-		Array_unshift(recents, copy_string(path));
-	}
-	else if (id>0) { // bump to top
-		for (int i=id; i>0; i--) {
-			void* tmp = recents->items[i-1];
-			recents->items[i-1] = recents->items[i];
-			recents->items[i] = tmp;
-		}
-	}
-	saveRecents();
 }
 
 ///////////////////////////////////////
