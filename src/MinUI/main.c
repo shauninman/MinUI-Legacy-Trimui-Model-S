@@ -21,6 +21,7 @@
 #define kRootDir "/mnt/SDCARD"
 #define kRecentlyPlayedDir kRootDir "/Recently Played"
 #define kLastPath "/tmp/last.txt"
+#define kChangeDiscPath "/tmp/change_disc"
 #define kTrimuiUpdatePath kRootDir "/TrimuiUpdate_MinUI.zip"
 
 ///////////////////////////////////////
@@ -237,10 +238,35 @@ static int StringArray_indexOf(Array* self, char* str) {
 	return -1;
 }
 
-#define kMaxRecents 15
+#define kMaxRecents 40
 Array* recents;
 static int hasRecents(void) {
 	int has = 0;
+	
+	int ignore_previous_discs = 0;
+	char m3u_dir[256];
+	if (exists(kChangeDiscPath)) {
+		FILE* file = fopen(kChangeDiscPath, "r");
+		if (file) {
+			char line[256];
+			line[0] = 0;
+			while (fgets(line,256,file)!=NULL) {
+				int len = strlen(line);
+				if (len>0 && line[len-1]=='\n') line[len-1] = 0; // trim newline
+				if (strlen(line)==0) continue; // skip empty lines
+				if (exists(line)) break; // line is now the path to the requested disc
+			}
+			fclose(file);
+			if (strlen(line)>0) {
+				ignore_previous_discs = 1;
+				Array_push(recents, copy_string(line));
+				strcpy(m3u_dir, line);
+				char* tmp = strrchr(m3u_dir, '/') + 1;
+				tmp[0] = '\0';
+			}
+		}
+		unlink(kChangeDiscPath);
+	}
 	
 	FILE* file = fopen(kRootDir "/.minui/recent.txt", "r"); // newest at top
 	if (file) {
@@ -252,6 +278,8 @@ static int hasRecents(void) {
 			if (exists(line)) {
 				has = 1;
 				if (recents->count<kMaxRecents) {
+					// skip if in parent folder recently changed disc
+					if (ignore_previous_discs && match_prefix(m3u_dir, line)) continue; 
 					Array_push(recents, copy_string(line));
 				}
 			}

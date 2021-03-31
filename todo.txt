@@ -15,14 +15,46 @@ Release Notes:
 - Roms folder now supports nested folders (useful for multi-file disc-based games)
 - when a folder contains a cue file with the same name as the folder itself, the cue is launched instead of navigating into the folder 
 - when a folder contains an m3u file with the same name as the folder itself, the cues listed in the m3u file are displayed as Disc 1, Disc 2, etc
+- swapping discs from an m3u file in the in-emulator MinUI menu replaces the old disc in Recently Played with the new disc
 - added TurboGrafx-16 emulator
 - added Genesis emulator
 - updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option, new FM Sound option, new Country option)
-- updated PlayStation emulator (per game configs)
+- updated PlayStation emulator (per game configs, swap discs from in-emulator MinUI menu when launched from an m3u)
 - removed /System/bin/encode (only used by betas to launch stock emus)
 As always, thanks @eggs and @neonloop!
 
 =======================================
+
+libmmenu
+	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
+		or just switch to game mode when save_template_path is NULL?
+	update README
+		document kStatusChangeDisc and /tmp/change_disc
+		if you are creating a custom launcher and want to support libmmenu you need to call
+			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
+
+MinUI
+	what to do about pbp
+		pcsx doesn't provide a great interface for switching discs (next disc, no indication of what disc you're currently on)
+	add multi-disc icon when m3u is found?
+	load directly into a save slot?
+		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
+		we can detect saves in the .mmenu folder
+			each emulator would have to be updated to load a slot by number (most are probably by filename...)
+
+	allow "000 - " before filename to control sorting	
+		update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
+		or add entry->sortName
+		check sorting logic to make sure it isn't converting all non-alpha to 0
+			sort dir above rom?
+	
+	look into GMenuNX's brightness modifications
+	
+	is tearing patch affecting battery?
+		is the device running hotter?
+		can we reverse it to improve battery when sleeping?
+			check eggs tearing test source	
+		also look into CPU Timer, page 84 of F1C200s manual
 
 emulators
 	temper
@@ -37,7 +69,7 @@ emulators
 	fceux
 		inconsistent performance issues
 	pcsx_rearmed
-		-
+		- 
 	picodrive
 		- 
 	sms_sdl
@@ -67,41 +99,8 @@ general
 			if (access("/dev/dsp1", 4)==0) putenv("AUDIODEV=/dev/dsp1"); // assuming headphones
 			else putenv("AUDIODEV=/dev/dsp"); // speaker
 
-MinUI
-	load directly into a save slot?
-		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
-		we can detect saves in the .mmenu folder
-			each emulator would have to be updated to load a slot by number (most are probably by filename...)
-
-	allow "000 - " before filename to control sorting	
-		update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
-		or add entry->sortName
-		check sorting logic to make sure it isn't converting all non-alpha to 0
-			sort dir above rom?
-	
-	look into GMenuNX's brightness modifications
-	
-	is tearing patch affecting battery?
-		is the device running hotter?
-		can we reverse it to improve battery when sleeping?
-			check eggs tearing test source	
-		also look into CPU Timer, page 84 of F1C200s manual
-
 paks
 	make a Backup Saves.pak and a Restore Saves.pak?
-	add a filter.txt to only show files with extensions in the filter list
-		should it be an ignore list or a match list? match makes more sense I think
-		eg. PlayStation.pak/filter.txt could contain bin since it favors .cue
-		eg. TurboGrafx-16.pak should only display .pce or .cue (check others)
-
-libmmenu
-	add support for switching discs on disc-based systems?
-		maybe Continue can detect an m3u and if you press left or right it changes to Change?
-			it would only require an additional MenuStatus enum
-	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
-	update README
-		if you are creating a custom launcher and want to support libmmenu you need to call
-			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
 
 games
 	cavestory
