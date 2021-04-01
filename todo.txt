@@ -101,6 +101,8 @@ general
 
 paks
 	make a Backup Saves.pak and a Restore Saves.pak?
+	Commander
+		make MENU dismiss View and open menu? (currently requires B then Menu)
 
 games
 	cavestory
