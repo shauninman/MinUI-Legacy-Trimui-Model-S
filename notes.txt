@@ -1,3 +1,7 @@
+what to do about pbp
+	pcsx doesn't provide a great interface for switching discs (next disc, no indication of what disc you're currently on)
+	so nothin?
+	
 picodrive
 	swapping discs via mmenu requires two presses of START
 		I should not worry about this, no one is going to use it...

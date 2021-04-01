@@ -21,7 +21,7 @@
 #define kRootDir "/mnt/SDCARD"
 #define kRecentlyPlayedDir kRootDir "/Recently Played"
 #define kLastPath "/tmp/last.txt"
-#define kChangeDiscPath "/tmp/change_disc"
+#define kChangeDiscPath "/tmp/change_disc.txt"
 #define kTrimuiUpdatePath kRootDir "/TrimuiUpdate_MinUI.zip"
 
 ///////////////////////////////////////
@@ -73,6 +73,24 @@ static char* copy_string(char* str) {
 	copy[len] = '\0';
 	return copy;
 } // NOTE: caller must free() result!
+
+///////////////////////////////////////
+
+// only use to write single-line files!
+void put_file(char* path, char* contents) {
+	FILE* file = fopen(path, "w");
+	fputs(contents, file);
+	fclose(file);
+}
+void get_file(char* path, char* buffer) {
+	FILE *file = fopen(path, "r");
+	fseek(file, 0L, SEEK_END);
+	size_t size = ftell(file);
+	rewind(file);
+	fread(buffer, size, sizeof(char), file);
+	fclose(file);
+	buffer[size] = '\0';
+}
 
 ///////////////////////////////////////
 
@@ -857,22 +875,13 @@ static void saveLast(char* path) {
 		// the top which is also the default selection
 		path = kRecentlyPlayedDir;
 	}
-	
-	FILE* file = fopen(kLastPath, "w");
-	if (file) {
-		fputs(path, file);
-		fclose(file);
-	}
+	put_file(kLastPath, path);
 }
 
 static void queue_next(char* cmd) {
 	// queue up next command
-	FILE* file = fopen(kRootDir "/.minui/next.sh", "w");
-	if (file) {
-		fwrite(cmd,1,strlen(cmd),file);
-		fclose(file);
-		quit = 1;
-	}
+	put_file(kRootDir "/.minui/next.sh", cmd);
+	quit = 1;
 }
 static void open_rom(char* path, char* last) {
 	char launch[256];
@@ -945,53 +954,44 @@ static void Entry_open(Entry* self) {
 }
 
 static void loadLast(void) { // call after loading root directory
-	FILE* file = fopen(kLastPath, "r");
-	if (file) {
-		char line[256];
-		line[0] = 0;
-		while (fgets(line,256,file)!=NULL) {
-			int len = strlen(line);
-			if (len>0 && line[len-1]=='\n') line[len-1] = 0; // trim newline
-			if (strlen(line)==0) continue; // skip empty lines
-			if (exists(line)) break; // line is now our last opened thing
-		}
-		fclose(file);
-		if (strlen(line)>0) {
-			Array* last = Array_new();
-			while (!exact_match(line, kRootDir)) {
-				Array_push(last, copy_string(line));
-				
-				char* slash = strrchr(line, '/');
-				line[(slash-line)] = '\0';
-			}
-			
-			while (last->count>0) {
-				char* path = Array_pop(last);
-				for (int i=0; i<top->entries->count; i++) {
-					Entry* entry = top->entries->items[i];
-					if (exact_match(entry->path, path)) {
-						top->selected = i;
-						if (i>=top->end) {
-							top->start = i;
-							top->end = top->start + kMaxRows;
-							if (top->end>top->entries->count) {
-								top->end = top->entries->count;
-								top->start = top->end - kMaxRows;
-							}
-						}
-						if (last->count==0 && !exact_match(entry->path, kRecentlyPlayedDir)) break; // don't show contents of auto-launch dirs
-						
-						if (entry->type==kEntryDir) {
-							open_directory(entry->path, 0);
-						}
+	if (!exists(kLastPath)) return;
+
+	char last_path[256];
+	get_file(kLastPath, last_path);
+	
+	Array* last = Array_new();
+	while (!exact_match(last_path, kRootDir)) {
+		Array_push(last, copy_string(last_path));
+		
+		char* slash = strrchr(last_path, '/');
+		last_path[(slash-last_path)] = '\0';
+	}
+	
+	while (last->count>0) {
+		char* path = Array_pop(last);
+		for (int i=0; i<top->entries->count; i++) {
+			Entry* entry = top->entries->items[i];
+			if (exact_match(entry->path, path)) {
+				top->selected = i;
+				if (i>=top->end) {
+					top->start = i;
+					top->end = top->start + kMaxRows;
+					if (top->end>top->entries->count) {
+						top->end = top->entries->count;
+						top->start = top->end - kMaxRows;
 					}
 				}
-				free(path); // we took ownership when we popped it
+				if (last->count==0 && !exact_match(entry->path, kRecentlyPlayedDir)) break; // don't show contents of auto-launch dirs
+				
+				if (entry->type==kEntryDir) {
+					open_directory(entry->path, 0);
+				}
 			}
-			
-			StringArray_free(last);
 		}
+		free(path); // we took ownership when we popped it
 	}
+	
+	StringArray_free(last);
 }
 
 static void Menu_init(void) {

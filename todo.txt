@@ -26,7 +26,6 @@ As always, thanks @eggs and @neonloop!
 =======================================
 
 libmmenu
-	update tmp/last.txt when changing disc
 	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
 		or just switch to game mode when save_template_path is NULL?
 	update README
@@ -35,8 +34,6 @@ libmmenu
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
 
 MinUI
-	what to do about pbp
-		pcsx doesn't provide a great interface for switching discs (next disc, no indication of what disc you're currently on)
 	add multi-disc icon when m3u is found?
 	load directly into a save slot?
 		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
