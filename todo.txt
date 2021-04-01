@@ -59,6 +59,7 @@ emulators
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
 	temper
+		get eggs (or were they gameblabla's?) latest changes
 		needs syscard3.pce
 			how to distribute or communicate the need?
 	pokemini
@@ -75,6 +76,8 @@ emulators
 		-
 	sms_sdl
 		-
+	snes9x2002
+		- get eggs latest changes (from eggs or neonloop?)
 
 general
 	update readme with note about syscard3.bin/pce goes in TurboGrafx-16/.temper/syscards/

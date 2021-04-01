@@ -77,17 +77,17 @@ static char* copy_string(char* str) {
 ///////////////////////////////////////
 
 // only use to write single-line files!
-void put_file(char* path, char* contents) {
+static void put_file(char* path, char* contents) {
 	FILE* file = fopen(path, "w");
 	fputs(contents, file);
 	fclose(file);
 }
-void get_file(char* path, char* buffer) {
+static void get_file(char* path, char* buffer) {
 	FILE *file = fopen(path, "r");
 	fseek(file, 0L, SEEK_END);
 	size_t size = ftell(file);
 	rewind(file);
-	fread(buffer, size, sizeof(char), file);
+	fread(buffer, sizeof(char), size, file);
 	fclose(file);
 	buffer[size] = '\0';
 }
