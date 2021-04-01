@@ -26,6 +26,7 @@ As always, thanks @eggs and @neonloop!
 =======================================
 
 libmmenu
+	update tmp/last.txt when changing disc
 	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
 		or just switch to game mode when save_template_path is NULL?
 	update README
@@ -57,6 +58,9 @@ MinUI
 		also look into CPU Timer, page 84 of F1C200s manual
 
 emulators
+	all
+		standardize bios locations
+			I would prefer they all live in the emu folder not the rom folder but...
 	temper
 		needs syscard3.pce
 			how to distribute or communicate the need?
@@ -69,9 +73,9 @@ emulators
 	fceux
 		inconsistent performance issues
 	pcsx_rearmed
-		- 
+		test Metal Gear Solid
 	picodrive
-		- 
+		-
 	sms_sdl
 		-
 
@@ -101,8 +105,6 @@ general
 
 paks
 	make a Backup Saves.pak and a Restore Saves.pak?
-	Commander
-		make MENU dismiss View and open menu? (currently requires B then Menu)
 
 games
 	cavestory
