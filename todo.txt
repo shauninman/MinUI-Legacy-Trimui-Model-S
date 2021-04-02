@@ -25,15 +25,14 @@ As always, thanks @eggs and @neonloop!
 
 =======================================
 
-libmmenu
-	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
-		or just switch to game mode when save_template_path is NULL?
-	update README
-		document kStatusChangeDisc and /tmp/change_disc
-		if you are creating a custom launcher and want to support libmmenu you need to call
-			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
+probably a good time for a release!
+	before further updating the emulators
+	switch to github releases instead of just uploading a zip to #releases-trimui
+	just fixing some bugs :sweat_smile:
 
 MinUI
+	need to do a better job filtering out sibling discs in hasRecents()
+	
 	add multi-disc icon when m3u is found?
 	load directly into a save slot?
 		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
@@ -53,9 +52,24 @@ MinUI
 		can we reverse it to improve battery when sleeping?
 			check eggs tearing test source	
 		also look into CPU Timer, page 84 of F1C200s manual
-
+		
 emulators
 	all
+		get eggs latest changes
+		support loading save state by number
+			present
+				pcsx -load i
+				picodrive -load i
+
+			kindof
+				pokemini -state path (this is an autostate not a save state)
+				temper s (autoloads state 0)
+
+			missing
+				fceux
+				gambatte
+				race
+				snes9x2002
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
 	temper
@@ -73,7 +87,7 @@ emulators
 	pcsx_rearmed
 		test Metal Gear Solid
 	picodrive
-		-
+		- 
 	sms_sdl
 		-
 	snes9x2002
@@ -82,7 +96,6 @@ emulators
 general
 	update readme with note about syscard3.bin/pce goes in TurboGrafx-16/.temper/syscards/
 	update readme with example of cue and m3u support
-	switch to github releases instead of just uploading a zip to #releases-trimui
 	figure out how to gracefully recover from a bad update
 		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
 	add a quickstart section to readme
@@ -102,6 +115,14 @@ general
 			
 			if (access("/dev/dsp1", 4)==0) putenv("AUDIODEV=/dev/dsp1"); // assuming headphones
 			else putenv("AUDIODEV=/dev/dsp"); // speaker
+
+libmmenu
+	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
+		or just switch to game mode when save_template_path is NULL?
+	update README
+		document kStatusChangeDisc and /tmp/change_disc
+		if you are creating a custom launcher and want to support libmmenu you need to call
+			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
 
 paks
 	make a Backup Saves.pak and a Restore Saves.pak?

@@ -47,13 +47,15 @@ static void error_handler(int sig) {
 
 ///////////////////////////////////////
 
+// NOTE: these are now case-insensitive!
 static int match_prefix(char* pre, char* str) {
-	return (strncmp(pre,str,strlen(pre))==0);
+	return (strncasecmp(pre,str,strlen(pre))==0);
 }
 static int match_suffix(char* suf, char* str) {
 	int len = strlen(suf);
-	return (strncmp(suf, str+strlen(str)-len, len)==0);
+	return (strncasecmp(suf, str+strlen(str)-len, len)==0);
 }
+// NOTE: this is still case-sensitive
 static int exact_match(char* str1, char* str2) {
 	int len1 = strlen(str1);
 	if (len1!=strlen(str2)) return 0;
@@ -288,27 +290,33 @@ static void addRecent(char* path) {
 static int hasRecents(void) {
 	int has = 0;
 	
+	// TODO: this attempt to cleanup sibling discs
+	// doesn't account for launching sibling discs
+	// from MinUI instead of the in-emulator menu...
+	// NOTE: we still want to add the updated disc
+	// to our recents array!
+	
+	// TODO: we need a second array
+	// char* m3u_paths[kMaxRecents]
+	// then we check each line for 
+	// match_suffix(".cue", line)
+	// when matched, trim line to just parent path and
+	// m3u_paths[total_m3u++] = copy_string(m3u_path)
+	// then before performing the cue check
+	// we loop over m3u_paths and see of match_prefix(m3u_paths[i], line)
+	// and ignore any that do
+	
 	int ignore_previous_discs = 0;
 	char m3u_dir[256];
 	if (exists(kChangeDiscPath)) {
-		FILE* file = fopen(kChangeDiscPath, "r");
-		if (file) {
-			char line[256];
-			line[0] = 0;
-			while (fgets(line,256,file)!=NULL) {
-				int len = strlen(line);
-				if (len>0 && line[len-1]=='\n') line[len-1] = 0; // trim newline
-				if (strlen(line)==0) continue; // skip empty lines
-				if (exists(line)) break; // line is now the path to the requested disc
-			}
-			fclose(file);
-			if (strlen(line)>0) {
-				ignore_previous_discs = 1;
-				Array_push(recents, copy_string(line));
-				strcpy(m3u_dir, line);
-				char* tmp = strrchr(m3u_dir, '/') + 1;
-				tmp[0] = '\0';
-			}
+		char disc_path[256];
+		get_file(kChangeDiscPath, disc_path);
+		if (exists(disc_path)) {
+			ignore_previous_discs = 1;
+			Array_push(recents, copy_string(disc_path));
+			strcpy(m3u_dir, disc_path);
+			char* tmp = strrchr(m3u_dir, '/') + 1;
+			tmp[0] = '\0';
 		}
 		unlink(kChangeDiscPath);
 	}
@@ -332,6 +340,7 @@ static int hasRecents(void) {
 		fclose(file);
 	}
 	
+	// TODO: maybe save regardless since we may have pruned recents for other reasons?
 	if (ignore_previous_discs) saveRecents();
 	return has;
 }
@@ -585,7 +594,6 @@ static Directory* Directory_new(char* path, int selected) {
 		self->entries = getRecents();
 	}
 	else if (match_suffix(".m3u", path)) {
-		printf("found m3u! %s\n", path);
 		self->entries = getDiscs(path);
 	}
 	else {
