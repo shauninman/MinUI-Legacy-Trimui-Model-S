@@ -12,16 +12,8 @@ Remember the goals:
 =======================================
 
 Release Notes:
-- Roms folder now supports nested folders (useful for multi-file disc-based games)
-- when a folder contains a cue file with the same name as the folder itself, the cue is launched instead of navigating into the folder 
-- when a folder contains an m3u file with the same name as the folder itself, the cues listed in the m3u file are displayed as Disc 1, Disc 2, etc
-- swapping discs from an m3u file in the in-emulator MinUI menu replaces the old disc in Recently Played with the new disc
-- added TurboGrafx-16 emulator
-- added Genesis emulator
-- updated Game Gear/Master System emulator (menu audio fix, new Fullscreen Sharp scaling option, new FM Sound option, new Country option)
-- updated PlayStation emulator (per game configs, swap discs from in-emulator MinUI menu when launched from an m3u)
-- removed /System/bin/encode (only used by betas to launch stock emus)
-As always, thanks @eggs and @neonloop!
+- 
+As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
@@ -90,6 +82,8 @@ emulators
 		-
 	snes9x2002
 		- get eggs latest changes (from eggs or neonloop?)
+	handy
+		- don't do it! (but the dimensions are perfect and I'm curious! :dies:)
 
 general
 	update readme with note about syscard3.bin/pce goes in TurboGrafx-16/.temper/syscards/
