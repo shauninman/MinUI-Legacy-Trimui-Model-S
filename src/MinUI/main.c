@@ -23,6 +23,8 @@
 #define kLastPath "/tmp/last.txt"
 #define kChangeDiscPath "/tmp/change_disc.txt"
 #define kTrimuiUpdatePath kRootDir "/TrimuiUpdate_MinUI.zip"
+#define kScreenshotsPath kRootDir "/.minui/screenshots.txt"
+#define kScreenshotPathTemplate kRootDir "/.minui/screenshots/screenshot-%i.bmp"
 
 ///////////////////////////////////////
 
@@ -1016,6 +1018,24 @@ static void Menu_quit(void) {
 	DirectoryArray_free(stack);
 }
 
+static int screenshots = 0;
+void load_screenshots(void) {
+	if (exists(kScreenshotsPath)) {
+		char tmp[16];
+		get_file(kScreenshotsPath, tmp);
+		screenshots = atoi(tmp);
+	}
+}
+void save_screenshot(SDL_Surface* surface) {
+	char screenshot_path[256];
+	sprintf(screenshot_path, kScreenshotPathTemplate, ++screenshots);
+	SDL_RWops* out = SDL_RWFromFile(screenshot_path, "wb");
+	SDL_SaveBMP_RW(surface ? surface : screen, out, 1);
+	char count[16];
+	sprintf(count, "%i", screenshots);
+	put_file(kScreenshotsPath, count);
+}
+
 int main(void) {
 	// freopen(kRootDir "/stderr.txt", "w", stderr);
 	// freopen(kRootDir "/stdout.txt", "w", stdout);
@@ -1071,7 +1091,6 @@ int main(void) {
 		close(open("/mnt/SDCARD/.minui/can-sleep", O_RDWR|O_CREAT, 0777)); // basically touch
 	}
 	
-	
 	SDL_Surface* ui_logo = IMG_Load("/mnt/SDCARD/System/res/logo.png");
 	SDL_Surface* ui_highlight_bar = IMG_Load("/usr/trimui/res/skin/list-selected-bg.png");
 	SDL_Surface* ui_top_bar = IMG_Load("/usr/trimui/res/skin/title-bg.png");
@@ -1087,7 +1106,9 @@ int main(void) {
 	SDL_Surface* ui_power_100_icon = IMG_Load("/usr/trimui/res/skin/power-full-icon.png");
 
 	// Mix_Chunk *click = Mix_LoadWAV("/usr/trimui/res/sound/click.wav");
-
+	
+	load_screenshots();
+	
 	Menu_init();
 	
 	SDL_FillRect(buffer, &buffer->clip_rect, SDL_MapRGB(buffer->format, 0, 0, 0));
@@ -1133,10 +1154,7 @@ int main(void) {
 			}
 		}
 		
-		// if (Input_justPressed(kButtonX)) {
-		// 	SDL_RWops* out = SDL_RWFromFile("/mnt/SDCARD/.minui/screenshot.bmp", "wb");
-		// 	SDL_SaveBMP_RW(screen, out, 1);
-		// }
+		if (Input_justPressed(kButtonX)) save_screenshot(NULL);
 		
 		int selected = top->selected;
 		int total = top->entries->count;

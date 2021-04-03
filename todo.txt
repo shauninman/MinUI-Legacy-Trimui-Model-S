@@ -12,15 +12,11 @@ Remember the goals:
 =======================================
 
 Release Notes:
-- 
+- press X in MinUI or the in-emulator menu to save a screenshot (saved to /mnt/SDCARD/.minui/screenshots/)
+- press Y in the in-emulator menu to save a screenshot of the game (without the menu overlay)
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
-
-probably a good time for a release!
-	before further updating the emulators
-	switch to github releases instead of just uploading a zip to #releases-trimui
-	just fixing some bugs :sweat_smile:
 
 MinUI
 	add multi-disc icon when m3u is found?
@@ -86,8 +82,6 @@ emulators
 		- don't do it! (but the dimensions are perfect and I'm curious! :dies:)
 
 general
-	update readme with note about syscard3.bin/pce goes in TurboGrafx-16/.temper/syscards/
-	update readme with example of cue and m3u support
 	figure out how to gracefully recover from a bad update
 		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
 	add a quickstart section to readme
@@ -98,6 +92,7 @@ general
 	document new REMPAP launch.sh for multiple rom types that use the same emulator
 	
 	wrap functions shared by MinUI and libmmenu into a shared source file?
+		yes, please!
 	
 	document submodule upstream urls since they get lost when cloned
 		automate somehow?
@@ -109,19 +104,18 @@ general
 			else putenv("AUDIODEV=/dev/dsp"); // speaker
 
 libmmenu
-	add a SetMenuMode() so games can get a Continue/Reset/Exit (and get standby mode)?
-		or just switch to game mode when save_template_path is NULL?
+	update ShowMenu() to omit Save/Load when save_template_path is NULL (for Games)
 	update README
 		document kStatusChangeDisc and /tmp/change_disc
 		if you are creating a custom launcher and want to support libmmenu you need to call
-			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System.pak/lib"
+			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
 
 paks
 	make a Backup Saves.pak and a Restore Saves.pak?
 
 games
 	cavestory
-		add SetMenuMode() && ShowMenu()
+		add ShowMenu("/mnt/SDCARD/Games/Cave Story.pak", NULL, 0);
 
 rescue things from old repo
 	art

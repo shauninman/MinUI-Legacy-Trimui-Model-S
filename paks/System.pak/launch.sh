@@ -15,7 +15,6 @@ UPDATE_LOG="$SD/update.log"
 UPDATE_ZIP="$SD/TrimuiUpdate_MinUI.zip"
 UPDATE_TMP="$SD/.tmp_update"
 
-mkdir -p "$SD/.minui/logs"
 cd "$SD/System/System.pak"
 
 # TODO: just search .tmp_update for any .pak
@@ -32,6 +31,10 @@ touch /tmp/minui_exec
 sync
 
 while [ -f /tmp/minui_exec ]; do
+	# these can be deleted with Commander.pak so make sure they exist
+	mkdir -p "$SD/.minui/logs"
+	mkdir -p "$SD/.minui/screenshots"
+	
 	./MinUI &> "$SD/.minui/logs/MinUI.txt"
 	sync
 
