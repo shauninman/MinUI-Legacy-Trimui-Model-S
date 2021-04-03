@@ -31,8 +31,6 @@ probably a good time for a release!
 	just fixing some bugs :sweat_smile:
 
 MinUI
-	need to do a better job filtering out sibling discs in hasRecents()
-	
 	add multi-disc icon when m3u is found?
 	load directly into a save slot?
 		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?

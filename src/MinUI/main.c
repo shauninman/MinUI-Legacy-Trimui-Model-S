@@ -290,33 +290,18 @@ static void addRecent(char* path) {
 static int hasRecents(void) {
 	int has = 0;
 	
-	// TODO: this attempt to cleanup sibling discs
-	// doesn't account for launching sibling discs
-	// from MinUI instead of the in-emulator menu...
-	// NOTE: we still want to add the updated disc
-	// to our recents array!
-	
-	// TODO: we need a second array
-	// char* m3u_paths[kMaxRecents]
-	// then we check each line for 
-	// match_suffix(".cue", line)
-	// when matched, trim line to just parent path and
-	// m3u_paths[total_m3u++] = copy_string(m3u_path)
-	// then before performing the cue check
-	// we loop over m3u_paths and see of match_prefix(m3u_paths[i], line)
-	// and ignore any that do
-	
-	int ignore_previous_discs = 0;
-	char m3u_dir[256];
+	Array* parent_paths = Array_new();
 	if (exists(kChangeDiscPath)) {
 		char disc_path[256];
 		get_file(kChangeDiscPath, disc_path);
 		if (exists(disc_path)) {
-			ignore_previous_discs = 1;
 			Array_push(recents, copy_string(disc_path));
-			strcpy(m3u_dir, disc_path);
-			char* tmp = strrchr(m3u_dir, '/') + 1;
+			
+			char parent_path[256];
+			strcpy(parent_path, disc_path);
+			char* tmp = strrchr(parent_path, '/') + 1;
 			tmp[0] = '\0';
+			Array_push(parent_paths, copy_string(parent_path));
 		}
 		unlink(kChangeDiscPath);
 	}
@@ -331,8 +316,24 @@ static int hasRecents(void) {
 			if (exists(line)) {
 				has = 1;
 				if (recents->count<kMaxRecents) {
-					// skip if in parent folder recently changed disc
-					if (ignore_previous_discs && match_prefix(m3u_dir, line)) continue; 
+					if (match_suffix(".cue", line)) {
+						char parent_path[256];
+						strcpy(parent_path, line);
+						char* tmp = strrchr(parent_path, '/') + 1;
+						tmp[0] = '\0';
+						
+						int found = 0;
+						for (int i=0; i<parent_paths->count; i++) {
+							char* path = parent_paths->items[i];
+							if (match_prefix(path, parent_path)) {
+								found = 1;
+								break;
+							}
+						}
+						if (found) continue;
+						
+						Array_push(parent_paths, copy_string(parent_path));
+					}
 					Array_push(recents, copy_string(line));
 				}
 			}
@@ -340,8 +341,9 @@ static int hasRecents(void) {
 		fclose(file);
 	}
 	
-	// TODO: maybe save regardless since we may have pruned recents for other reasons?
-	if (ignore_previous_discs) saveRecents();
+	saveRecents();
+	
+	StringArray_free(parent_paths);
 	return has;
 }
 static int hasPaks(char* path) {
