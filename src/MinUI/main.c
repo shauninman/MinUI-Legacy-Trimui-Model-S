@@ -1018,8 +1018,11 @@ static void Menu_quit(void) {
 	DirectoryArray_free(stack);
 }
 
+static int enable_screenshots = 0;
 static int screenshots = 0;
 void load_screenshots(void) {
+	enable_screenshots = exists(kRootDir "/.minui/enable-screenshots");
+	if (!enable_screenshots) return;
 	if (exists(kScreenshotsPath)) {
 		char tmp[16];
 		get_file(kScreenshotsPath, tmp);
@@ -1027,6 +1030,8 @@ void load_screenshots(void) {
 	}
 }
 void save_screenshot(SDL_Surface* surface) {
+	if (!enable_screenshots) return;
+	
 	char screenshot_path[256];
 	sprintf(screenshot_path, kScreenshotPathTemplate, ++screenshots);
 	SDL_RWops* out = SDL_RWFromFile(screenshot_path, "wb");
@@ -1154,7 +1159,8 @@ int main(void) {
 			}
 		}
 		
-		if (Input_justPressed(kButtonX)) save_screenshot(NULL);
+		
+		if (enable_screenshots && Input_justPressed(kButtonX)) save_screenshot(NULL);
 		
 		int selected = top->selected;
 		int total = top->entries->count;
