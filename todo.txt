@@ -12,8 +12,7 @@ Remember the goals:
 =======================================
 
 Release Notes:
-- press X in MinUI or the in-emulator menu to save a screenshot (saved to /mnt/SDCARD/.minui/screenshots/)
-- press Y in the in-emulator menu to save a screenshot of the game (without the menu overlay)
+- updated PlayStation emulator (hold MENU and press L/R to trigger L2/R2 instead of L1/R1, added stretched Software Scaling, defaults to off)
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
@@ -41,7 +40,6 @@ MinUI
 		
 emulators
 	all
-		get eggs latest changes
 		support loading save state by number
 			present
 				pcsx -load i
@@ -60,8 +58,6 @@ emulators
 			I would prefer they all live in the emu folder not the rom folder but...
 	temper
 		get eggs (or were they gameblabla's?) latest changes
-		needs syscard3.pce
-			how to distribute or communicate the need?
 	pokemini
 		should power off before exiting
 	gpsp
@@ -69,17 +65,19 @@ emulators
 		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
 		add mmenu
 	fceux
-		inconsistent performance issues
+		- 
 	pcsx_rearmed
-		test Metal Gear Solid
+		-
 	picodrive
 		- 
 	sms_sdl
 		-
 	snes9x2002
-		- get eggs latest changes (from eggs or neonloop?)
+		- get latest changes (from eggs or neonloop?)
 	handy
 		- don't do it! (but the dimensions are perfect and I'm curious! :dies:)
+	oswan
+		- eggs made improvements to audio and framerate, is it good enough?
 
 general
 	figure out how to gracefully recover from a bad update
