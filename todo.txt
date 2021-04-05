@@ -12,10 +12,53 @@ Remember the goals:
 =======================================
 
 Release Notes:
-- updated PlayStation emulator (hold MENU and press L/R to trigger L2/R2 instead of L1/R1, added stretched Software Scaling, defaults to off)
+- updated PlayStation emulator (hold MENU and press L/R to trigger L2/R2 instead of L1/R1, adds stretched Software Scaling, defaults to off)
+- updated Super Nintendo emulator (adds Show FPS option, adds stretched Scaling: Overscan)
+- updated TurboGrafx-16 emulator (not sure what changed...)
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
+
+emulators
+	all
+		support loading save state by number
+			present
+				pcsx -load i
+				picodrive -load i
+
+			kindof
+				pokemini -state path (this is an autostate not a save state)
+				temper s (autoloads state 0)
+
+			missing
+				fceux
+				gambatte
+				race
+				snes9x2002
+		standardize bios locations
+			I would prefer they all live in the emu folder not the rom folder but...
+	pokemini
+		should power off before exiting
+	gpsp
+		grab latest from https://git.crowdedwood.com/picogpsp/commit/
+		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
+		add mmenu
+	handy
+		- don't do it! (but the dimensions are perfect and I'm curious! :dies:)
+	oswan
+		- eggs made improvements to audio and framerate, is it good enough?
+	fceux
+		- 
+	pcsx_rearmed
+		-
+	picodrive
+		- 
+	sms_sdl
+		-
+	snes9x2002
+		- 
+	temper
+		-
 
 MinUI
 	add multi-disc icon when m3u is found?
@@ -37,53 +80,13 @@ MinUI
 		can we reverse it to improve battery when sleeping?
 			check eggs tearing test source	
 		also look into CPU Timer, page 84 of F1C200s manual
-		
-emulators
-	all
-		support loading save state by number
-			present
-				pcsx -load i
-				picodrive -load i
-
-			kindof
-				pokemini -state path (this is an autostate not a save state)
-				temper s (autoloads state 0)
-
-			missing
-				fceux
-				gambatte
-				race
-				snes9x2002
-		standardize bios locations
-			I would prefer they all live in the emu folder not the rom folder but...
-	temper
-		get eggs (or were they gameblabla's?) latest changes
-	pokemini
-		should power off before exiting
-	gpsp
-		grab latest from https://git.crowdedwood.com/picogpsp/commit/
-		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
-		add mmenu
-	fceux
-		- 
-	pcsx_rearmed
-		-
-	picodrive
-		- 
-	sms_sdl
-		-
-	snes9x2002
-		- get latest changes (from eggs or neonloop?)
-	handy
-		- don't do it! (but the dimensions are perfect and I'm curious! :dies:)
-	oswan
-		- eggs made improvements to audio and framerate, is it good enough?
 
 general
 	figure out how to gracefully recover from a bad update
 		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
+		add info about USB Bridge + webadb.com to upload files over USB
 		also note to use Power Off to make sure that save states don't get lost
 		mention GBA, PSX, and 32x using dynarec which may have performance issues initially that go away after playing for a bit and it caches instructions?
 
@@ -113,6 +116,7 @@ paks
 
 games
 	cavestory
+		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
 		add ShowMenu("/mnt/SDCARD/Games/Cave Story.pak", NULL, 0);
 
 rescue things from old repo
