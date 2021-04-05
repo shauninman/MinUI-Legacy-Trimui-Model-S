@@ -44,15 +44,15 @@ emulators
 		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
 		add mmenu
 	handy
-		- don't do it! (but the dimensions are perfect and I'm curious! :dies:)
+		don't do it! (but the dimensions are perfect and I'm curious! :dies:)
 	oswan
-		- eggs made improvements to audio and framerate, is it good enough?
+		eggs made improvements to audio and framerate, is it good enough?
 	fceux
 		- 
 	pcsx_rearmed
 		-
 	picodrive
-		- 
+		how do I know when to manually update submodules?
 	sms_sdl
 		-
 	snes9x2002
