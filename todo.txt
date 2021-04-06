@@ -19,6 +19,8 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+do a point release with updated emulators?
+
 emulators
 	all
 		support loading save state by number
@@ -47,6 +49,8 @@ emulators
 		don't do it! (but the dimensions are perfect and I'm curious! :dies:)
 	oswan
 		eggs made improvements to audio and framerate, is it good enough?
+		also simplified input modes
+		also added rotation scalers
 	fceux
 		- 
 	pcsx_rearmed

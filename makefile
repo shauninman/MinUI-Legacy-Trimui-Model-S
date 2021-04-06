@@ -27,6 +27,7 @@ readme:
 sys: lib
 	mkdir -p "$(PAYLOAD_PATH)"
 	mkdir -p "$(PAYLOAD_PATH)/System"
+	echo "$(RELEASE_NAME)" > "$(PAYLOAD_PATH)/System/version.txt"
 	cd ./TrimuiUpdate/ && make
 	cp -R ./TrimuiUpdate/installer/. "$(PAYLOAD_PATH)"
 	cd ./src/MinUI && make
