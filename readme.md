@@ -1,5 +1,7 @@
 # About MinUI
 
+![MinUI main menu](github/minui.png)
+
 _MinUI is a custom launcher for the [Trimui Model S](http://www.trimui.com/) (aka the PowKiddy A66, sigh)._
 
 I love this little device. I think the hardware is great and that the official firmware has a lot of ambitious ideas. I even like its design. I just wish it were more focused on its unique strengths. I don't think playing console games on a 2" screen with frameskip at 12fps is a great experience. I think selling it as something that plays up to and including PS1 does it a disservice. Where it shines is handheld games. Game Boy and Game Boy Color. Pokémon Mini. Neo Geo Pocket and Neo Geo Pocket Color. Game Gear. (Sorry Japanese friends, I have no experience with the Wonder Swan!) I love that it offers a consistent in-game menu with access to save states (and system-wide volume and brightness button combos). But I think locking players out of each emulator's unique settings was a mistake. MinUI addresses those shortcomings. 
