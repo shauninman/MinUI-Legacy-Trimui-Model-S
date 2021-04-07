@@ -22,6 +22,7 @@ lib:
 
 readme:
 	mkdir -p "$(BUILD_PATH)"
+	echo "$(RELEASE_NAME)" > "$(BUILD_PATH)/version.txt"
 	fmt -w 40 -s "src/MinUI/readme.txt" > "$(BUILD_PATH)/readme.txt"
 
 sys: lib
@@ -159,7 +160,7 @@ zero: tool
 zip:
 	mkdir -p "$(RELEASE_PATH)"
 	cd "$(PAYLOAD_PATH)" && zip -r ../TrimuiUpdate_MinUI.zip . -x "*.DS_Store"
-	cd "$(BUILD_PATH)" && zip -r ../release/$(RELEASE_NAME).zip readme.txt Roms TrimuiUpdate_MinUI.zip
+	cd "$(BUILD_PATH)" && zip -r ../release/$(RELEASE_NAME).zip readme.txt version.txt Roms TrimuiUpdate_MinUI.zip
 
 #--------------------------------------
 
