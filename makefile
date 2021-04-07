@@ -45,7 +45,7 @@ sys: lib
 	cp -R "paks/Update.pak" 		"$(PAYLOAD_PATH)/System"
 
 #--------------------------------------
-emus: gb pm ngp gg snes ps gba nes gen pce
+emus: gb pm ngp gg snes ps gba nes gen pce swan
 #--------------------------------------
 
 emu:
@@ -126,6 +126,12 @@ pce: emu
 	cd ./third-party/temper/SDL && make -j
 	cp -R "paks/TurboGrafx-16.pak" "$(PAYLOAD_PATH)/Emus"
 	cp "third-party/temper/SDL/temper" "$(PAYLOAD_PATH)/Emus/TurboGrafx-16.pak"
+
+swan: emu
+	mkdir -p "$(ROMS_PATH)/WonderSwan"
+	cd ./third-party/oswan && make -j
+	cp -R "paks/WonderSwan.pak" "$(PAYLOAD_PATH)/Emus"
+	cp "third-party/oswan/oswan" "$(PAYLOAD_PATH)/Emus/WonderSwan.pak"
 	
 #--------------------------------------
 tools: bridge commander poweroff reload stock # zero

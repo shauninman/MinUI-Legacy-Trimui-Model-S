@@ -34,3 +34,6 @@
 [submodule "third-party/temper"]
 	path = third-party/temper
 	url = git@github.com:shauninman/temper.git
+[submodule "third-party/oswan"]
+	path = third-party/oswan
+	url = git@github.com:shauninman/oswan.git

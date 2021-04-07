@@ -12,17 +12,17 @@ Remember the goals:
 =======================================
 
 Release Notes:
-- updated PlayStation emulator (hold MENU and press L/R to trigger L2/R2 instead of L1/R1, adds stretched Software Scaling, defaults to off)
-- updated Super Nintendo emulator (adds Show FPS option, adds stretched Scaling: Overscan)
-- updated TurboGrafx-16 emulator (not sure what changed...)
+
+
+
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-do a point release with updated emulators?
 
 emulators
 	all
+		update make clean to not error out (add - before rm? or add f flag?)
 		support loading save state by number
 			present
 				pcsx -load i
@@ -39,6 +39,15 @@ emulators
 				snes9x2002
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
+	oswan
+		create WonderSwan.pak
+		add as submodule
+		add to makefile
+		create trimui-model-s branch
+		apply eggs changes
+		add 1.5x Sharp scaler
+		set MinUI-like defaults (remove rotate wide)
+		add mmenu
 	pokemini
 		should power off before exiting
 	gpsp
@@ -47,14 +56,10 @@ emulators
 		add mmenu
 	handy
 		don't do it! (but the dimensions are perfect and I'm curious! :dies:)
-	oswan
-		eggs made improvements to audio and framerate, is it good enough?
-		also simplified input modes
-		also added rotation scalers
 	fceux
 		- 
 	pcsx_rearmed
-		fix x coords in MENU message (uses _h :facepalm:)
+		- 
 	picodrive
 		how do I know when to manually update submodules?
 	sms_sdl
