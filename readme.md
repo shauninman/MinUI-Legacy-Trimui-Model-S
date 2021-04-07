@@ -1,6 +1,6 @@
 # About MinUI
 
-![MinUI main menu](github/minui.png)
+![MinUI main menu](github/minui.png) ![MinUI in-emulator menu](github/libmmenu-sonic.png)
 
 _MinUI is a custom launcher for the [Trimui Model S](http://www.trimui.com/) (aka the PowKiddy A66, sigh)._
 
