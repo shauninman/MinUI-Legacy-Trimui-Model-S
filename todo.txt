@@ -13,17 +13,11 @@ Remember the goals:
 
 Release Notes:
 
-- added WonderSwan emulator
+- added WonderSwan/WonderSwan Color emulator
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
-
-might only need to use libtmenu and not libshmvar per eggs:
-	I noticed that KeyShm-related functions are also in libtmenu.so, 
-	and since there is also load/saveSystemState, I decided to use 
-	only libtmenu instead of libshmvar in GMenu.
-
 
 emulators
 	all
@@ -36,7 +30,6 @@ emulators
 			kindof
 				pokemini -state path (this is an autostate not a save state)
 				temper s (autoloads state 0)
-
 			missing
 				fceux
 				gambatte
@@ -89,6 +82,8 @@ MinUI
 		also look into CPU Timer, page 84 of F1C200s manual
 
 general
+	keymin?
+		
 	figure out how to gracefully recover from a bad update
 		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
 	add a quickstart section to readme

@@ -731,14 +731,13 @@ static int getBrightness(void) {
 
 static void initTrimuiAPI(void) {
 	void* libtinyalsa = dlopen("/usr/lib/libtinyalsa.so", RTLD_NOW|RTLD_GLOBAL);
-	void* libshmvar = dlopen("/usr/trimui/lib/libshmvar.so", RTLD_NOW|RTLD_GLOBAL);
 	void* libtmenu = dlopen("/usr/trimui/lib/libtmenu.so", RTLD_LAZY);
 
 	setBrightness = dlsym(libtmenu, "setLCDBrightness");
 	setVolume = dlsym(libtmenu, "sunxi_set_volume");
 
-	void (*InitKeyShm)(int* [10]) = dlsym(libshmvar, "InitKeyShm");
-	GetKeyShm = dlsym(libshmvar, "GetKeyShm");
+	void (*InitKeyShm)(int* [10]) = dlsym(libtmenu, "InitKeyShm");
+	GetKeyShm = dlsym(libtmenu, "GetKeyShm");
 
 	InitKeyShm(key);
 }
