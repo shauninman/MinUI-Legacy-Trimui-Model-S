@@ -1,3 +1,12 @@
+pcsx_rearmed
+	double buffering restores emulator drawing and fixes emulator menu flicker
+	but Sony Computer Entertainment America screen still flickers
+	gambatte doesn't use double buffering but doesn't have any problem drawing...
+		is pcsx setting an SDL or build flag that's causing a shared SDL context?
+	can get same results with single buffering by moving dlopen to top of main()
+		before plat_init() is called and our video is setup
+	guys reporting that the flicker happens on a MinUI-less build so I'm going to ignore this issue for now
+
 logo font
 	Marta Bold
 	https://www.fontspring.com/fonts/fontsite/marta
