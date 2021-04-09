@@ -13,7 +13,7 @@ Remember the goals:
 
 Release Notes:
 
-
+- added WonderSwan emulator
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -44,16 +44,6 @@ emulators
 				snes9x2002
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
-	oswan
-		create WonderSwan.pak
-		add as submodule
-		add to makefile
-		create trimui-model-s branch
-		apply eggs changes
-		add 1.5x Sharp scaler
-			proof-of-concept in MacUI project
-		set MinUI-like defaults (remove rotate wide?)
-		add mmenu
 	gpsp
 		grab latest from https://git.crowdedwood.com/picogpsp/commit/
 		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
@@ -74,6 +64,8 @@ emulators
 		- 
 	temper
 		-
+	oswan
+		- 
 
 MinUI
 	add multi-disc icon when m3u is found?
