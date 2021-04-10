@@ -63,7 +63,7 @@ emulators
 	temper
 		-
 	oswan
-		- 
+		prevent buttons from passing through from dismissing mmenu
 
 MinUI
 	add multi-disc icon when m3u is found?
