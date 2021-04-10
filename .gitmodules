@@ -37,3 +37,6 @@
 [submodule "third-party/oswan"]
 	path = third-party/oswan
 	url = git@github.com:shauninman/oswan.git
+[submodule "picogpsp"]
+	path = third-party/picogpsp
+	url = git@github.com:shauninman/picogpsp.git
