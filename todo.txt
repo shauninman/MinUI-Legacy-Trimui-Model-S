@@ -38,13 +38,14 @@ emulators
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
 	picogpsp
-		make sure it
+		finish integrating
 		update post.sh in Game Boy Advance.pak
 			nand gba_bios.bin is no longer necessary
 			if .gpsp folder exists
 				copy any .sav files from .gpsp into .picogpsp
 				delete .gpsp folder
-				delete .mmenu folder (save states aren't compatible)
+				delete .mmenu folder (save states aren't compatible but is this necessary?)
+				delete gpsp binary (or leave to allow editing the launch.sh?)
 	pokemini
 		should power off before exiting
 	handy
@@ -52,9 +53,9 @@ emulators
 	fceux
 		- 
 	pcsx_rearmed
-		check for eggs changes in latest release
+		- 
 	picodrive
-		how do I know when to manually update submodules?
+		-
 	sms_sdl
 		-
 	snes9x2002
@@ -122,6 +123,7 @@ paks
 
 games
 	cavestory
+		make sure updating doesn't delete .cse2 folder
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
 		add ShowMenu("/mnt/SDCARD/Games/Cave Story.pak", NULL, 0);
 
