@@ -1,5 +1,5 @@
 #!/bin/sh
-# Wipe Stock.pak/launch.sh
+# Zero Stock.pak/launch.sh
 
 DIR=$(dirname "$0")
 cd "$DIR"
