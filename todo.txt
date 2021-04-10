@@ -37,10 +37,14 @@ emulators
 				snes9x2002
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
-	gpsp
-		grab latest from https://git.crowdedwood.com/picogpsp/commit/
-		eggs tweaks: https://discord.com/channels/529983248114122762/540168599063756802/824180283963605022
-		add mmenu
+	picogpsp
+		make sure it
+		update post.sh in Game Boy Advance.pak
+			nand gba_bios.bin is no longer necessary
+			if .gpsp folder exists
+				copy any .sav files from .gpsp into .picogpsp
+				delete .gpsp folder
+				delete .mmenu folder (save states aren't compatible)
 	pokemini
 		should power off before exiting
 	handy
@@ -107,7 +111,6 @@ general
 			else putenv("AUDIODEV=/dev/dsp"); // speaker
 
 libmmenu
-	add key repeat
 	update ShowMenu() to omit Save/Load when save_template_path is NULL (for Games)
 	update README
 		document kStatusChangeDisc and /tmp/change_disc
