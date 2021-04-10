@@ -1076,7 +1076,7 @@ int main(void) {
 	buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
 	
 	SDL_ShowCursor(0);
-	SDL_EnableKeyRepeat(500,150);
+	SDL_EnableKeyRepeat(300,100);
 	
 	TTF_Init();
 	TTF_Font* font = TTF_OpenFont("/usr/res/BPreplayBold.otf", 16);
