@@ -63,7 +63,10 @@ emulators
 	temper
 		-
 	oswan
-		prevent buttons from passing through from dismissing mmenu
+		prevent buttons from passing through from dismissing mmenu 
+			see raceod for reference, 066b5ea58796096060c2b73f4490032e5680ba14
+				I thought I had done it for pcsx or picodrive too but maybe not?
+			affects built-in menu too
 
 MinUI
 	add multi-disc icon when m3u is found?
@@ -112,8 +115,9 @@ general
 			else putenv("AUDIODEV=/dev/dsp"); // speaker
 
 libmmenu
-	update ShowMenu() to omit Save/Load when save_template_path is NULL (for Games)
 	update README
+		document Game mode (pass NULL for save_path_template)
+			only shows Continue, Advanced, Exit
 		document kStatusChangeDisc and /tmp/change_disc
 		if you are creating a custom launcher and want to support libmmenu you need to call
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
@@ -125,7 +129,6 @@ games
 	cavestory
 		make sure updating doesn't delete .cse2 folder
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
-		add ShowMenu("/mnt/SDCARD/Games/Cave Story.pak", NULL, 0);
 
 rescue things from old repo
 	art
