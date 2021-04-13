@@ -51,23 +51,19 @@ emulators
 	handy
 		don't do it! (but the dimensions are perfect and I'm curious! :dies:)
 	fceux
-		- 
+		-
 	pcsx_rearmed
-		- 
+		-
 	picodrive
 		-
 	sms_sdl
 		-
 	snes9x2002
-		- 
+		-
 	temper
 		-
 	oswan
-		get eggs changes
-		prevent buttons from passing through from dismissing mmenu 
-			see raceod for reference, 066b5ea58796096060c2b73f4490032e5680ba14
-				I thought I had done it for pcsx or picodrive too but maybe not?
-			affects built-in menu too
+		-
 
 MinUI
 	add multi-disc icon when m3u is found?
