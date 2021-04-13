@@ -69,6 +69,7 @@ emulators
 			affects built-in menu too
 
 MinUI
+	show a message if no roms are found
 	add multi-disc icon when m3u is found?
 	load directly into a save slot?
 		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
@@ -129,6 +130,7 @@ games
 	cavestory
 		make sure updating doesn't delete .cse2 folder
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
+		can I ever release this?
 
 rescue things from old repo
 	art

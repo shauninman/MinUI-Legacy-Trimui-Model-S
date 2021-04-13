@@ -452,6 +452,7 @@ static Array* getEntries(char* path) {
 	EntryArray_sort(entries);
 	return entries;
 }
+static int has_roms = 0;
 static Array* getRoot(void) {
 	Array* entries = Array_new();
 
@@ -477,7 +478,10 @@ static Array* getRoot(void) {
 			strcpy(tmp, dp->d_name);
 			tmp[strlen(dp->d_name)] = '\0';
 			
-			if (hasRoms(full_path)) Array_push(emus, Entry_new(full_path, kEntryDir));
+			if (hasRoms(full_path)) {
+				Array_push(emus, Entry_new(full_path, kEntryDir));
+				has_roms = 1;
+			}
 		}
 		EntryArray_sort(emus);
 		for (int i=0; i<emus->count; i++) {
@@ -1115,7 +1119,27 @@ int main(void) {
 	
 	Menu_init();
 	
-	SDL_FillRect(buffer, &buffer->clip_rect, SDL_MapRGB(buffer->format, 0, 0, 0));
+	if (!has_roms) {
+		SDL_Surface* ui_roms = IMG_Load("/mnt/SDCARD/System/res/roms.png");
+		SDL_BlitSurface(ui_roms, NULL, screen, NULL);
+		SDL_Flip(screen);
+		
+		SDL_Event event;
+		int prompt = 1;
+		while (prompt) {
+			while (SDL_PollEvent(&event)) {
+				switch( event.type ){
+					case SDL_KEYDOWN:
+						if (event.key.keysym.sym==TRIMUI_A) prompt = 0;
+					break;
+				}
+			}
+		}
+		
+		SDL_FreeSurface(ui_roms);
+	}
+	
+	SDL_FillRect(buffer, NULL, 0);
 	
 	SDL_Event event;
 	int is_dirty = 1;
