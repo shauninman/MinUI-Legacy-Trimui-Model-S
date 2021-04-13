@@ -1,3 +1,23 @@
+vvvvvv
+	needs data.zip from https://thelettervsixtim.es/makeandplay/
+	swap is required to (attempt to) load audio
+		setup
+			dd if=/dev/zero of=/mnt/SDCARD/.minui/swapfile bs=1M count=128
+			chmod 600 /mnt/SDCARD/.minui/swapfile
+			mkswap /mnt/SDCARD/.minui/swapfile
+			swapon /mnt/SDCARD/.minui/swapfile
+		remove
+			swapoff -a; rm -f /mnt/SDCARD/.minui/swapfile
+	update PLATFORM_getOSDirectory() to write to pak
+		strcpy(output, ".vvvvvv/");
+	no music:
+		Unable to load Magic Binary Music file: Unrecognized music format
+		because trimui doesn't support ogg
+			use temper/tremor?
+	video isn't working
+		only colors or noise are rendering
+			is it the bit depth? abgr? both?
+
 pcsx_rearmed
 	double buffering restores emulator drawing and fixes emulator menu flicker
 	but Sony Computer Entertainment America screen still flickers

@@ -124,7 +124,6 @@ paks
 
 games
 	cavestory
-		make sure updating doesn't delete .cse2 folder
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
 		can I ever release this?
 
