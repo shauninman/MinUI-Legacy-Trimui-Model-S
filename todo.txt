@@ -20,6 +20,43 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+resume game
+	libmmenu
+		write number of last save slot used (loaded or saved) to .mmenu/<name of game>.txt
+		add a new function ResumeSlot() that reads from (then deletes) /tmp/mmenu_slot, returns -1 if not present
+			this way we don't have to pass the slot to the emulator 
+			which may use base-1 instead of base-0 
+			or not support loading a slot directly at all
+	mmenu
+		press X (move screenshot to Y) to .mmenu/<name of game>.txt to /tmp/mmenu_slot
+	emulators
+		call libmmenu's new ResumeSlot() and act accordingly
+		
+	
+	
+	
+
+MinUI
+	load directly into a save slot?
+		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
+		we can detect saves in the .mmenu folder
+			each emulator would have to be updated to load a slot by number (most are probably by filename...)
+
+	add multi-disc icon when m3u is found?
+	allow "000 - " before filename to control sorting	
+		update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
+		or add entry->sortName
+		check sorting logic to make sure it isn't converting all non-alpha to 0
+			sort dir above rom?
+	
+	look into GMenuNX's brightness modifications
+	
+	is tearing patch affecting battery?
+		is the device running hotter?
+		can we reverse it to improve battery when sleeping?
+			check eggs tearing test source	
+		also look into CPU Timer, page 84 of F1C200s manual
+
 flipbook
 	add an x/y pill overlay that disappears 1-2 seconds after changing images
 
@@ -67,28 +104,7 @@ emulators
 	temper
 		-
 	oswan
-		-
-
-MinUI
-	add multi-disc icon when m3u is found?
-	load directly into a save slot?
-		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
-		we can detect saves in the .mmenu folder
-			each emulator would have to be updated to load a slot by number (most are probably by filename...)
-
-	allow "000 - " before filename to control sorting	
-		update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
-		or add entry->sortName
-		check sorting logic to make sure it isn't converting all non-alpha to 0
-			sort dir above rom?
-	
-	look into GMenuNX's brightness modifications
-	
-	is tearing patch affecting battery?
-		is the device running hotter?
-		can we reverse it to improve battery when sleeping?
-			check eggs tearing test source	
-		also look into CPU Timer, page 84 of F1C200s manual
+		eggs has more scalers
 
 general
 	keymin?
@@ -103,7 +119,7 @@ general
 
 	document new REMPAP launch.sh for multiple rom types that use the same emulator
 	
-	wrap functions shared by MinUI and libmmenu into a shared source file?
+	wrap functions shared by MinUI, utilities, and libmmenu into a shared source file?
 		yes, please!
 	
 	document submodule upstream urls since they get lost when cloned
@@ -120,6 +136,7 @@ libmmenu
 		document Game mode (pass NULL for save_path_template)
 			only shows Continue, Advanced, Exit
 		document kStatusChangeDisc and /tmp/change_disc
+		document ResumeSlot()
 		if you are creating a custom launcher and want to support libmmenu you need to call
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
 

@@ -19,9 +19,12 @@
 ///////////////////////////////////////
 
 #define kRootDir "/mnt/SDCARD"
+#define kEmusDir kRootDir "/Emus/"
+#define kRomsDir kRootDir "/Roms/"
 #define kRecentlyPlayedDir kRootDir "/Recently Played"
 #define kLastPath "/tmp/last.txt"
 #define kChangeDiscPath "/tmp/change_disc.txt"
+#define kResumeSlotPath "/tmp/mmenu_slot.txt"
 #define kTrimuiUpdatePath kRootDir "/TrimuiUpdate_MinUI.zip"
 #define kScreenshotsPath kRootDir "/.minui/screenshots.txt"
 #define kScreenshotPathTemplate kRootDir "/.minui/screenshots/screenshot-%i.bmp"
@@ -379,8 +382,7 @@ static int hasRoms(char* path) {
 	// makes sure we have an emu pak
 	char emu[256];
 	strcpy(emu, path);
-	char* emus = kRootDir "/Emus/";
-	strncpy(emu, emus, strlen(emus));
+	strncpy(emu, kEmusDir, strlen(kEmusDir));
 	concat(emu, ".pak/launch.sh", 256);
 	if (!exists(emu)) return has;
 	
@@ -898,16 +900,60 @@ static void queue_next(char* cmd) {
 	put_file(kRootDir "/.minui/next.sh", cmd);
 	quit = 1;
 }
+
+static int can_resume = 0;
+static int should_resume = 0; // set to 1 on TRIMUI_START but only if can_resume==1
+static char slot_path[256];
+
+static void ready_resume(char* path) {
+	printf("ready_resume: %s\n", path);
+	fflush(stdout);
+	
+	if (!match_prefix(kRomsDir, path)) {
+		can_resume = 0;
+		return;
+	}
+	
+	char emu_name[256];
+	strcpy(emu_name, path + strlen(kRomsDir));
+	char* slash = strchr(emu_name, '/');
+	emu_name[slash-emu_name] = '\0';
+	
+	char* tmp;
+	char rom_file[256];
+	tmp = strrchr(path, '/') + 1;
+	strcpy(rom_file, tmp);
+	
+	slot_path[0] = '\0';
+	strcpy(slot_path, kRomsDir);
+	concat(slot_path, emu_name, 256);
+	concat(slot_path, "/.mmenu/", 256);
+
+	concat(slot_path, rom_file, 256);
+	tmp = strrchr(slot_path, '.') + 1;
+	strcpy(tmp, "txt");
+	
+	can_resume = exists(slot_path);
+}
+	
 static void open_rom(char* path, char* last) {
 	char launch[256];
 	launch[0] = '"';
-	strcpy(launch+1, kRootDir "/Emus/");
-	char* roms = kRootDir "/Roms/";
-	char name[256];
-	strcpy(name, path + strlen(roms));
-	char* slash = strchr(name, '/');
-	name[slash-name] = '\0';
-	concat(launch, name, 256);
+	strcpy(launch+1, kEmusDir);
+
+	char emu_name[256];
+	strcpy(emu_name, path + strlen(kRomsDir));
+	char* slash = strchr(emu_name, '/');
+	emu_name[slash-emu_name] = '\0';
+
+	if (should_resume) {
+		char slot[16];
+		get_file(slot_path, slot);
+		put_file(kResumeSlotPath, slot);
+		should_resume = 0;
+	}
+	
+	concat(launch, emu_name, 256);
 	concat(launch, ".pak/launch.sh\" \"", 256);
 	concat(launch, path, 256);
 	concat(launch, "\"", 256);
@@ -1106,6 +1152,7 @@ int main(void) {
 	SDL_Surface* ui_browse_icon = IMG_Load("/usr/trimui/res/skin/stat-nav-icon.png");
 	SDL_Surface* ui_round_button = IMG_Load("/mnt/SDCARD/System/res/nav-bar-item-bg.png");
 	SDL_Surface* ui_menu_icon = IMG_Load("/usr/trimui/res/skin/stat-menu-icon.png");
+	SDL_Surface* ui_start_icon = IMG_Load("/mnt/SDCARD/System/res/stat-start-icon.png");
 	
 	SDL_Surface* ui_power_0_icon   = IMG_Load("/usr/trimui/res/skin/power-0%-icon.png");
 	SDL_Surface* ui_power_20_icon  = IMG_Load("/usr/trimui/res/skin/power-20%-icon.png");
@@ -1116,6 +1163,8 @@ int main(void) {
 	// Mix_Chunk *click = Mix_LoadWAV("/usr/trimui/res/sound/click.wav");
 	
 	load_screenshots();
+	
+	if (exists(kResumeSlotPath)) unlink(kResumeSlotPath);
 	
 	Menu_init();
 	
@@ -1271,16 +1320,31 @@ int main(void) {
 		if (selected!=top->selected) {
 			top->selected = selected;
 			is_dirty = 1;
-			// TODO: start timer for scroll
 		}
 		
-		if (Input_justPressed(kButtonA)) {
+		if (is_dirty) {
+			Entry* entry = top->entries->items[top->selected];
+			if (entry->type==kEntryRom) ready_resume(entry->path);
+			else can_resume = 0;
+		}
+		
+		if (can_resume && Input_justPressed(kButtonStart)) {
+			should_resume = 1;
 			Entry_open(top->entries->items[top->selected]);
 			is_dirty = 1;
 		}
-		if (Input_justPressed(kButtonB) && stack->count>1) {
+		else if (Input_justPressed(kButtonA)) {
+			Entry_open(top->entries->items[top->selected]);
+			is_dirty = 1;
+			
+			Entry* entry = top->entries->items[top->selected];
+			if (entry->type==kEntryRom) ready_resume(entry->path);
+			else can_resume = 0;
+		}
+		else if (Input_justPressed(kButtonB) && stack->count>1) {
 			close_directory();
 			is_dirty = 1;
+			can_resume = 0;
 		}
 		
 		unsigned long now = SDL_GetTicks();
@@ -1348,11 +1412,18 @@ int main(void) {
 			SDL_BlitSurface(ui_power_icon, NULL, buffer, &(SDL_Rect){294,6,0,0});
 			
 			if (top->entries->count) {
-				// browse
-				SDL_BlitSurface(ui_menu_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
-				text = TTF_RenderUTF8_Blended(tiny, "SLEEP", (SDL_Color){0xff,0xff,0xff});
-				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){56,212,0,0});
-				SDL_FreeSurface(text);
+				if (can_resume) {
+					SDL_BlitSurface(ui_start_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
+					text = TTF_RenderUTF8_Blended(tiny, "RESUME", (SDL_Color){0xff,0xff,0xff});
+					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){56,212,0,0});
+					SDL_FreeSurface(text);
+				}
+				else {
+					SDL_BlitSurface(ui_menu_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
+					text = TTF_RenderUTF8_Blended(tiny, "SLEEP", (SDL_Color){0xff,0xff,0xff});
+					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){56,212,0,0});
+					SDL_FreeSurface(text);
+				}
 			
 				// A Open
 				SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){251,210,0,0});
@@ -1474,6 +1545,7 @@ int main(void) {
 	SDL_FreeSurface(ui_browse_icon);
 	SDL_FreeSurface(ui_round_button);
 	SDL_FreeSurface(ui_menu_icon);
+	SDL_FreeSurface(ui_start_icon);
 	SDL_FreeSurface(ui_power_0_icon);
 	SDL_FreeSurface(ui_power_20_icon);
 	SDL_FreeSurface(ui_power_50_icon);

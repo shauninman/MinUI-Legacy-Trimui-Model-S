@@ -1,3 +1,6 @@
+mount an extracted Trimui factory restore image called "rootfs.fex.iso" as TRIMUI0104 with
+	ext4fuse rootfs.fex.iso /Volumes/TRIMUI0104
+
 vvvvvv
 	needs data.zip from https://thelettervsixtim.es/makeandplay/
 	swap is required to (attempt to) load audio
