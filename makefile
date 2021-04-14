@@ -34,6 +34,7 @@ sys: lib
 	cd ./src/MinUI && make
 	cd ./src/show && make
 	cd ./src/confirm && make
+	cd ./src/flipbook && make
 	cp -R "paks/System.pak" 		"$(PAYLOAD_PATH)/System"
 	cp "src/MinUI/MinUI" 			"$(PAYLOAD_PATH)/System/System.pak"
 	mkdir -p "$(PAYLOAD_PATH)/System/bin"
@@ -41,6 +42,7 @@ sys: lib
 	cp -R "res" "$(PAYLOAD_PATH)/System"
 	cp "src/show/show" 				"$(PAYLOAD_PATH)/System/bin"
 	cp "src/confirm/confirm" 		"$(PAYLOAD_PATH)/System/bin"
+	cp "src/flipbook/flipbook" 		"$(PAYLOAD_PATH)/System/bin"
 	cp "src/libmmenu/libmmenu.so"	"$(PAYLOAD_PATH)/System/lib"
 	cp -R "paks/Update.pak" 		"$(PAYLOAD_PATH)/System"
 
@@ -174,6 +176,8 @@ clean:
 	cd ./src/libmmenu && make clean
 	cd ./src/MinUI && make clean
 	cd ./src/show && make clean
+	cd ./src/confirm && make clean
+	cd ./src/flipbook && make clean
 	cd ./TrimuiUpdate/ && make clean
 	cd ./third-party/DinguxCommander && make clean
 	cd ./third-party/gambatte-dms && make clean
