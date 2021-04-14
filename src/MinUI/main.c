@@ -1183,7 +1183,7 @@ int main(void) {
 		}
 		
 		
-		if (enable_screenshots && Input_justPressed(kButtonX)) save_screenshot(NULL);
+		if (enable_screenshots && Input_justPressed(kButtonY)) save_screenshot(NULL);
 		
 		int selected = top->selected;
 		int total = top->entries->count;
