@@ -14,10 +14,14 @@ Remember the goals:
 Release Notes:
 
 - added WonderSwan/WonderSwan Color emulator
+- added System/bin/flipbook (used to make paks with browsable 320x240 pngs/bmps)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
+
+flipbook
+	add an x/y pill overlay that disappears 1-2 seconds after changing images
 
 emulators
 	all
