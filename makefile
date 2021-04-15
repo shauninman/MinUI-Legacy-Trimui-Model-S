@@ -135,6 +135,12 @@ swan: emu
 	cp -R "paks/WonderSwan.pak" "$(PAYLOAD_PATH)/Emus"
 	cp "third-party/oswan/oswan" "$(PAYLOAD_PATH)/Emus/WonderSwan.pak"
 	
+gbm: emu # TODO: tmp, not hooked into release yet
+	# mkdir -p "$(ROMS_PATH)/Game Boy Advance"
+	cd ./third-party/picogpsp && make -j
+	cp -R "paks/Game Boy micro.pak" "$(PAYLOAD_PATH)/Emus"
+	cp "third-party/picogpsp/picogpsp" "$(PAYLOAD_PATH)/Emus/Game Boy micro.pak"
+
 #--------------------------------------
 tools: bridge commander poweroff reload stock # zero
 #--------------------------------------
