@@ -1,3 +1,7 @@
+file naming conventions
+	use .txt for human readable data
+	no extension when file has no data (eg. its presence is used as a flag)
+
 mount an extracted Trimui factory restore image called "rootfs.fex.iso" as TRIMUI0104 with
 	ext4fuse rootfs.fex.iso /Volumes/TRIMUI0104
 
