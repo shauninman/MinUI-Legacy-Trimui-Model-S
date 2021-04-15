@@ -901,17 +901,30 @@ static void queue_next(char* cmd) {
 	quit = 1;
 }
 
+static int has_cue(char* path, char* auto_path) {
+	char* tmp = strrchr(path, '/') + 1; // folder name
+	strcpy(auto_path, path);
+	concat(auto_path, "/", 256);
+	concat(auto_path, tmp, 256);
+	concat(auto_path, ".cue", 256);
+	if (exists(auto_path)) return 1;
+	return 0;
+}
+
 static int can_resume = 0;
 static int should_resume = 0; // set to 1 on TRIMUI_START but only if can_resume==1
 static char slot_path[256];
 
-static void ready_resume(char* path) {
-	printf("ready_resume: %s\n", path);
-	fflush(stdout);
+static void ready_resume(Entry* entry) {
+	can_resume = 0;
+	char path[256];
+	strcpy(path, entry->path);
+	if (!match_prefix(kRomsDir, path)) return;
 	
-	if (!match_prefix(kRomsDir, path)) {
-		can_resume = 0;
-		return;
+	char auto_path[256];
+	if (entry->type==kEntryDir) {
+		if (!has_cue(path, auto_path)) return;
+		strcpy(path, auto_path);
 	}
 	
 	char emu_name[256];
@@ -972,20 +985,16 @@ static void open_game(char*path) {
 	saveLast(path);
 	queue_next(launch);
 }
+
 static void open_directory(char* path, int auto_launch) {
 	// TODO: only do this in sub folders of Roms, or better yet if the emulator supports cue files
 	char auto_path[256];
-	char* tmp = strrchr(path, '/') + 1; // folder name
-	strcpy(auto_path, path);
-	concat(auto_path, "/", 256);
-	concat(auto_path, tmp, 256);
-	concat(auto_path, ".cue", 256);
-	if (auto_launch && exists(auto_path)) {
+	if (has_cue(path, auto_path) && auto_launch) {
 		open_rom(auto_path, path);
 		return;
 	}
 
-	tmp = strrchr(auto_path, '.') + 1; // extension
+	char* tmp = strrchr(auto_path, '.') + 1; // extension
 	strcpy(tmp, "m3u"); // replace with m3u
 	
 	if (exists(auto_path)) {
@@ -1323,9 +1332,11 @@ int main(void) {
 		}
 		
 		if (is_dirty) {
-			Entry* entry = top->entries->items[top->selected];
-			if (entry->type==kEntryRom) ready_resume(entry->path);
-			else can_resume = 0;
+			ready_resume(top->entries->items[top->selected]);
+			
+			// Entry* entry = top->entries->items[top->selected];
+			// if (entry->type==kEntryRom) ready_resume(entry->path);
+			// else can_resume = 0;
 		}
 		
 		if (can_resume && Input_justPressed(kButtonStart)) {
@@ -1337,9 +1348,7 @@ int main(void) {
 			Entry_open(top->entries->items[top->selected]);
 			is_dirty = 1;
 			
-			Entry* entry = top->entries->items[top->selected];
-			if (entry->type==kEntryRom) ready_resume(entry->path);
-			else can_resume = 0;
+			ready_resume(top->entries->items[top->selected]);
 		}
 		else if (Input_justPressed(kButtonB) && stack->count>1) {
 			close_directory();
