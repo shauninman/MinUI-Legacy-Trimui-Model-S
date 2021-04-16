@@ -21,16 +21,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-libmmenu
-	update README
-		document Game mode (pass NULL for save_path_template)
-			only shows Continue, Advanced, Exit
-		document kStatusChangeDisc and ChangeDisc()
-		document ResumeSlot()
-		if you are creating a custom launcher and want to support libmmenu you need to call
-			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
-
-
 MinUI
 	add multi-disc icon when m3u is found?
 	allow "000 - " before filename to control sorting	
@@ -84,8 +74,8 @@ emulators
 general
 	can we fix the orphaned clusters SD card problem or would that require kernel changes?
 		https://elinux.org/images/5/54/Elc2011_munegowda.pdf
-	keymin?
-		
+	keymin
+		feasible with what we've learned?
 	figure out how to gracefully recover from a bad update
 		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
 	add a quickstart section to readme
@@ -115,6 +105,9 @@ games
 	cavestory
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
 		can I ever release this?
+
+libmmenu
+	-
 
 rescue things from old repo
 	art
