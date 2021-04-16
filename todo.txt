@@ -13,7 +13,7 @@ Remember the goals:
 
 Release Notes:
 
-- press START to launch a rom and load the most recently used save state (only available for save states created or loaded after installing this update)
+- press X to launch a rom straight into the most recently used save state (only available for save states created or loaded after installing this update)
 - added WonderSwan/WonderSwan Color emulator
 - added System/bin/flipbook (used to make paks with browsable 320x240 pngs/bmps)
 
@@ -36,28 +36,7 @@ libmmenu
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
 
 
-resume game
-	libmmenu
-		write number of last save slot used (loaded or saved) to .mmenu/<name of game>.txt
-		add a new function ResumeSlot() that reads from (then deletes) /tmp/mmenu_slot, returns -1 if not present
-			this way we don't have to pass the slot to the emulator 
-			which may use base-1 instead of base-0 
-			or not support loading a slot directly at all
-	mmenu
-		press X (move screenshot to Y) to .mmenu/<name of game>.txt to /tmp/mmenu_slot
-	emulators
-		call libmmenu's new ResumeSlot() and act accordingly
-		
-	
-	
-	
-
 MinUI
-	load directly into a save slot?
-		press X to Resume (using most recently saved slot?) instead of A to Open? or press SELECT to toggle a mode? show preview image?
-		we can detect saves in the .mmenu folder
-			each emulator would have to be updated to load a slot by number (most are probably by filename...)
-
 	add multi-disc icon when m3u is found?
 	allow "000 - " before filename to control sorting	
 		update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
@@ -77,23 +56,8 @@ flipbook
 	add an x/y pill overlay that disappears 1-2 seconds after changing images
 
 emulators
-	all
-		update make clean to not error out (add - before rm? or add f flag?)
-		support loading save state by number
-			present
-				pcsx -load i
-				picodrive -load i
-
-			kindof
-				pokemini -state path (this is an autostate not a save state)
-				temper s (autoloads state 0)
-			missing
-				fceux
-				gambatte
-				race
-				snes9x2002
-		standardize bios locations
-			I would prefer they all live in the emu folder not the rom folder but...
+	standardize bios locations
+		I would prefer they all live in the emu folder not the rom folder but...
 	picogpsp
 		finish integrating
 		update post.sh in Game Boy Advance.pak
@@ -123,6 +87,8 @@ emulators
 		eggs has more scalers
 
 general
+	can we fix the orphaned clusters SD card problem or would that require kernel changes?
+		https://elinux.org/images/5/54/Elc2011_munegowda.pdf
 	keymin?
 		
 	figure out how to gracefully recover from a bad update

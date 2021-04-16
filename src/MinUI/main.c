@@ -1339,7 +1339,7 @@ int main(void) {
 			// else can_resume = 0;
 		}
 		
-		if (can_resume && Input_justPressed(kButtonStart)) {
+		if (can_resume && Input_justPressed(kButtonX)) {
 			should_resume = 1;
 			Entry_open(top->entries->items[top->selected]);
 			is_dirty = 1;
@@ -1422,9 +1422,20 @@ int main(void) {
 			
 			if (top->entries->count) {
 				if (can_resume) {
-					SDL_BlitSurface(ui_start_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
+					// START Resume
+					// SDL_BlitSurface(ui_start_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
+					// text = TTF_RenderUTF8_Blended(tiny, "RESUME", (SDL_Color){0xff,0xff,0xff});
+					// SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){56,212,0,0});
+					// SDL_FreeSurface(text);
+					
+					// X Resume
+					SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){10,210,0,0});
 					text = TTF_RenderUTF8_Blended(tiny, "RESUME", (SDL_Color){0xff,0xff,0xff});
-					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){56,212,0,0});
+					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){35,212,0,0});
+					SDL_FreeSurface(text);
+			
+					text = TTF_RenderUTF8_Blended(font, "X", (SDL_Color){0x9f,0x89,0x52});
+					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){10+6,210+1,0,0});
 					SDL_FreeSurface(text);
 				}
 				else {
