@@ -22,15 +22,10 @@ As always, thanks eggs, neonloop, and gameblabla!
 =======================================
 
 libmmenu
-	add function to get change disc path 
-		pass in a buffer
-		set buffer to null if no change was requested
-		otherwise set to path
-		update pcsx and picodrive (temper too?)
 	update README
 		document Game mode (pass NULL for save_path_template)
 			only shows Continue, Advanced, Exit
-		document kStatusChangeDisc and /tmp/change_disc
+		document kStatusChangeDisc and ChangeDisc()
 		document ResumeSlot()
 		if you are creating a custom launcher and want to support libmmenu you need to call
 			export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
