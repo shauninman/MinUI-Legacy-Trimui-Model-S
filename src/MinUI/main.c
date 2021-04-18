@@ -27,7 +27,7 @@
 #define kResumeSlotPath "/tmp/mmenu_slot.txt"
 #define kTrimuiUpdatePath kRootDir "/TrimuiUpdate_MinUI.zip"
 #define kScreenshotsPath kRootDir "/.minui/screenshots.txt"
-#define kScreenshotPathTemplate kRootDir "/.minui/screenshots/screenshot-%i.bmp"
+#define kScreenshotPathTemplate kRootDir "/.minui/screenshots/screenshot-%03i.bmp"
 
 ///////////////////////////////////////
 

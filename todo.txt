@@ -13,20 +13,22 @@ Remember the goals:
 
 Release Notes:
 
-- 
+- added Lynx emulator
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+add WonderSwan Color.pak?
+
 MinUI
-	0-pad screenshot numbers
 	revert to stocks wording when unzipping
 		I don't like it but consistency is consistency
 	exit gracefully from .tmp_update if the System folder isn't found
 	don't create rom folder on install/update
 		I don't like when the stock launcher does it
 		why would I do it? The zip file and readme cover how to do it
+	look into GMenuNX's brightness modifications
 
 	add multi-disc icon when m3u is found?
 	allow "000 - " before filename to control sorting	
@@ -35,7 +37,6 @@ MinUI
 		check sorting logic to make sure it isn't converting all non-alpha to 0
 			sort dir above rom?
 	
-	look into GMenuNX's brightness modifications
 	
 	is tearing patch affecting battery?
 		is the device running hotter?
@@ -48,7 +49,7 @@ flipbook
 
 emulators
 	oswan
-		eggs has more scalers
+		eggs has more scalers (waiting to hear back if he was seeking feedback or recommending for release)
 	standardize bios locations
 		I would prefer they all live in the emu folder not the rom folder but...
 	picogpsp
