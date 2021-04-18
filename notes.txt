@@ -1,3 +1,9 @@
+don't create rom folder on install/update
+	I don't like when the stock launcher does it
+	why would I do it? The zip file and readme cover how to do it
+		hmm, what if you wan to add roms later, after you've ditched the zip?
+		how would you know what was supported and where to put them?
+			
 file naming conventions
 	use .txt for human readable data
 	no extension when file has no data (eg. its presence is used as a flag)

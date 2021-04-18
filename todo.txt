@@ -22,19 +22,18 @@ As always, thanks eggs, neonloop, and gameblabla!
 add WonderSwan Color.pak?
 
 MinUI
-	don't create rom folder on install/update
-		I don't like when the stock launcher does it
-		why would I do it? The zip file and readme cover how to do it
 	look into GMenuNX's brightness modifications
+	
+	maybe only create rom folders on install not update?
+		the user might have deleted them, let's not antagonize them like stock
+	
+	is there a way to remember the MinUI name for a pak?
+		so a pak can be updated even if renamed?
+		if <name>.pak/default_name.txt doesn't exist write <name> to it
+			do shell scripts have arrays? hashes?
+			maybe before updating each we build a list mapping default to custom
+			then when updating we look up the custom path from the default one in that file?
 
-	add multi-disc icon when m3u is found?
-	allow "000 - " before filename to control sorting	
-		update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
-		or add entry->sortName
-		check sorting logic to make sure it isn't converting all non-alpha to 0
-			sort dir above rom?
-	
-	
 	is tearing patch affecting battery?
 		is the device running hotter?
 		can we reverse it to improve battery when sleeping?
