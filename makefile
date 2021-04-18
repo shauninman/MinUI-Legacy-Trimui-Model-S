@@ -141,6 +141,12 @@ gbm: emu # TODO: tmp, not hooked into release yet
 	cp -R "paks/Game Boy micro.pak" "$(PAYLOAD_PATH)/Emus"
 	cp "third-party/picogpsp/picogpsp" "$(PAYLOAD_PATH)/Emus/Game Boy micro.pak"
 
+lynx: emu
+	mkdir -p "$(ROMS_PATH)/Lynx"
+	cd ./third-party/handy-rs97 && make -j
+	cp -R "paks/Lynx.pak" "$(PAYLOAD_PATH)/Emus"
+	cp "third-party/handy-rs97/handy" "$(PAYLOAD_PATH)/Emus/Lynx.pak"
+
 #--------------------------------------
 tools: bridge commander poweroff reload stock # zero
 #--------------------------------------

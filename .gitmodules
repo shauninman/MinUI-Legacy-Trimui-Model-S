@@ -40,3 +40,6 @@
 [submodule "picogpsp"]
 	path = third-party/picogpsp
 	url = git@github.com:shauninman/picogpsp.git
+[submodule "third-party/handy-rs97"]
+	path = third-party/handy-rs97
+	url = git@github.com:shauninman/handy-rs97.git

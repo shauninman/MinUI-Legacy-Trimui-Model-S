@@ -63,9 +63,8 @@ emulators
 	pokemini
 		should power off before exiting
 	handy
-		runs but requires SDL_NOMOUSE=1 envvar set before launching
 		check libretro for updates to core
-		add mmenu
+		profile with California Games
 	fceux
 		-
 	pcsx_rearmed
