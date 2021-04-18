@@ -22,7 +22,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 add WonderSwan Color.pak?
 
 MinUI
-	exit gracefully from .tmp_update if the System folder isn't found
 	don't create rom folder on install/update
 		I don't like when the stock launcher does it
 		why would I do it? The zip file and readme cover how to do it
