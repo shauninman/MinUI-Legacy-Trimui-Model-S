@@ -55,9 +55,9 @@ if [ -f /tmp/minui_update ]; then
 	
 	echo start updating | tee $UPDATE_LOG
 	updateui >> $UPDATE_LOG &
-	notify 0 "unzip Update"
+	notify 0 "extracting package"
 	mkdir -p ${UPDATE_TMP}
 	total=`unzip -l ${UPDATE_ZIP} | wc -l`
-	unzip -d ${UPDATE_TMP} -o ${UPDATE_ZIP} | awk -v total="$total" -v out="/tmp/.update_msg" 'function bname(file,a,n){n=split(file,a,"/");return a[n]}BEGIN{cnt=0}{printf "">out;cnt+=1;printf "%d unzip %s\n",cnt*100/total,bname($2)>>out;close(out)}'
+	unzip -d ${UPDATE_TMP} -o ${UPDATE_ZIP} | awk -v total="$total" -v out="/tmp/.update_msg" 'function bname(file,a,n){n=split(file,a,"/");return a[n]}BEGIN{cnt=0}{printf "">out;cnt+=1;printf "%d extract %s\n",cnt*100/total,bname($2)>>out;close(out)}'
 	"$UPDATE_TMP/updater" | tee -a $UPDATE_LOG
 fi

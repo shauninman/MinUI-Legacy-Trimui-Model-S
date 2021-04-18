@@ -22,8 +22,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 add WonderSwan Color.pak?
 
 MinUI
-	revert to stocks wording when unzipping
-		I don't like it but consistency is consistency
 	exit gracefully from .tmp_update if the System folder isn't found
 	don't create rom folder on install/update
 		I don't like when the stock launcher does it
