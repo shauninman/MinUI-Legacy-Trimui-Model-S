@@ -69,10 +69,6 @@ ugh, my submodules have all lost their upstream remotes?
 	need to re-add everytime you clone apparently
 		git remote add upstream ...
 
-add secret screenshot key to MinUI and mmenu?
-	how to name? Trimui doesn't have a system clock :sob:
-		just straight increment?
-
 figure out how to distribute Zero Stock.pak
 	or maybe don't? I did, for people who use separate cards
 
@@ -88,8 +84,7 @@ cavestory
 move saves to common folder
 	but which common folder?
 	on second thought, since these folders are all invisible,
-		I don't love the idea of saves being too far away from 
-		a folder highly trafficked by the player...
+		I don't love the idea of saves being too far away from a folder highly trafficked by the player...
 
 kill/relaunch keymon on sleep/wake? or killall -s STOP/CONT keymon
 	makes relaunching MinUI crashy, the audio device disappears, seemingly permanently

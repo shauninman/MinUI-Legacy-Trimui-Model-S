@@ -12,6 +12,9 @@ Features
 - Quick access to save states and 
   disc swapping plus full access 
   to each emulator's unique settings
+- Resume from your last used save
+  state by just pressing X in the 
+  file browser
 - Instant sleep, just press MENU in
   the file browser or menu (hold L 
   and R and then press any other 

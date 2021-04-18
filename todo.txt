@@ -13,15 +13,21 @@ Remember the goals:
 
 Release Notes:
 
-- press X to launch a rom straight into the most recently used save state (only available for save states created or loaded after installing this update)
-- added WonderSwan/WonderSwan Color emulator
-- added System/bin/flipbook (used to make paks with browsable 320x240 pngs/bmps)
+- 
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
 MinUI
+	0-pad screenshot numbers
+	revert to stocks wording when unzipping
+		I don't like it but consistency is consistency
+	exit gracefully from .tmp_update if the System folder isn't found
+	don't create rom folder on install/update
+		I don't like when the stock launcher does it
+		why would I do it? The zip file and readme cover how to do it
+
 	add multi-disc icon when m3u is found?
 	allow "000 - " before filename to control sorting	
 		update EntryArray_sortEntry() to use strrchr(item->path)+1 instead of item->name
@@ -41,6 +47,8 @@ flipbook
 	add an x/y pill overlay that disappears 1-2 seconds after changing images
 
 emulators
+	oswan
+		eggs has more scalers
 	standardize bios locations
 		I would prefer they all live in the emu folder not the rom folder but...
 	picogpsp
@@ -55,7 +63,9 @@ emulators
 	pokemini
 		should power off before exiting
 	handy
-		don't do it! (but the dimensions are perfect and I'm curious! :dies:)
+		runs but requires SDL_NOMOUSE=1 envvar set before launching
+		check libretro for updates to core
+		add mmenu
 	fceux
 		-
 	pcsx_rearmed
@@ -68,8 +78,6 @@ emulators
 		-
 	temper
 		-
-	oswan
-		eggs has more scalers
 
 general
 	can we fix the orphaned clusters SD card problem or would that require kernel changes?
