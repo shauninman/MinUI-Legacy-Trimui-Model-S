@@ -53,13 +53,15 @@ for SRC in `find . -name "*.pak"` ; do
 		rm -f "$POST"
 	fi
 
-	if [ "$SRC" != ${SRC/.\/Emus\//} ]; then
-		ROM_DIR=${DST/.pak/}
-		ROM_DIR=${ROM_DIR/Emus/Roms}
-		if [ ! -d "$ROM_DIR" ]; then
-			notify $PERCENT "add Roms/$PAK_NAME"
-			mkdir -p "$ROM_DIR"
-			sync
+	if [ "$ACTION" = "install" ]; then
+		if [ "$SRC" != ${SRC/.\/Emus\//} ]; then
+			ROM_DIR=${DST/.pak/}
+			ROM_DIR=${ROM_DIR/Emus/Roms}
+			if [ ! -d "$ROM_DIR" ]; then
+				notify $PERCENT "add Roms/$PAK_NAME"
+				mkdir -p "$ROM_DIR"
+				sync
+			fi
 		fi
 	fi
 done
