@@ -13,6 +13,7 @@ Remember the goals:
 
 Release Notes:
 
+- MinUI remembers the selected entry if you accidentally back out of and then go back into the same directory
 - added Lynx emulator
 
 As always, thanks eggs, neonloop, and gameblabla!
@@ -22,8 +23,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 add WonderSwan Color.pak?
 
 Info.pak with credits and a QR code linking to the Releases page on GitHub or the readme? Both?
-
-Add headphone support to all emulators https://discord.com/channels/529983248114122762/780563189434941460/833416746672586782
 
 MinUI
 	look into GMenuNX's brightness modifications
@@ -48,6 +47,8 @@ flipbook
 	add an x/y pill overlay that disappears 1-2 seconds after changing images
 
 emulators
+	all
+		add headphone support? https://discord.com/channels/529983248114122762/780563189434941460/833416746672586782
 	oswan
 		eggs has more scalers (waiting to hear back if he was seeking feedback or recommending for release)
 	standardize bios locations
