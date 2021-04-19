@@ -13,8 +13,9 @@ Remember the goals:
 
 Release Notes:
 
-- MinUI remembers the selected entry if you accidentally back out of and then go back into the same directory
 - added Lynx emulator
+- MinUI remembers the selected entry if you accidentally back out of and then go back into the same directory
+- MinUI only creates rom folders when installing a new emulator, not when updating an existing one
 
 As always, thanks eggs, neonloop, and gameblabla!
 
