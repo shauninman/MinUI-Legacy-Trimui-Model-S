@@ -21,7 +21,16 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 add WonderSwan Color.pak?
 
+Info.pak with credits and a QR code linking to the Releases page on GitHub or the readme? Both?
+
+Add headphone support to all emulators https://discord.com/channels/529983248114122762/780563189434941460/833416746672586782
+
 MinUI
+	MinUI: when pressing B write the path of the selected entry to 
+		/tmp/backout.txt. When pressing A if the back path has 
+		the path of the directory then select the entry whose 
+		path matches the last path.
+
 	look into GMenuNX's brightness modifications
 	
 	maybe only create rom folders on install not update?
@@ -57,10 +66,14 @@ emulators
 				delete .gpsp folder
 				delete .mmenu folder (save states aren't compatible but is this necessary?)
 				delete gpsp binary (or leave to allow editing the launch.sh?)
+		update old gpsp repo description 
+			retired
+			link to picogpsp repo
 	pokemini
 		should power off before exiting
 	handy
 		check libretro for updates to core
+			Trioan fixes from early 2020 worth looking into? https://github.com/libretro/libretro-handy/commits/master?after=358f50b22a722427d5fe73a372e6a27c24ac5a8c+34&branch=master
 		profile with California Games
 	fceux
 		-
@@ -106,9 +119,13 @@ paks
 	make a Backup Saves.pak and a Restore Saves.pak?
 
 games
+	vvvvvv
+		buildroot now supports statically linking vorbis
+			https://discord.com/channels/529983248114122762/540168599063756802/833023645957619752
 	cavestory
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
 		can I ever release this?
+			as a diff of another cse2 release? do those even exist?
 
 libmmenu
 	-
