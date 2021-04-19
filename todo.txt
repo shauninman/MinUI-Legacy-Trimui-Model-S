@@ -26,11 +26,6 @@ Info.pak with credits and a QR code linking to the Releases page on GitHub or th
 Add headphone support to all emulators https://discord.com/channels/529983248114122762/780563189434941460/833416746672586782
 
 MinUI
-	MinUI: when pressing B write the path of the selected entry to 
-		/tmp/backout.txt. When pressing A if the back path has 
-		the path of the directory then select the entry whose 
-		path matches the last path.
-
 	look into GMenuNX's brightness modifications
 	
 	maybe only create rom folders on install not update?

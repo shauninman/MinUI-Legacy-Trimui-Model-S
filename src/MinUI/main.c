@@ -23,6 +23,7 @@
 #define kRomsDir kRootDir "/Roms/"
 #define kRecentlyPlayedDir kRootDir "/Recently Played"
 #define kLastPath "/tmp/last.txt"
+#define kBackPath "/tmp/back.txt"
 #define kChangeDiscPath "/tmp/change_disc.txt"
 #define kResumeSlotPath "/tmp/mmenu_slot.txt"
 #define kTrimuiUpdatePath kRootDir "/TrimuiUpdate_MinUI.zip"
@@ -986,8 +987,13 @@ static void open_game(char*path) {
 	queue_next(launch);
 }
 
+// NOTE: I have no idea what to call these...
+static int restore_relative = -1; // root Directory
+static int restore_selected = 0; // Recently Played entry
+static int restore_start = 0;
+static int restore_end = 0;
+
 static void open_directory(char* path, int auto_launch) {
-	// TODO: only do this in sub folders of Roms, or better yet if the emulator supports cue files
 	char auto_path[256];
 	if (has_cue(path, auto_path) && auto_launch) {
 		open_rom(auto_path, path);
@@ -996,19 +1002,34 @@ static void open_directory(char* path, int auto_launch) {
 
 	char* tmp = strrchr(auto_path, '.') + 1; // extension
 	strcpy(tmp, "m3u"); // replace with m3u
-	
 	if (exists(auto_path)) {
 		path = auto_path;
 	}
 	
-	top = Directory_new(path, 0);
-	top->start = 0;
-	top->end = (top->entries->count<kMaxRows) ? top->entries->count : kMaxRows;
+	int selected = 0;
+	int start = selected;
+	int end = 0;
+	if (top) {
+		if (top->selected==restore_relative) {
+			selected = restore_selected;
+			start = restore_start;
+			end = restore_end;
+		}
+	}
+	
+	top = Directory_new(path, selected);
+	top->start = start;
+	top->end = end ? end : ((top->entries->count<kMaxRows) ? top->entries->count : kMaxRows);
+	
 	Array_push(stack, top);
 }
 static void close_directory(void) {
+	restore_selected = top->selected;
+	restore_start = top->start;
+	restore_end = top->end;
 	DirectoryArray_pop(stack);
 	top = stack->items[stack->count-1];
+	restore_relative = top->selected;
 }
 
 static void Entry_open(Entry* self) {
