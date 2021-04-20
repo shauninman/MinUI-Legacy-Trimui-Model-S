@@ -23,7 +23,6 @@
 #define kRomsDir kRootDir "/Roms/"
 #define kRecentlyPlayedDir kRootDir "/Recently Played"
 #define kLastPath "/tmp/last.txt"
-#define kBackPath "/tmp/back.txt"
 #define kChangeDiscPath "/tmp/change_disc.txt"
 #define kResumeSlotPath "/tmp/mmenu_slot.txt"
 #define kTrimuiUpdatePath kRootDir "/TrimuiUpdate_MinUI.zip"

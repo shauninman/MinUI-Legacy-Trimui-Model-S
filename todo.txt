@@ -26,10 +26,18 @@ add WonderSwan Color.pak?
 Info.pak with credits and a QR code linking to the Releases page on GitHub or the readme? Both?
 
 MinUI
+	suspend before poweroff and resume
+		have the emulator register a suspend callback with libmmenu. 
+		Then before sleep, the menu would display the suspending screen, 
+		call the callback (which would save a normal state in an otherwise 
+		inaccessible slot, say 99), then when it returns clear the screen 
+		and write the suspended rom’s path to /.minui/suspended.txt. If we 
+		wake normally we delete the state and suspended.txt. But if we power 
+		off before that happens and we find suspended.txt on next boot we 
+		automatically open the rom and load slot 99 (and delete suspended.txt 
+		so we have a clean launch next time unless we suspend again).
+		
 	look into GMenuNX's brightness modifications
-	
-	maybe only create rom folders on install not update?
-		the user might have deleted them, let's not antagonize them like stock
 	
 	is there a way to remember the MinUI name for a pak?
 		so a pak can be updated even if renamed?
