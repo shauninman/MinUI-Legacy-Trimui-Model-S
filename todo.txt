@@ -26,19 +26,9 @@ add WonderSwan Color.pak?
 Info.pak with credits and a QR code linking to the Releases page on GitHub or the readme? Both?
 
 MinUI
-	figure out how to remove libtinyalsa
-		create a reduction so I can get the error message?
-		
-	look into GMenuNX's brightness modifications
-		looks good on revised board, gradual ramp to 9, barely perceptible change to 10
-		but it hits max brightness by about 6-7 on my original device
-		I could make a Brightness Patch.pak
-			like USB Bridge.pak
-				if /System/bin/keymon does not exist, copy it over
-				if it does exist, delete it
-			did that, but the patched keymon did not properly restore brightness
-				when returning to MinUI from another pak or rom, always lower
-				possibly because eggs manually corrects in gmenu? what if you change brightness in game?
+	look at how GMenuNX launches emulators
+		 uses exec() to replace itself with the emulator
+		 could allow me to get rid of next.sh
 	
 	is there a way to remember the MinUI name for a pak?
 		so a pak can be updated even if renamed?
@@ -52,6 +42,15 @@ MinUI
 		can we reverse it to improve battery when sleeping?
 			check eggs tearing test source	
 		also look into CPU Timer, page 84 of F1C200s manual
+		
+	I wonder if stock brightness at 0 still being set to 
+		70 is what results in setting brightness to 0 
+		during sleep having no effect on battery drain...
+		test tonight
+	
+	file system based settings?
+		checkboxes (eg. enable screenshots, enable suspend/resume)
+		select menus (eg. sleep timeout/disable)
 
 MinUI+libmmenu
 	suspend before poweroff and resume
@@ -66,11 +65,11 @@ MinUI+libmmenu
 		so we have a clean launch next time unless we suspend again).
 
 flipbook
-	add an x/y pill overlay that disappears 1-2 seconds after changing images
+	add an x/y pill overlay that disappears 1-2 seconds after changing images?
 
 emulators
 	all
-		add headphone support? https://discord.com/channels/529983248114122762/780563189434941460/833416746672586782
+		-
 	oswan
 		eggs has more scalers (waiting to hear back if he was seeking feedback or recommending for release)
 	standardize bios locations
@@ -93,6 +92,9 @@ emulators
 		check libretro for updates to core
 			Trioan fixes from early 2020 worth looking into? https://github.com/libretro/libretro-handy/commits/master?after=358f50b22a722427d5fe73a372e6a27c24ac5a8c+34&branch=master
 		profile with California Games
+	scummvm
+		https://git.crowdedwood.com/scummvm-rg350/
+		maybe MinUI could special case its weird rom format?
 	fceux
 		-
 	pcsx_rearmed
@@ -107,14 +109,6 @@ emulators
 		-
 
 general
-	keymin
-		feasible with what we've learned?
-		keymon volume setting is broken with USB-C headphones/adapter
-			it writes to device 6 instead of 3 (or 5 instead of 2)?
-
-	figure out how to gracefully recover from a bad update
-		eg. if the update zip file is incomplete or otherwise corrupted during transfer to the SD card
-
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
 		add info about USB Bridge + webadb.com to upload files over USB
@@ -122,18 +116,13 @@ general
 			not actually necessary
 		mention GBA, PSX, and 32x using dynarec which may have performance issues initially that go away after playing for a bit and it caches instructions?
 		document new REMPAP launch.sh for multiple rom types that use the same emulator
+		document no-update file in paks
 	
 	wrap functions shared by MinUI, utilities, and libmmenu into a shared source file?
 		yes, please!
 	
-	document submodule upstream urls since they get lost when cloned
+	document submodule upstream urls (for myself) since they get lost when cloned
 		automate somehow?
-	
-	poke at audio when I have free night
-		put this in a loop but track state and only putenv when it changes
-			
-			if (access("/dev/dsp1", F_OK)==0) putenv("AUDIODEV=/dev/dsp1"); // assuming headphones
-			else putenv("AUDIODEV=/dev/dsp"); // speaker
 
 	can we fix the orphaned clusters SD card problem or would that require kernel changes?
 		https://elinux.org/images/5/54/Elc2011_munegowda.pdf

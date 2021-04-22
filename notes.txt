@@ -1,3 +1,25 @@
+usb audio
+	has a negative affect on performance of emulators that are already struggling
+		super nintendo
+		wonderswan
+
+look into GMenuNX's brightness modifications
+	too much weirdness here
+		looks good on revised board, gradual ramp to 9, barely perceptible change to 10
+		but it hits max brightness by about 6-7 on my original device
+	tried to fix with a Brightness Patch.pak that let you choose based on device but
+		there's some weirdness around 0-1 brightness
+			keymon will write 0 but won't set brightness to 0
+			so if MinUI boots with brightness at 0 the screen doesn't turn on
+			addressing that makes the lowest brightness 75
+			it just feels messy
+	
+keymin
+	this is waaaay beyond me :disappointed:
+	feasible with what we've learned?
+	keymon volume setting is broken with USB-C headphones/adapter
+		it writes to device 6 instead of 3 (or 5 instead of 2)?
+
 don't create rom folder on install/update
 	I don't like when the stock launcher does it
 	why would I do it? The zip file and readme cover how to do it
