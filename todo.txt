@@ -63,6 +63,12 @@ MinUI+libmmenu
 		off before that happens and we find suspended.txt on next boot we 
 		automatically open the rom and load slot 99 (and delete suspended.txt 
 		so we have a clean launch next time unless we suspend again).
+		
+		will any emulator data be lost if you power off without quitting? 
+			Saves?
+			Settings?
+			early on there was an issue if you didn't exit an emulator in a 
+			specific way it would lose this stuff, maybe it's been addressed...
 
 flipbook
 	add an x/y pill overlay that disappears 1-2 seconds after changing images?
@@ -89,12 +95,16 @@ emulators
 	pokemini
 		should power off before exiting
 	handy
+		doesn't save config?
 		check libretro for updates to core
 			Trioan fixes from early 2020 worth looking into? https://github.com/libretro/libretro-handy/commits/master?after=358f50b22a722427d5fe73a372e6a27c24ac5a8c+34&branch=master
 		profile with California Games
+			kinda helped
+			try without -flto
 	scummvm
 		https://git.crowdedwood.com/scummvm-rg350/
 		maybe MinUI could special case its weird rom format?
+			https://retropie.org.uk/docs/ScummVM/
 	fceux
 		-
 	pcsx_rearmed
