@@ -793,6 +793,7 @@ static void setCPU(uint32_t mhz) {
 	
 	if (memdev>0) close(memdev);
 }
+
 static void initLCD(void) {
 	int address = 0x01c20890;
 	int pagesize = sysconf(_SC_PAGESIZE);

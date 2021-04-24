@@ -1,7 +1,36 @@
+MinUI+libmmenu
+	suspend before poweroff and resume
+		have the emulator register a suspend callback with libmmenu. 
+		Then before sleep, the menu would display the suspending screen, 
+		call the callback (which would save a normal state in an otherwise 
+		inaccessible slot, say 99), then when it returns clear the screen 
+		and write the suspended rom’s path to /.minui/suspended.txt. If we 
+		wake normally we delete the state and suspended.txt. But if we power 
+		off before that happens and we find suspended.txt on next boot we 
+		automatically open the rom and load slot 99 (and delete suspended.txt 
+		so we have a clean launch next time unless we suspend again).
+		
+		will any emulator data be lost if you power off without quitting? 
+			Saves?
+			Settings?
+			early on there was an issue if you didn't exit an emulator in a 
+			specific way it would lose this stuff, maybe it's been addressed...
+		
+		I'm leaning against this because of pcsx's long save state save times
+			if you put it to sleep by accident or the distraction took less time than expected
+				you're stuck waiting for a suspend state you don't even need
+			but I'm interested in consistency and parity so I don't want to leave it out of just pcsx...
+			
+I wonder if stock brightness at 0 still being set to 
+	70 is what results in setting brightness to 0 
+	during sleep having no effect on battery drain...
+	no improvement but also no burn in so I'll leave it
+
 usb audio
 	has a negative affect on performance of emulators that are already struggling
 		super nintendo
 		wonderswan
+	passing for now
 
 look into GMenuNX's brightness modifications
 	too much weirdness here
