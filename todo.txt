@@ -75,11 +75,10 @@ flipbook
 
 emulators
 	all
-		-
-	oswan
-		eggs has more scalers (waiting to hear back if he was seeking feedback or recommending for release)
-	standardize bios locations
-		I would prefer they all live in the emu folder not the rom folder but...
+		standardize bios locations
+			I would prefer they all live in the emu folder not the rom folder but...
+	pokemini
+		should power off before exiting
 	picogpsp
 		finish integrating
 		update post.sh in Game Boy Advance.pak
@@ -92,15 +91,8 @@ emulators
 		update old gpsp repo description 
 			retired
 			link to picogpsp repo
-	pokemini
-		should power off before exiting
-	handy
-		doesn't save config?
-		check libretro for updates to core
-			Trioan fixes from early 2020 worth looking into? https://github.com/libretro/libretro-handy/commits/master?after=358f50b22a722427d5fe73a372e6a27c24ac5a8c+34&branch=master
-		profile with California Games
-			kinda helped
-			try without -flto
+	oswan
+		eggs has more scalers (waiting to hear back if he was seeking feedback or recommending for release)
 	scummvm
 		https://git.crowdedwood.com/scummvm-rg350/
 		maybe MinUI could special case its weird rom format?
@@ -117,7 +109,9 @@ emulators
 		-
 	temper
 		-
-
+	handy
+		-
+	
 general
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
