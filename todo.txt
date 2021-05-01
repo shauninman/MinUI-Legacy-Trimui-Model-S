@@ -13,10 +13,7 @@ Remember the goals:
 
 Release Notes:
 
-- added Lynx emulator
-- MinUI remembers the selected entry if you accidentally back out of and then go back into the same directory
-- MinUI now only creates rom folders when installing a new emulator, not when updating an existing one
-- libmmenu fix for crashy PlayStation games (sorry!)
+- 
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -36,6 +33,10 @@ maybe don't create any Rom folders, let people choose from the zip?
 Info.pak with credits, shortcuts, and a QR code linking to the Releases page on GitHub or the readme? Both?
 
 MinUI
+	either
+		figure out how to migrate from one emulator to another
+		or allow selecting which emulator from a pak to use
+		:thinking_face:
 	handle swap in System.pak/launch
 		or add System/bin/needs-swap shell script
 	

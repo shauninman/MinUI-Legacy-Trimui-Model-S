@@ -47,7 +47,7 @@ sys: lib
 	cp -R "paks/Update.pak" 		"$(PAYLOAD_PATH)/System"
 
 #--------------------------------------
-emus: gb pm ngp gg snes ps gba nes gen pce swan
+emus: gb pm ngp gg snes ps gba nes gen pce swan lynx
 #--------------------------------------
 
 emu:
