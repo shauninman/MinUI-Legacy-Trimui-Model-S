@@ -1,3 +1,6 @@
+making QR codes with
+	https://www.qr-code-generator.com
+
 MinUI+libmmenu
 	suspend before poweroff and resume
 		have the emulator register a suspend callback with libmmenu. 

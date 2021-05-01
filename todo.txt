@@ -15,7 +15,8 @@ Release Notes:
 
 - added Lynx emulator
 - MinUI remembers the selected entry if you accidentally back out of and then go back into the same directory
-- MinUI only creates rom folders when installing a new emulator, not when updating an existing one
+- MinUI now only creates rom folders when installing a new emulator, not when updating an existing one
+- libmmenu fix for crashy PlayStation games (sorry!)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -35,7 +36,17 @@ maybe don't create any Rom folders, let people choose from the zip?
 Info.pak with credits and a QR code linking to the Releases page on GitHub or the readme? Both?
 
 MinUI
+	handle swap in System.pak/launch
+	
 	is volume being restored reliably?
+		definitely not :sob:
+		I think the issue was that I was using setVolume(0) when sleeping 
+			then powering off during sleep so when I restarted, because
+			setVolume() writes to system.json now, it was restoring 0 volume
+			I've disabled saving volume or brightness when setting (since keymon
+			is still responsible for managing that...for now)
+	
+	add neonloop's modified so files to System/lib?
 	
 	is there a way to remember the MinUI name for a pak?
 		so a pak can be updated even if renamed?
@@ -69,6 +80,8 @@ emulators
 		should power off before exiting (or add note to readme that that's how games save to sram?)
 	picogpsp
 		finish integrating
+			hold for audio bug fixes
+			hold for cheats?
 		update post.sh in Game Boy Advance.pak
 			nand gba_bios.bin is no longer necessary
 			if .gpsp folder exists
@@ -76,9 +89,9 @@ emulators
 				delete gpsp binary (or leave to allow editing the launch.sh?)
 					delete .gpsp folder
 					delete .mmenu folder (save states aren't compatible but is this necessary?)
-		update old gpsp repo description 
-			retired
-			link to picogpsp repo
+	gpsp-bittboy
+		retired
+		link to picogpsp repo
 	oswan
 		eggs has more scalers
 			waiting to hear back if he was seeking feedback or recommending for release
@@ -90,9 +103,13 @@ emulators
 	fceux
 		-
 	pcsx_rearmed
-		-
+		BUG: crashes with mmenu loaded :weary:
+			FF Tactics (USA)
+			Ridge Racer (USA)
 	picodrive
-		-
+		BUG: restoring state of a CD game doesn't work reliably
+			CD games need a delay before restoring from menu
+			Final Fight CD states created after entering the subway car will load but only play music
 	sms_sdl
 		-
 	snes9x2002
@@ -105,6 +122,7 @@ emulators
 general
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
+		note stock shortcuts for brightness/volume
 		add info about USB Bridge + webadb.com to upload files over USB
 		also note to use Power Off to make sure that save states don't get lost
 			not actually necessary
@@ -126,17 +144,19 @@ paks
 
 games
 	vvvvvv
-		buildroot now supports statically linking vorbis
-			-Wl,-Bstatic -lSDL_mixer -lvorbisidec -lvorbisfile -lvorbis -Wl,-Bdynamic
-			
-			https://discord.com/channels/529983248114122762/540168599063756802/833023645957619752
+		add mmenu
+			pause music in menu!
+		integrate into makefile
+		restore editor menu once text input is implemented? (not urgent, requires USB keyboard to use)
 	cavestory
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
 		can I ever release this?
-			as a diff of another cse2 release? do those even exist?
+			as a diff of another arm cse2 release? do those even exist?
 
 libmmenu
-	-
+	BUG: mmenu is segfaulting in pcsx when launching FF Tactics
+	make Y take two screenshots at once, one with the menu, one without instead of binding both X and Y
+	add charge indicator
 
 rescue things from old repo
 	art
