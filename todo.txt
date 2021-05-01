@@ -33,18 +33,11 @@ add more variation/peripheral paks?
 or remove all variations and leave it up to the user to create and organize?
 maybe don't create any Rom folders, let people choose from the zip?
 
-Info.pak with credits and a QR code linking to the Releases page on GitHub or the readme? Both?
+Info.pak with credits, shortcuts, and a QR code linking to the Releases page on GitHub or the readme? Both?
 
 MinUI
 	handle swap in System.pak/launch
-	
-	is volume being restored reliably?
-		definitely not :sob:
-		I think the issue was that I was using setVolume(0) when sleeping 
-			then powering off during sleep so when I restarted, because
-			setVolume() writes to system.json now, it was restoring 0 volume
-			I've disabled saving volume or brightness when setting (since keymon
-			is still responsible for managing that...for now)
+		or add System/bin/needs-swap shell script
 	
 	add neonloop's modified so files to System/lib?
 	
@@ -103,9 +96,7 @@ emulators
 	fceux
 		-
 	pcsx_rearmed
-		BUG: crashes with mmenu loaded :weary:
-			FF Tactics (USA)
-			Ridge Racer (USA)
+		- 
 	picodrive
 		BUG: restoring state of a CD game doesn't work reliably
 			CD games need a delay before restoring from menu
@@ -144,6 +135,7 @@ paks
 
 games
 	vvvvvv
+		hold till I sort swap at the System level
 		add mmenu
 			pause music in menu!
 		integrate into makefile
@@ -152,9 +144,9 @@ games
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
 		can I ever release this?
 			as a diff of another arm cse2 release? do those even exist?
+			cavestory.org has CSE2 ports available for download so maybe sharing a binary is fine?
 
 libmmenu
-	BUG: mmenu is segfaulting in pcsx when launching FF Tactics
 	make Y take two screenshots at once, one with the menu, one without instead of binding both X and Y
 	add charge indicator
 
