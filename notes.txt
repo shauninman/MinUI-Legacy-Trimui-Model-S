@@ -127,7 +127,7 @@ git submodules are back on their bullshit
 	
 ugh, my submodules have all lost their upstream remotes?
 	need to re-add everytime you clone apparently
-		git remote add upstream ...
+		git remote add upstream <url>
 
 figure out how to distribute Zero Stock.pak
 	or maybe don't? I did, for people who use separate cards

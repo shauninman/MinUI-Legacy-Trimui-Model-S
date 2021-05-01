@@ -43,6 +43,7 @@ sys: lib
 	cp "src/show/show" 				"$(PAYLOAD_PATH)/System/bin"
 	cp "src/confirm/confirm" 		"$(PAYLOAD_PATH)/System/bin"
 	cp "src/flipbook/flipbook" 		"$(PAYLOAD_PATH)/System/bin"
+	cp "src/needs-swap.sh"			"$(PAYLOAD_PATH)/System/bin/needs-swap"
 	cp "src/libmmenu/libmmenu.so"	"$(PAYLOAD_PATH)/System/lib"
 	cp -R "paks/Update.pak" 		"$(PAYLOAD_PATH)/System"
 

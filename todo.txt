@@ -13,7 +13,10 @@ Remember the goals:
 
 Release Notes:
 
-- 
+- TODO: new Game Boy Advance emulator
+- TODO: added separate Games archive with VVVVVV.pak and Cave Story.pak
+- TODO: smoother brightness ramp
+- added System/bin/needs-swap (handles creating and turning swap on and off for games that need it)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -36,9 +39,10 @@ MinUI
 	either
 		figure out how to migrate from one emulator to another
 		or allow selecting which emulator from a pak to use
+		or recommend adding no-update when you want to keep the current emulator
 		:thinking_face:
-	handle swap in System.pak/launch
-		or add System/bin/needs-swap shell script
+	
+	revisit brightness patched keymon
 	
 	add neonloop's modified so files to System/lib?
 	
@@ -74,8 +78,10 @@ emulators
 		should power off before exiting (or add note to readme that that's how games save to sram?)
 	picogpsp
 		finish integrating
-			hold for audio bug fixes
-			hold for cheats?
+		maybe just add note to release notes about adding a no-update file to Game Boy Advance.pak to prevent updates
+			why you wouldn't want to update
+				- no cheats (yet)
+				- emulator save states aren't compatible (in-game save data is though)
 		update post.sh in Game Boy Advance.pak
 			nand gba_bios.bin is no longer necessary
 			if .gpsp folder exists
@@ -99,6 +105,7 @@ emulators
 	pcsx_rearmed
 		- 
 	picodrive
+		BUG: Sonic CD music isn't working?
 		BUG: restoring state of a CD game doesn't work reliably
 			CD games need a delay before restoring from menu
 			Final Fight CD states created after entering the subway car will load but only play music
@@ -136,19 +143,18 @@ paks
 
 games
 	vvvvvv
-		hold till I sort swap at the System level
 		add mmenu
 			pause music in menu!
 		integrate into makefile
+			maybe separate project? minui-games?
 		restore editor menu once text input is implemented? (not urgent, requires USB keyboard to use)
 	cavestory
 		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
+			not urgent (can't figure out where to do this anyway :sweat_smile:)
 		can I ever release this?
-			as a diff of another arm cse2 release? do those even exist?
 			cavestory.org has CSE2 ports available for download so maybe sharing a binary is fine?
 
 libmmenu
-	make Y take two screenshots at once, one with the menu, one without instead of binding both X and Y
 	add charge indicator
 
 rescue things from old repo
