@@ -737,8 +737,8 @@ static int getBrightness(void) {
 }
 
 static void setVolume(int value) { // 0-20
-	SetKeyShm(key,0,value);
-	saveSystemState(key);
+	// SetKeyShm(key,0,value);
+	// saveSystemState(key);
 	
 	int val = value * (63.0f / 20.0f);
 	char cmd[32];
@@ -746,8 +746,8 @@ static void setVolume(int value) { // 0-20
 	system(cmd);
 }
 static void setBrightness(int value) { // 0-10
-	SetKeyShm(key,1,value);
-	saveSystemState(key);
+	// SetKeyShm(key,1,value);
+	// saveSystemState(key);
 	
 	int val = value<9 ? 70 + (value * 3) : 130 - (6 * (10-value));
 	char cmd[64];
