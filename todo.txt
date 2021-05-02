@@ -22,19 +22,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-remove Trimui firmware version from releases?
-
-add more variation/peripheral paks?
-	WonderSwan Color.pak?
-	Sega CD.pak?
-	Sega 32x.pak?
-	TurboGrafx-CD.pak?
-	Turbo Duo.pak? (was this just a combo TurboGrafx-16 + TurboGrafx-CD? yes)
-or remove all variations and leave it up to the user to create and organize?
-maybe don't create any Rom folders, let people choose from the zip?
-
-Info.pak with credits, shortcuts, and a QR code linking to the Releases page on GitHub or the readme? Both?
-
 MinUI
 	either
 		figure out how to migrate from one emulator to another
@@ -160,3 +147,16 @@ libmmenu
 rescue things from old repo
 	art
 	todos
+
+remove Trimui firmware version from releases?
+
+add more variation/peripheral paks?
+	WonderSwan Color.pak?
+	Sega CD.pak?
+	Sega 32x.pak?
+	TurboGrafx-CD.pak?
+	Turbo Duo.pak? (was this just a combo TurboGrafx-16 + TurboGrafx-CD? yes)
+or remove all variations and leave it up to the user to create and organize?
+maybe don't create any Rom folders, let people choose from the zip?
+
+Info.pak with credits, shortcuts, and a QR code linking to the Releases page on GitHub or the readme? Both?
