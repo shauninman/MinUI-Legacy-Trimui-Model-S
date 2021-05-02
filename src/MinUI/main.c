@@ -749,7 +749,8 @@ static void setBrightness(int value) { // 0-10
 	// SetKeyShm(key,1,value);
 	// saveSystemState(key);
 	
-	int val = value<9 ? 70 + (value * 3) : 130 - (6 * (10-value));
+	// int val = value<9 ? 70 + (value * 3) : 130 - (6 * (10-value));
+	int val = 70 + (5 * value); // match bin/keymon-patched formula
 	char cmd[64];
 	sprintf(cmd, "echo %d > /sys/class/disp/disp/attr/lcdbl", val);
 	system(cmd);

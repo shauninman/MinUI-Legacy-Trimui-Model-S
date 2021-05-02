@@ -1,6 +1,8 @@
 #!/bin/sh
 # System.pak/launch.sh
 
+killall keymon
+
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
 export PATH="/mnt/SDCARD/System/bin:$PATH"
 
@@ -52,7 +54,7 @@ while [ -f /tmp/minui_exec ]; do
 	fi
 done
 
-killall -s KILL keymon
+killall keymon
 
 if [ -f /tmp/minui_update ]; then
 	rm -f /tmp/minui_update
