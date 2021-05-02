@@ -13,26 +13,25 @@ Remember the goals:
 
 Release Notes:
 
-- TODO: new Game Boy Advance emulator
-- TODO: added separate Games archive with VVVVVV.pak and Cave Story.pak
-- TODO: smoother brightness ramp
+Playing a Game Boy Advance game? MinUI uses a different emulator now. 
+Save data (created in the game) is compatible but save states (created in the emulator menu) are not.
+Please make sure you have created in-game saves before updating.
+To prevent updating, put an empty file named `no-update` in /Emus/Game Boy Advance.pak.
+When you are ready to update, remove the file, and update to the latest version of MinUI as you normally would.
+
+- new Game Boy Advance emulator
+- smoother brightness ramp
 - added System/bin/needs-swap (handles creating and turning swap on and off for games that need it)
+- TODO: added separate Games archive with VVVVVV.pak and Cave Story.pak
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+MinUI/libmmenu
+	allow setting a ./minui/disable-sleep file for devs
+
 MinUI
-	either
-		figure out how to migrate from one emulator to another
-		or allow selecting which emulator from a pak to use
-		or recommend adding no-update when you want to keep the current emulator
-		:thinking_face:
-	
-	revisit brightness patched keymon
-	
-	add neonloop's modified so files to System/lib?
-	
 	is there a way to remember the MinUI name for a pak?
 		so a pak can be updated even if renamed?
 		if <name>.pak/default_name.txt doesn't exist write <name> to it
@@ -51,9 +50,12 @@ MinUI
 		also look into CPU Timer, page 84 of F1C200s manual
 		
 	file system based settings?
-		checkboxes (eg. enable screenshots, enable suspend/resume)
+		checkboxes (eg. enable screenshots, enable suspend/resume?)
 		select menus (eg. sleep timeout/disable, choose console names?)
-
+	
+	add neonloop's modified so files to System/lib?
+	
+	
 flipbook
 	-
 
@@ -64,21 +66,11 @@ emulators
 	pokemini
 		should power off before exiting (or add note to readme that that's how games save to sram?)
 	picogpsp
-		finish integrating
-		maybe just add note to release notes about adding a no-update file to Game Boy Advance.pak to prevent updates
-			why you wouldn't want to update
-				- no cheats (yet)
-				- emulator save states aren't compatible (in-game save data is though)
-		update post.sh in Game Boy Advance.pak
-			nand gba_bios.bin is no longer necessary
-			if .gpsp folder exists
-				copy any .sav files from .gpsp into .picogpsp
-				delete gpsp binary (or leave to allow editing the launch.sh?)
-					delete .gpsp folder
-					delete .mmenu folder (save states aren't compatible but is this necessary?)
+		-
 	gpsp-bittboy
-		retired
+		remove submodule
 		link to picogpsp repo
+		archive repo
 	oswan
 		eggs has more scalers
 			waiting to hear back if he was seeking feedback or recommending for release
@@ -92,9 +84,9 @@ emulators
 	pcsx_rearmed
 		- 
 	picodrive
-		BUG: Sonic CD music isn't working?
 		BUG: restoring state of a CD game doesn't work reliably
-			CD games need a delay before restoring from menu
+			do CD games need a delay before restoring from menu?
+				I'm using a built in load state flag so I don't _think_ this is my bug...
 			Final Fight CD states created after entering the subway car will load but only play music
 	sms_sdl
 		-
@@ -127,6 +119,7 @@ general
 
 paks
 	make a Backup Saves.pak and a Restore Saves.pak?
+	Info.pak with credits, shortcuts, and a QR code linking to the Releases page on GitHub or the readme? Both?
 
 games
 	vvvvvv
@@ -159,4 +152,4 @@ add more variation/peripheral paks?
 or remove all variations and leave it up to the user to create and organize?
 maybe don't create any Rom folders, let people choose from the zip?
 
-Info.pak with credits, shortcuts, and a QR code linking to the Releases page on GitHub or the readme? Both?
+

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Game Boy Advance.pak/launch.sh
 
-EMU_EXE=gpsp
+EMU_EXE=picogpsp
 EMU_DIR=$(dirname "$0")
 ROM_DIR=${EMU_DIR/.pak/}
 ROM_DIR=${ROM_DIR/Emus/Roms}

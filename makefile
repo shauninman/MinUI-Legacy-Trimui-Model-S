@@ -103,11 +103,10 @@ ps: emu
 
 gba: emu
 	mkdir -p "$(ROMS_PATH)/Game Boy Advance"
-	cd ./third-party/gpsp-bittboy/trimui && make -j
+	cd ./third-party/picogpsp && make -j
 	cp -R "paks/Game Boy Advance.pak" "$(PAYLOAD_PATH)/Emus"
-	cp "third-party/gpsp-bittboy/trimui/gpsp" "$(PAYLOAD_PATH)/Emus/Game Boy Advance.pak"
-	cp "third-party/gpsp-bittboy/game_config.txt" "$(PAYLOAD_PATH)/Emus/Game Boy Advance.pak"
-
+	cp "third-party/picogpsp/picogpsp" "$(PAYLOAD_PATH)/Emus/Game Boy Advance.pak"
+	
 nes: emu
 	mkdir -p "$(ROMS_PATH)/Nintendo"
 	cd ./third-party/fceux && make -j
@@ -136,12 +135,6 @@ swan: emu
 	cd ./third-party/oswan && make -j
 	cp -R "paks/WonderSwan.pak" "$(PAYLOAD_PATH)/Emus"
 	cp "third-party/oswan/oswan" "$(PAYLOAD_PATH)/Emus/WonderSwan.pak"
-	
-gbm: emu # TODO: tmp, not hooked into release yet
-	# mkdir -p "$(ROMS_PATH)/Game Boy Advance"
-	cd ./third-party/picogpsp && make -j
-	cp -R "paks/Game Boy micro.pak" "$(PAYLOAD_PATH)/Emus"
-	cp "third-party/picogpsp/picogpsp" "$(PAYLOAD_PATH)/Emus/Game Boy micro.pak"
 
 lynx: emu
 	mkdir -p "$(ROMS_PATH)/Lynx"
@@ -181,6 +174,7 @@ zero: tool
 
 zip:
 	mkdir -p "$(RELEASE_PATH)"
+	cd "$(PAYLOAD_PATH)" && rm -f ../TrimuiUpdate_MinUI.zip
 	cd "$(PAYLOAD_PATH)" && zip -r ../TrimuiUpdate_MinUI.zip . -x "*.DS_Store"
 	cd "$(BUILD_PATH)" && zip -r ../release/$(RELEASE_NAME).zip readme.txt version.txt Roms TrimuiUpdate_MinUI.zip
 

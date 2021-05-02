@@ -4,7 +4,18 @@
 DIR=$(dirname "$0")
 cd "$DIR"
 
-# copy default bios from nand
-if [ ! -f ./gba_bios.bin ]; then
-	cp "/usr/trimui/bin/gba_bios.bin" ./
+if [ -f gpsp ]; then
+	# delete old emulator and assets
+	rm -f gpsp
+	rm -f gba_bios.bin
+	rm -f game_config.txt
+	# copy saves
+	cd "/mnt/SDCARD/Roms/Game Boy Advance"
+	if [ -d .gpsp ]; then
+		mkdir -p .picogpsp
+		find . -name "*.sav" -exec mv {} .picogpsp/ \;
+		rm -rf .gpsp
+		rm -rf .mmenu
+	fi
+	cd -
 fi
