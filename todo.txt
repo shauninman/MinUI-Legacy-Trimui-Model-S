@@ -11,25 +11,32 @@ Remember the goals:
 	
 =======================================
 
-Release Notes:
+**Playing a Game Boy Advance game?** MinUI uses a different emulator now. Save data (created in the game) is compatible but save states (created in the emulator menu) are not. Please make sure you have created in-game saves before updating. To prevent updating, put an empty file named `no-update` in `/Emus/Game Boy Advance.pak`. When you are ready to update, remove the file and update to the latest version of MinUI normally.
 
-Playing a Game Boy Advance game? MinUI uses a different emulator now. 
-Save data (created in the game) is compatible but save states (created in the emulator menu) are not.
-Please make sure you have created in-game saves before updating.
-To prevent updating, put an empty file named `no-update` in /Emus/Game Boy Advance.pak.
-When you are ready to update, remove the file, and update to the latest version of MinUI as you normally would.
+Please see the readme.txt in the zip file for installation instructions.
 
 - new Game Boy Advance emulator
 - smoother brightness ramp
 - added System/bin/needs-swap (handles creating and turning swap on and off for games that need it)
-- TODO: added separate Games archive with VVVVVV.pak and Cave Story.pak
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+- TODO: added separate games archive with VVVVVV and Cave Story
+
+
+USB Bridge.pak
+	touch /tmp/disable-sleep on start
+	rm -f /tmp/disable-sleep on stop
+	add message that sleep is disabled while bridge is active
+
 MinUI/libmmenu
-	allow setting a ./minui/disable-sleep file for devs
+	support /tmp/disable-sleep file to disable sleep
+	
+libmmenu
+	mask/scroll longer names
+	add charge indicator
 
 MinUI
 	is there a way to remember the MinUI name for a pak?
@@ -133,9 +140,6 @@ games
 			not urgent (can't figure out where to do this anyway :sweat_smile:)
 		can I ever release this?
 			cavestory.org has CSE2 ports available for download so maybe sharing a binary is fine?
-
-libmmenu
-	add charge indicator
 
 rescue things from old repo
 	art

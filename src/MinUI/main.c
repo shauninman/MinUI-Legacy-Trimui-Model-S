@@ -1246,6 +1246,7 @@ int main(void) {
 	int needs_scrolling = 0;
 	int is_scrolling = 0;
 	int scroll_ox = 0;
+	int disable_sleep = exists("/tmp/disable-sleep");
 	unsigned long cancel_start = SDL_GetTicks();
 	unsigned long wait_start = SDL_GetTicks();
 	while (!quit) {
@@ -1411,7 +1412,7 @@ int main(void) {
 		}
 		
 		#define kSleepDelay 30000
-		if (cancel_sleep) cancel_start = now;
+		if (cancel_sleep || disable_sleep) cancel_start = now;
 		if (Input_justPressed(kButtonMenu) || now-cancel_start>=kSleepDelay) {
 			SDL_FillRect(buffer, NULL, 0);
 			SDL_BlitSurface(buffer, NULL, screen, NULL);

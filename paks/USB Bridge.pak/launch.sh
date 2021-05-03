@@ -10,11 +10,13 @@ if [ "$a" == "" ]; then
 	if [ -f ./OKAY ]; then
 		show "$DIR/starting.png"
 		/etc/init.d/adbd start &
+		touch /tmp/disable-sleep
 	fi
 else
 	confirm "$DIR/stop.png"
 	if [ -f ./OKAY ]; then
 		show "$DIR/stopping.png"
 		killall adbd
+		rm -f /tmp/disable-sleep
 	fi
 fi
