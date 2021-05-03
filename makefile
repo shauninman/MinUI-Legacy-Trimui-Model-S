@@ -2,11 +2,9 @@
 
 .PHONY: clean
 
-TRIMUI_VERSION=0.105
-
 BUILD_TIME!=date +%Y%m%d
 RELEASE_PATH=./release
-RELEASE_BASE=MinUI-$(TRIMUI_VERSION)-$(BUILD_TIME)
+RELEASE_BASE=MinUI-$(BUILD_TIME)
 RELEASE_DOT!=find release/. -name "$(RELEASE_BASE)*.zip" -printf '.' | wc -m
 RELEASE_NAME=$(RELEASE_BASE)-$(RELEASE_DOT)
 BUILD_PATH=./build

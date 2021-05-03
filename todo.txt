@@ -18,6 +18,7 @@ Please see the readme.txt in the zip file for installation instructions.
 - new Game Boy Advance emulator
 - smoother brightness ramp
 - added System/bin/needs-swap (handles creating and turning swap on and off for games that need it)
+- USB Bridge now disables auto-sleep while running
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -25,17 +26,8 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 - TODO: added separate games archive with VVVVVV and Cave Story
 
-
-USB Bridge.pak
-	touch /tmp/disable-sleep on start
-	rm -f /tmp/disable-sleep on stop
-	add message that sleep is disabled while bridge is active
-
-MinUI/libmmenu
-	support /tmp/disable-sleep file to disable sleep
-	
 libmmenu
-	mask/scroll longer names
+	mask/scroll longer names?
 	add charge indicator
 
 MinUI
@@ -63,9 +55,6 @@ MinUI
 	add neonloop's modified so files to System/lib?
 	
 	
-flipbook
-	-
-
 emulators
 	all
 		standardize bios locations
@@ -145,8 +134,6 @@ rescue things from old repo
 	art
 	todos
 
-remove Trimui firmware version from releases?
-
 add more variation/peripheral paks?
 	WonderSwan Color.pak?
 	Sega CD.pak?
@@ -156,4 +143,5 @@ add more variation/peripheral paks?
 or remove all variations and leave it up to the user to create and organize?
 maybe don't create any Rom folders, let people choose from the zip?
 
-
+flipbook
+	-
