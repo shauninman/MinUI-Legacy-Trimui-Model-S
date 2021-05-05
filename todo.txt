@@ -11,23 +11,33 @@ Remember the goals:
 	
 =======================================
 
-**Playing a Game Boy Advance game?** MinUI uses a different emulator now. Save data (created in the game) is compatible but save states (created in the emulator menu) are not. Please make sure you have created in-game saves before updating. To prevent updating, put an empty file named `no-update` in `/Emus/Game Boy Advance.pak`. When you are ready to update, remove the file and update to the latest version of MinUI normally.
+**STOP! Are you currently playing a Game Boy Advance game?** This version of MinUI switches to a different emulator. Save data (created in the game) is compatible but save states (created in the emulator menu) are not. Please make sure you have created in-game saves before updating. The new emulator also does not support cheats (yet!). If you do not want to update right now, put an empty file named `no-update` (no extension) in `/Emus/Game Boy Advance.pak`. When you _are_ ready to update, just remove this file and update to the latest version of MinUI as you normally would.
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- new Game Boy Advance emulator
-- smoother brightness ramp
-- added System/bin/needs-swap (handles creating and turning swap on and off for games that need it)
+- new Game Boy Advance emulator (incompatible with old emulator's save states, see above)
+- smoother brightness ramp (thanks eggs!)
+- added /System/bin/needs-swap (creates and turns swap on and off for games that need it)
 - USB Bridge now disables auto-sleep while running
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-- TODO: added separate games archive with VVVVVV and Cave Story
+TODO: added separate games archive with VVVVVV and Cave Story?
+	can't share Cave Story source
+	can't share VVVVVV data.zip
+or individual zips for each game?
+ 	that kinda makes more sense since they're larger and may not be desired by everyone
+
+TODO: Info.pak 
+	credits?
+	shortcuts?
+	QR code linking to the Releases page on GitHub or the readme? Both?
+		readme is helpful but is releases? Since downloading on your phone isn't that helpful...
 
 libmmenu
-	mask/scroll longer names?
+	scroll or at least mask longer names?
 	add charge indicator
 
 MinUI
@@ -112,10 +122,6 @@ general
 
 	can we fix the orphaned clusters SD card problem or would that require kernel changes?
 		https://elinux.org/images/5/54/Elc2011_munegowda.pdf
-
-paks
-	make a Backup Saves.pak and a Restore Saves.pak?
-	Info.pak with credits, shortcuts, and a QR code linking to the Releases page on GitHub or the readme? Both?
 
 games
 	vvvvvv
