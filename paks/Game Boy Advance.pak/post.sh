@@ -9,12 +9,11 @@ if [ -f gpsp ]; then
 	rm -f gpsp
 	rm -f gba_bios.bin
 	rm -f game_config.txt
-	# copy saves
+	# copy saves but leave originals
 	cd "/mnt/SDCARD/Roms/Game Boy Advance"
 	if [ -d .gpsp ]; then
 		mkdir -p .picogpsp
-		find . -name "*.sav" -exec mv {} .picogpsp/ \;
-		rm -rf .gpsp
+		find . -name "*.sav" -exec cp {} .picogpsp/ \;
 		rm -rf .mmenu
 	fi
 	cd -
