@@ -11,14 +11,11 @@ Remember the goals:
 	
 =======================================
 
-**STOP! Are you currently playing a Game Boy Advance game?** This version of MinUI switches to a different emulator. Save data (created in the game) is compatible but save states (created in the emulator menu) are not. Please make sure you have created in-game saves before updating. The new emulator also does not support cheats (yet!). If you do not want to update right now, put an empty file named `no-update` (no extension) in `/Emus/Game Boy Advance.pak`. When you _are_ ready to update, just remove this file and update to the latest version of MinUI as you normally would.
+**STOP! Are you currently playing a Game Boy Advance game?** Recently MinUI switched to a different emulator. Save data (created in the game) is compatible but save states (created in the emulator menu) are not. Please make sure you have created in-game saves before updating. The new emulator also does not support cheats (yet!). If you do not want to update right now, put an empty file named `no-update` (no extension) in `/Emus/Game Boy Advance.pak`. When you _are_ ready to update, just remove this file and update to the latest version of MinUI as you normally would.
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- new Game Boy Advance emulator (incompatible with old emulator's save states, see above)
-- smoother brightness ramp (thanks eggs!)
-- added /System/bin/needs-swap (creates and turns swap on and off for games that need it)
-- USB Bridge now disables auto-sleep while running
+- updated Game Boy Advance emulator (fixes Minish Cap roll, adds zipped rom support)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -41,6 +38,9 @@ libmmenu
 	add charge indicator
 
 MinUI
+	average charge value to stop fluctuations at icon change boundaries?
+	continuously scroll long names?
+	
 	is there a way to remember the MinUI name for a pak?
 		so a pak can be updated even if renamed?
 		if <name>.pak/default_name.txt doesn't exist write <name> to it
@@ -72,7 +72,7 @@ emulators
 	pokemini
 		should power off before exiting (or add note to readme that that's how games save to sram?)
 	picogpsp
-		-
+		get neonloop's patch to fix Minish Cap simultaneous button detection issue
 	gpsp-bittboy
 		remove submodule
 		link to picogpsp repo
@@ -104,6 +104,8 @@ emulators
 		-
 	
 general
+	look into patching SDL lib to remove charge testing?
+	
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
 		note stock shortcuts for brightness/volume
