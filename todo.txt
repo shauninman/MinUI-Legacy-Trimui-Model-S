@@ -11,12 +11,9 @@ Remember the goals:
 	
 =======================================
 
-**STOP! Are you currently playing a Game Boy Advance game?** Recently MinUI switched to a different Game Boy Advance emulator. Save data (created in the game) is compatible but save states (created in the emulator menu) are not. Please make sure you have created in-game saves before updating. The new emulator also does not support cheats (yet!). If you do not want to update right now, put an empty file named `no-update` (no extension) in `/Emus/Game Boy Advance.pak`. When you _are_ ready to update, just remove this file and update to the latest version of MinUI as you normally would.
-
 Please see the readme.txt in the zip file for installation instructions.
 
-- updated Game Boy Advance emulator (was preventing proper sleep in menu)
-- MinUI now handles m3u files with Windows line-endings properly (rookie mistake)
+- 
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -33,9 +30,6 @@ TODO: Info.pak
 	shortcuts?
 	QR code linking to the Releases page on GitHub or the readme? Both?
 		readme is helpful but is releases? Since downloading on your phone isn't that helpful...
-
-MinUI+libmmenu
-	m3u support isn't handling Windows line-endings
 
 libmmenu
 	scroll or at least mask longer names?
@@ -76,13 +70,7 @@ emulators
 	pokemini
 		should power off before exiting (or add note to readme that that's how games save to sram?)
 	picogpsp
-		BUG: brightness isn't being set to 0 when sleeping from in-emulator menu
-		
-		TODO: try moving dlopen(mmenu) to after the fread that creates the issue
-		
-			it might be that no system() calls are succeeding here, it's this
-				stops working in load_gamepak_raw()
-				between between fread(gamepak_rom, 1, file_size, fd); and fclose(fd);
+		-
 	gpsp-bittboy
 		remove submodule
 		link to picogpsp repo
@@ -91,19 +79,23 @@ emulators
 		eggs has more scalers
 			waiting to hear back if he was seeking feedback or recommending for release
 				he's released a new version so I should just diff that source
-	scummvm
-		https://git.crowdedwood.com/scummvm-rg350/
-		maybe MinUI could special case its weird rom format?
-			https://retropie.org.uk/docs/ScummVM/
-	fceux
-		-
-	pcsx_rearmed
-		- 
 	picodrive
+		BUG: Streets of Rage music is slightly off
 		BUG: restoring state of a CD game doesn't work reliably
 			do CD games need a delay before restoring from menu?
 				I'm using a built in load state flag so I don't _think_ this is my bug...
 			Final Fight CD states created after entering the subway car will load but only play music
+	scummvm
+		https://git.crowdedwood.com/scummvm-rg350/
+		maybe MinUI could special case its weird rom format?
+			https://retropie.org.uk/docs/ScummVM/
+	xm8
+		eggs PC-88 emulator
+			https://www.dropbox.com/sh/854r0eye4za40e7/AADoQ_bIuw-UuVDhyR5ucJvYa
+	fceux
+		-
+	pcsx_rearmed
+		- 
 	sms_sdl
 		-
 	snes9x2002
