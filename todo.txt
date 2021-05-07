@@ -11,12 +11,12 @@ Remember the goals:
 	
 =======================================
 
-**STOP! Are you currently playing a Game Boy Advance game?** Recently MinUI switched to a different emulator. Save data (created in the game) is compatible but save states (created in the emulator menu) are not. Please make sure you have created in-game saves before updating. The new emulator also does not support cheats (yet!). If you do not want to update right now, put an empty file named `no-update` (no extension) in `/Emus/Game Boy Advance.pak`. When you _are_ ready to update, just remove this file and update to the latest version of MinUI as you normally would.
+**STOP! Are you currently playing a Game Boy Advance game?** Recently MinUI switched to a different Game Boy Advance emulator. Save data (created in the game) is compatible but save states (created in the emulator menu) are not. Please make sure you have created in-game saves before updating. The new emulator also does not support cheats (yet!). If you do not want to update right now, put an empty file named `no-update` (no extension) in `/Emus/Game Boy Advance.pak`. When you _are_ ready to update, just remove this file and update to the latest version of MinUI as you normally would.
 
 Please see the readme.txt in the zip file for installation instructions.
 
 - updated Game Boy Advance emulator (was preventing proper sleep in menu)
-- MinUI now handles m3u files with Windows line-endings properly
+- MinUI now handles m3u files with Windows line-endings properly (rookie mistake)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
