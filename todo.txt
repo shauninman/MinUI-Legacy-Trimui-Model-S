@@ -15,7 +15,8 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- updated Game Boy Advance emulator (fixes Minish Cap roll, adds zipped rom support)
+- updated Game Boy Advance emulator (was preventing proper sleep in menu)
+- MinUI now handles m3u files with Windows line-endings properly
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -32,6 +33,9 @@ TODO: Info.pak
 	shortcuts?
 	QR code linking to the Releases page on GitHub or the readme? Both?
 		readme is helpful but is releases? Since downloading on your phone isn't that helpful...
+
+MinUI+libmmenu
+	m3u support isn't handling Windows line-endings
 
 libmmenu
 	scroll or at least mask longer names?
@@ -72,7 +76,13 @@ emulators
 	pokemini
 		should power off before exiting (or add note to readme that that's how games save to sram?)
 	picogpsp
-		get neonloop's patch to fix Minish Cap simultaneous button detection issue
+		BUG: brightness isn't being set to 0 when sleeping from in-emulator menu
+		
+		TODO: try moving dlopen(mmenu) to after the fread that creates the issue
+		
+			it might be that no system() calls are succeeding here, it's this
+				stops working in load_gamepak_raw()
+				between between fread(gamepak_rom, 1, file_size, fd); and fclose(fd);
 	gpsp-bittboy
 		remove submodule
 		link to picogpsp repo
