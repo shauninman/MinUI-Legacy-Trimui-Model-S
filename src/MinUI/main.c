@@ -316,8 +316,16 @@ static int hasRecents(void) {
 		char line[256];
 		while (fgets(line,256,file)!=NULL) {
 			int len = strlen(line);
-			if (len>0 && line[len-1]=='\n') line[len-1] = 0; // trim newline
-			if (strlen(line)==0) continue; // skip empty lines
+			if (len>0 && line[len-1]=='\n') {
+				line[len-1] = 0; // trim newline
+				len -= 1;
+				if (len>0 && line[len-1]=='\r') {
+					line[len-1] = 0; // trim Windows newline
+					len -= 1;
+				}
+			}
+			if (len==0) continue; // skip empty lines
+			
 			if (exists(line)) {
 				has = 1;
 				if (recents->count<kMaxRecents) {
@@ -514,8 +522,15 @@ static Array* getDiscs(char* path) {
 		int disc = 0;
 		while (fgets(line,256,file)!=NULL) {
 			int len = strlen(line);
-			if (len>0 && line[len-1]=='\n') line[len-1] = 0; // trim newline
-			if (strlen(line)==0) continue; // skip empty lines
+			if (len>0 && line[len-1]=='\n') {
+				line[len-1] = 0; // trim newline
+				len -= 1;
+				if (len>0 && line[len-1]=='\r') {
+					line[len-1] = 0; // trim Windows newline
+					len -= 1;
+				}
+			}
+			if (len==0) continue; // skip empty lines
 			
 			char disc_path[256];
 			strcpy(disc_path, base_path);
