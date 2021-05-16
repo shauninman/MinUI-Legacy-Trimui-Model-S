@@ -1,3 +1,7 @@
+something to watch out for:
+	launching games with a remapped pak when the target paks roms folder doesn't exist 
+		breaks all saving (in-game, states, settings)
+
 could MinUI (and it's family of emulators) be ported to this?
 	https://a.aliexpress.com/_mL5bVUp
 	to share an SD/save states across a portable and home console

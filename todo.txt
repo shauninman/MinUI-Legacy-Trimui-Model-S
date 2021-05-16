@@ -13,11 +13,13 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- 
+- in-game menu now displays battery charge
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
+
+TODO: add neonloop's modified so/ko files to System/lib?
 
 TODO: added separate games archive with VVVVVV and Cave Story?
 	can't share Cave Story source
@@ -31,14 +33,14 @@ TODO: Info.pak
 	QR code linking to the Releases page on GitHub or the readme? Both?
 		readme is helpful but is releases? Since downloading on your phone isn't that helpful...
 
-libmmenu
-	scroll or at least mask longer names?
-	add charge indicator
-
-MinUI
+MinUI+libmmenu
 	average charge value to stop fluctuations at icon change boundaries?
 	continuously scroll long names?
-	
+
+libmmenu
+	-
+
+MinUI
 	is there a way to remember the MinUI name for a pak?
 		so a pak can be updated even if renamed?
 		if <name>.pak/default_name.txt doesn't exist write <name> to it
@@ -58,10 +60,7 @@ MinUI
 		
 	file system based settings?
 		checkboxes (eg. enable screenshots, enable suspend/resume?)
-		select menus (eg. sleep timeout/disable, choose console names?)
-	
-	add neonloop's modified so files to System/lib?
-	
+		select menus (eg. sleep timeout/disable, choose console names?)	
 	
 emulators
 	all
@@ -87,10 +86,10 @@ emulators
 			Final Fight CD states created after entering the subway car will load but only play music
 	scummvm
 		https://git.crowdedwood.com/scummvm-rg350/
-		maybe MinUI could special case its weird rom format?
+		maybe MinUI could special case its weird rom format? bad precedent
 			https://retropie.org.uk/docs/ScummVM/
 	xm8
-		eggs PC-88 emulator
+		check out eggs PC-88 emulator
 			https://www.dropbox.com/sh/854r0eye4za40e7/AADoQ_bIuw-UuVDhyR5ucJvYa
 	fceux
 		-
@@ -129,8 +128,6 @@ general
 
 games
 	vvvvvv
-		add mmenu
-			pause music in menu!
 		integrate into makefile
 			maybe separate project? minui-games?
 		restore editor menu once text input is implemented? (not urgent, requires USB keyboard to use)
