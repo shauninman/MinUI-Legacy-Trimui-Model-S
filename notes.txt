@@ -6,7 +6,7 @@ could MinUI (and it's family of emulators) be ported to this?
 	https://a.aliexpress.com/_mL5bVUp
 	to share an SD/save states across a portable and home console
 	
-making QR codes with
+make QR codes with
 	https://www.qr-code-generator.com
 
 MinUI+libmmenu
@@ -43,17 +43,6 @@ usb audio
 		wonderswan
 	passing for now
 
-look into GMenuNX's brightness modifications
-	too much weirdness here
-		looks good on revised board, gradual ramp to 9, barely perceptible change to 10
-		but it hits max brightness by about 6-7 on my original device
-	tried to fix with a Brightness Patch.pak that let you choose based on device but
-		there's some weirdness around 0-1 brightness
-			keymon will write 0 but won't set brightness to 0
-			so if MinUI boots with brightness at 0 the screen doesn't turn on
-			addressing that makes the lowest brightness 75
-			it just feels messy
-	
 keymin
 	this is waaaay beyond me :disappointed:
 	feasible with what we've learned?

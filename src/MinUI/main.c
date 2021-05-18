@@ -1164,6 +1164,8 @@ int main(void) {
 	if (exists("/dev/dsp1")) putenv("AUDIODEV=/dev/dsp1"); // headphones
 	else putenv("AUDIODEV=/dev/dsp"); // speaker
 	
+	putenv("trimui_show=yes");
+	
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)==-1) {
 		puts("could not init SDL");
 		puts(SDL_GetError());
@@ -1635,6 +1637,8 @@ int main(void) {
 	
 	TTF_Quit();
 	SDL_Quit();
+	
+	putenv("trimui_show=no");
 	
 	// fflush(stdout);
 	// fclose(stdout);

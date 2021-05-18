@@ -19,6 +19,9 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+TODO: add eggs' custom keymon
+	missing keyrepeat but otherwise seems to work as a drop-in replacement
+	
 TODO: add neonloop's modified so/ko files to System/lib?
 
 TODO: added separate games archive with VVVVVV and Cave Story?
@@ -26,6 +29,7 @@ TODO: added separate games archive with VVVVVV and Cave Story?
 	can't share VVVVVV data.zip
 or individual zips for each game?
  	that kinda makes more sense since they're larger and may not be desired by everyone
+		but where to put them?
 
 TODO: Info.pak 
 	credits?
@@ -53,6 +57,7 @@ MinUI
 		 could allow me to get rid of next.sh
 	
 	is tearing patch affecting battery?
+		or is my battery just wearing out from being fully charged all the time?
 		is the device running hotter?
 		can we reverse it to improve battery when sleeping?
 			check eggs tearing test source	
