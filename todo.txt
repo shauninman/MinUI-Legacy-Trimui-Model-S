@@ -63,8 +63,7 @@ MinUI+libmmenu
 	continuously scroll long names?
 
 libmmenu
-	is enable repeat affecting emulators?
-		specifically gameboy?
+	-
 
 MinUI
 	is there a way to remember the MinUI name for a pak?
@@ -90,8 +89,6 @@ MinUI
 		select menus (eg. sleep timeout/disable, choose console names?)	
 	
 emulators
-	race
-	
 	all
 		eggs optimized 1.5x sharp scaler
 			wonder swan...
@@ -133,6 +130,8 @@ emulators
 	temper
 		-
 	handy
+		-
+	race
 		-
 	
 general
