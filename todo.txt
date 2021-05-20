@@ -13,23 +13,44 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- in-game menu now displays battery charge
+- fixed duplicate low battery icon
+- added battery icon to in-emulator menu
+- updated Game Boy emulator (improved default scaler performance)
+- updated Game Gear emulator (improved default scaler performance)
+- updated Neo Geo Pocket emulator (improved default scaler performance, automatic frameskipping, audio fix when resuming from MinUI)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
 TODO: add eggs' custom keymon
-	missing keyrepeat but otherwise seems to work as a drop-in replacement
+	I think I might fork it to remove suspend and dependence on system.json
+	write brightness and volume to files in .minui?
+	update brightness to have 20 steps with 3 unit intervals from 60-120 or 65-125?
 	
 TODO: add neonloop's modified so/ko files to System/lib?
+	or package them separately as a zip
+	launch.sh looks for that zip at the root of the SD card and installs them if present?
 
 TODO: added separate games archive with VVVVVV and Cave Story?
 	can't share Cave Story source
-	can't share VVVVVV data.zip
+	can't share VVVVVV's data.zip
 or individual zips for each game?
  	that kinda makes more sense since they're larger and may not be desired by everyone
 		but where to put them?
+		
+	MinUI-Ports-Private repo?
+		makefile (similar to main MinUI repo's makefile)
+		MinUI-Ports/ (public submodule)
+			VVVVVV.zip
+			Cave Story.zip
+		paks/
+			VVVVVV.pak
+			Cave Story.pak
+		ports/
+			VVVVVV/ (public submodule)
+			CSE2/ (private submodule)
+			
 
 TODO: Info.pak 
 	credits?
@@ -42,7 +63,8 @@ MinUI+libmmenu
 	continuously scroll long names?
 
 libmmenu
-	-
+	is enable repeat affecting emulators?
+		specifically gameboy?
 
 MinUI
 	is there a way to remember the MinUI name for a pak?
@@ -68,7 +90,11 @@ MinUI
 		select menus (eg. sleep timeout/disable, choose console names?)	
 	
 emulators
+	race
+	
 	all
+		eggs optimized 1.5x sharp scaler
+			wonder swan...
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
 	pokemini
