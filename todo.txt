@@ -13,10 +13,9 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- fixed duplicate low battery icon
 - added battery icon to in-emulator menu
-- updated Game Boy, Game Gear, and WonderSwan emulators (improved default scaler performance)
-- updated Neo Geo Pocket emulator (improved default scaler performance, automatic frameskipping, audio fix when resuming from MinUI)
+- fixed duplicate low battery icon
+- updated Game Boy, Game Gear, Neo Geo Pocket, and WonderSwan emulators (eggs optimizations)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -89,8 +88,6 @@ MinUI
 	
 emulators
 	all
-		eggs optimized 1.5x sharp scaler
-			wonder swan...
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
 	pokemini
@@ -102,9 +99,7 @@ emulators
 		link to picogpsp repo
 		archive repo
 	oswan
-		eggs has more scalers
-			waiting to hear back if he was seeking feedback or recommending for release
-				he's released a new version so I should just diff that source
+		-
 	picodrive
 		BUG: Streets of Rage music is slightly off
 		BUG: restoring state of a CD game doesn't work reliably
