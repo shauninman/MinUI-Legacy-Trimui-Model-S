@@ -15,8 +15,7 @@ Please see the readme.txt in the zip file for installation instructions.
 
 - fixed duplicate low battery icon
 - added battery icon to in-emulator menu
-- updated Game Boy emulator (improved default scaler performance)
-- updated Game Gear emulator (improved default scaler performance)
+- updated Game Boy, Game Gear, and WonderSwan emulators (improved default scaler performance)
 - updated Neo Geo Pocket emulator (improved default scaler performance, automatic frameskipping, audio fix when resuming from MinUI)
 
 As always, thanks eggs, neonloop, and gameblabla!
