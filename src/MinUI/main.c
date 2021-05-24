@@ -164,7 +164,7 @@ static void Array_reverse(Array* self) {
 
 static char* raw_name(char* path) {
 	char* tmp;
-	char name[128];
+	char name[256];
 	tmp = strrchr(path, '/')+1;
 	strcpy(name, tmp); // filename
 
@@ -172,7 +172,7 @@ static char* raw_name(char* path) {
 	if (tmp!=NULL) tmp[0] = '\0'; // remove extension
 	
 	// remove trailing parens (round and square)
-	char safe[128];
+	char safe[256];
 	strcpy(safe,name);
 	while ((tmp=strrchr(name, '('))!=NULL || (tmp=strrchr(name, '['))!=NULL) {
 		tmp[0] = '\0';

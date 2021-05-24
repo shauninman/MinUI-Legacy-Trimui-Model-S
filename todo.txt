@@ -62,6 +62,10 @@ libmmenu
 	-
 
 MinUI
+	BUG: dir listings crash with 1000s of files
+		runs out of memory?
+		encounters a filename/path that is too long?
+
 	is there a way to remember the MinUI name for a pak?
 		so a pak can be updated even if renamed?
 		if <name>.pak/default_name.txt doesn't exist write <name> to it
