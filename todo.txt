@@ -14,6 +14,7 @@ Remember the goals:
 Please see the readme.txt in the zip file for installation instructions.
 
 - fixed crasher on long file names
+- reduced jittery battery level readings
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -38,7 +39,6 @@ TODO: Info.pak
 		readme is helpful but is releases? Since downloading on your phone isn't that helpful...
 
 MinUI+libmmenu
-	average charge value to stop fluctuations at icon change boundaries?
 	continuously scroll long names?
 
 libmmenu
