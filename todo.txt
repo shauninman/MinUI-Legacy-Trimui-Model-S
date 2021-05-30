@@ -13,8 +13,7 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- fixed crasher on long file names
-- reduced jittery battery level readings
+- 
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -23,17 +22,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 TODO: share native game paks
 	https://www.dropbox.com/sh/d56fljlyuc3brd9/AAA5YGRNOa1IK7TOd3rWsEnOa?dl=0
 
-TODO: add tips to boot image
-	System/launch.sh would check for .minui/boot.bmp
-		if it doesn't exist, copy it from nand
-		then replace it with an image with a random tip on it
-		StockUI.pak/launch.sh would restore (for the dual booters)
-
-TODO: add eggs' custom keymon
-	I think I might fork it to remove suspend and dependence on system.json
-	write brightness and volume to files in .minui?
-	update brightness to have 20 steps with 3 unit intervals from 60-120 or 65-125?
-	
 TODO: add neonloop's modified so/ko files to System/lib?
 	or package them separately as a zip
 	launch.sh looks for that zip at the root of the SD card and installs them if present?
@@ -141,15 +129,6 @@ general
 rescue things from old repo
 	art
 	todos
-
-add more variation/peripheral paks?
-	WonderSwan Color.pak?
-	Sega CD.pak?
-	Sega 32x.pak?
-	TurboGrafx-CD.pak?
-	Turbo Duo.pak? (was this just a combo TurboGrafx-16 + TurboGrafx-CD? yes)
-or remove all variations and leave it up to the user to create and organize?
-maybe don't create any Rom folders, let people choose from the zip?
 
 flipbook
 	-

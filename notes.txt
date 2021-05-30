@@ -1,3 +1,24 @@
+add more variation/peripheral paks?
+		WonderSwan Color.pak?
+		Sega CD.pak?
+		Sega 32x.pak?
+		TurboGrafx-CD.pak?
+	or remove all variations and leave it up to the user to create and organize?
+	maybe don't create any Rom folders, let people choose from the zip?
+
+add tips to boot image?
+	System/launch.sh would check for .minui/boot.bmp
+		if it doesn't exist, copy it from nand
+		then replace it with an image with a random tip on it
+		StockUI.pak/launch.sh would restore (for the dual booters)
+	adds unnecessary delay to boot + risk of bad nand writes not worth it for 4-5 tips
+
+add eggs' custom keymon?
+	I think I might fork it to remove suspend and dependence on system.json
+	write brightness and volume to files in .minui?
+	update brightness to have 20 steps with 3 unit intervals from 60-120 or 65-125?
+	leave as is for now (more to maintain, no real added benefit)
+	
 something to watch out for:
 	launching games with a remapped pak when the target paks roms folder doesn't exist 
 		breaks all saving (in-game, states, settings)
