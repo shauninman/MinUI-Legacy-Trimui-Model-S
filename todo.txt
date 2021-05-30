@@ -126,9 +126,5 @@ general
 	can we fix the orphaned clusters SD card problem or would that require kernel changes?
 		https://elinux.org/images/5/54/Elc2011_munegowda.pdf
 
-rescue things from old repo
-	art
-	todos
-
 flipbook
 	-
