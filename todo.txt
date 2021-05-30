@@ -23,6 +23,12 @@ As always, thanks eggs, neonloop, and gameblabla!
 TODO: share native game paks
 	https://www.dropbox.com/sh/d56fljlyuc3brd9/AAA5YGRNOa1IK7TOd3rWsEnOa?dl=0
 
+TODO: add tips to boot image
+	System/launch.sh would check for .minui/boot.bmp
+		if it doesn't exist, copy it from nand
+		then replace it with an image with a random tip on it
+		StockUI.pak/launch.sh would restore (for the dual booters)
+
 TODO: add eggs' custom keymon
 	I think I might fork it to remove suspend and dependence on system.json
 	write brightness and volume to files in .minui?
@@ -39,6 +45,7 @@ TODO: Info.pak
 		readme is helpful but is releases? Since downloading on your phone isn't that helpful...
 
 MinUI+libmmenu
+	add volume/brightness overlays when changed?
 	continuously scroll long names?
 
 libmmenu
@@ -64,7 +71,7 @@ MinUI
 		also look into CPU Timer, page 84 of F1C200s manual
 		
 	file system based settings?
-		checkboxes (eg. enable screenshots, enable suspend/resume?)
+		checkboxes (eg. enable screenshots, enable suspend/resume?, enable tips on boot)
 		select menus (eg. sleep timeout/disable, choose console names?)	
 	
 emulators
@@ -130,17 +137,6 @@ general
 
 	can we fix the orphaned clusters SD card problem or would that require kernel changes?
 		https://elinux.org/images/5/54/Elc2011_munegowda.pdf
-
-games
-	vvvvvv
-		integrate into makefile
-			maybe separate project? minui-games?
-		restore editor menu once text input is implemented? (not urgent, requires USB keyboard to use)
-	cavestory
-		change Plantation password to "yrotS evaC" (or at least remove the leading "L" from the existing password)
-			not urgent (can't figure out where to do this anyway :sweat_smile:)
-		can I ever release this?
-			cavestory.org has CSE2 ports available for download so maybe sharing a binary is fine?
 
 rescue things from old repo
 	art
