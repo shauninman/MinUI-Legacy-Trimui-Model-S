@@ -13,7 +13,7 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- 
+- added brightness/volume hud to MinUI and in-game menu
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -33,7 +33,6 @@ TODO: Info.pak
 		readme is helpful but is releases? Since downloading on your phone isn't that helpful...
 
 MinUI+libmmenu
-	add volume/brightness overlays when changed?
 	continuously scroll long names?
 
 libmmenu

@@ -1263,6 +1263,12 @@ int main(void) {
 	SDL_Surface* ui_power_80_icon  = IMG_Load("/usr/trimui/res/skin/power-80%-icon.png");
 	SDL_Surface* ui_power_100_icon = IMG_Load("/usr/trimui/res/skin/power-full-icon.png");
 
+	SDL_Surface* ui_settings_bar_empty = IMG_Load("/mnt/SDCARD/System/res/settings-bar-empty.png");
+	SDL_Surface* ui_settings_bar_full = IMG_Load("/mnt/SDCARD/System/res/settings-bar-full.png");
+	SDL_Surface* ui_brightness_icon = IMG_Load("/mnt/SDCARD/System/res/settings-icon-brightness.png");
+	SDL_Surface* ui_volume_icon = IMG_Load("/mnt/SDCARD/System/res/settings-icon-volume.png");
+	SDL_Surface* ui_mute_icon = IMG_Load("/mnt/SDCARD/System/res/settings-icon-volume-mute.png");
+
 	// Mix_Chunk *click = Mix_LoadWAV("/usr/trimui/res/sound/click.wav");
 	
 	load_screenshots();
@@ -1295,6 +1301,9 @@ int main(void) {
 	
 	SDL_Event event;
 	int is_dirty = 1;
+	int show_setting = 0; // 1=brightness,2=volume
+	int setting_value = 0;
+	int setting_max = 0;
 	int needs_scrolling = 0;
 	int is_scrolling = 0;
 	int scroll_ox = 0;
@@ -1476,6 +1485,26 @@ int main(void) {
 			is_dirty = 1;
 		}
 		
+		int old_setting = show_setting;
+		int old_value = setting_value;
+		show_setting = 0;
+		if (Input_isPressed(kButtonStart) && Input_isPressed(kButtonSelect)) {
+			// buh
+		}
+		else if (Input_isPressed(kButtonStart)) {
+			show_setting = 1;
+			setting_value = getBrightness();
+			setting_max = 10;
+			// printf("show brightness: %i\n", setting_value, setting_max);
+		}
+		else if (Input_isPressed(kButtonSelect)) {
+			show_setting = 2;
+			setting_value = getVolume();
+			setting_max = 20;
+			// printf("show volume: %i\n", setting_value, setting_max);
+		}
+		if (old_setting!=show_setting || old_value!=setting_value) is_dirty = 1;
+		
 		#define kMaxTextWidth 288 // 320-32
 		if (is_dirty) {
 			needs_scrolling = 0;
@@ -1488,32 +1517,43 @@ int main(void) {
 			SDL_BlitSurface(ui_bottom_bar, NULL, buffer, &(SDL_Rect){0,202,0,0});
 			
 			SDL_Surface* text;
-			// x/y text
-			if (top->entries->count) {
-				char mini[8];
-				sprintf(mini, "/%d", top->entries->count);
-				text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
-				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184,9,0,0});
-				SDL_FreeSurface(text);
 			
-				sprintf(mini, "%d", top->selected+1);
-				text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
-				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184-text->w,9,0,0});
-				SDL_FreeSurface(text);
-			}
-
 			// logo
 			SDL_BlitSurface(ui_logo, NULL, buffer, &(SDL_Rect){10,10,0,0});
 			
-			// battery
-			int charge = BatteryReader_getLevel(battery);
-			SDL_Surface* ui_power_icon;
-			if (charge<41)		ui_power_icon = ui_power_0_icon;
-			else if (charge<43) ui_power_icon = ui_power_20_icon;
-			else if (charge<44) ui_power_icon = ui_power_50_icon;
-			else if (charge<46) ui_power_icon = ui_power_80_icon;
-			else				ui_power_icon = ui_power_100_icon;
-			SDL_BlitSurface(ui_power_icon, NULL, buffer, &(SDL_Rect){294,6,0,0});
+			if (show_setting) {
+				// icon
+				SDL_BlitSurface(show_setting==1?ui_brightness_icon:(setting_value>0?ui_volume_icon:ui_mute_icon), NULL, buffer, &(SDL_Rect){178,9,0,0});
+				// bar
+				SDL_BlitSurface(ui_settings_bar_empty, NULL, buffer, &(SDL_Rect){202,16,0,0});
+				int w = 108 * ((float)setting_value / setting_max);
+				SDL_BlitSurface(ui_settings_bar_full, &(SDL_Rect){0,0,w,4}, buffer, &(SDL_Rect){202,16,w,4});
+			}
+			else {
+				// x/y text
+				if (top->entries->count && !show_setting) {
+					char mini[8];
+					sprintf(mini, "/%d", top->entries->count);
+					text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
+					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184,9,0,0});
+					SDL_FreeSurface(text);
+			
+					sprintf(mini, "%d", top->selected+1);
+					text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
+					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184-text->w,9,0,0});
+					SDL_FreeSurface(text);
+				}
+				
+				// battery
+				int charge = BatteryReader_getLevel(battery);
+				SDL_Surface* ui_power_icon;
+				if (charge<41)		ui_power_icon = ui_power_0_icon;
+				else if (charge<43) ui_power_icon = ui_power_20_icon;
+				else if (charge<44) ui_power_icon = ui_power_50_icon;
+				else if (charge<46) ui_power_icon = ui_power_80_icon;
+				else				ui_power_icon = ui_power_100_icon;
+				SDL_BlitSurface(ui_power_icon, NULL, buffer, &(SDL_Rect){294,6,0,0});
+			}
 			
 			if (top->entries->count) {
 				if (can_resume) {
@@ -1668,6 +1708,12 @@ int main(void) {
 	SDL_FreeSurface(ui_power_50_icon);
 	SDL_FreeSurface(ui_power_80_icon);
 	SDL_FreeSurface(ui_power_100_icon);
+	
+	SDL_FreeSurface(ui_settings_bar_empty);
+	SDL_FreeSurface(ui_settings_bar_full);
+	SDL_FreeSurface(ui_brightness_icon);
+	SDL_FreeSurface(ui_volume_icon);
+	SDL_FreeSurface(ui_mute_icon);
 	
 	TTF_CloseFont(font);
 	TTF_CloseFont(tiny);
