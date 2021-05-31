@@ -14,6 +14,8 @@ Remember the goals:
 Please see the readme.txt in the zip file for installation instructions.
 
 - added brightness/volume hud to MinUI and in-game menu
+- added Tools/Tips.pak
+- removed Tools/Power Off.pak (not actually necessary)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -36,7 +38,7 @@ MinUI+libmmenu
 	continuously scroll long names?
 
 libmmenu
-	-
+	switch to MinUI's Input_* API
 
 MinUI
 	is there a way to remember the MinUI name for a pak?
@@ -49,13 +51,6 @@ MinUI
 	look at how GMenuNX launches emulators
 		 uses exec() to replace itself with the emulator
 		 could allow me to get rid of next.sh
-	
-	is tearing patch affecting battery?
-		or is my battery just wearing out from being fully charged all the time?
-		is the device running hotter?
-		can we reverse it to improve battery when sleeping?
-			check eggs tearing test source	
-		also look into CPU Timer, page 84 of F1C200s manual
 		
 	file system based settings?
 		checkboxes (eg. enable screenshots, enable suspend/resume?, enable tips on boot)

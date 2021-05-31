@@ -1,3 +1,11 @@
+is tearing patch affecting battery?
+	or is my battery just wearing out from being fully charged all the time?
+	is the device running hotter?
+	can we reverse it to improve battery when sleeping?
+		check eggs tearing test source	
+	also look into CPU Timer, page 84 of F1C200s manual
+	I think it might just be my battery... :\
+	
 add more variation/peripheral paks?
 		WonderSwan Color.pak?
 		Sega CD.pak?

@@ -141,7 +141,7 @@ lynx: emu
 	cp "third-party/handy-rs97/handy" "$(PAYLOAD_PATH)/Emus/Lynx.pak"
 
 #--------------------------------------
-tools: bridge commander poweroff reload stock # zero
+tools: bridge commander reload stock tips # zero
 #--------------------------------------
 
 tool:
@@ -164,6 +164,9 @@ stock: tool
 
 reload: tool
 	cp -R "paks/Reload MinUI.pak" "$(PAYLOAD_PATH)/Tools"
+
+tips: tool
+	cp -R "paks/Tips.pak" "$(PAYLOAD_PATH)/Tools"
 
 zero: tool
 	cp -R "paks/Zero Stock.pak" "$(PAYLOAD_PATH)/Tools"
