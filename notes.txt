@@ -1,3 +1,6 @@
+can we fix the orphaned clusters SD card problem or would that require kernel changes?
+	https://elinux.org/images/5/54/Elc2011_munegowda.pdf
+
 is tearing patch affecting battery?
 	or is my battery just wearing out from being fully charged all the time?
 	is the device running hotter?

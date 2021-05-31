@@ -21,18 +21,14 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-TODO: share native game paks
-	https://www.dropbox.com/sh/d56fljlyuc3brd9/AAA5YGRNOa1IK7TOd3rWsEnOa?dl=0
+TODO: mention Tips.pak in README.txt
 
-TODO: add neonloop's modified so/ko files to System/lib?
-	or package them separately as a zip
-	launch.sh looks for that zip at the root of the SD card and installs them if present?
+under consideration
+	share native game paks?
+		https://www.dropbox.com/sh/d56fljlyuc3brd9/AAA5YGRNOa1IK7TOd3rWsEnOa?dl=0
 
-TODO: Info.pak 
-	credits?
-	shortcuts?
-	QR code linking to the Releases page on GitHub or the readme? Both?
-		readme is helpful but is releases? Since downloading on your phone isn't that helpful...
+	recognize neonloop's dynamic-libs.zip and automatically unzip into /System/libs?
+		will it get nuked on update? test
 
 MinUI+libmmenu
 	continuously scroll long names?
@@ -55,7 +51,7 @@ MinUI
 	file system based settings?
 		checkboxes (eg. enable screenshots, enable suspend/resume?, enable tips on boot)
 		select menus (eg. sleep timeout/disable, choose console names?)	
-	
+
 emulators
 	all
 		standardize bios locations
@@ -99,8 +95,6 @@ emulators
 		-
 	
 general
-	look into patching SDL lib to remove charge testing?
-	
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
 		note stock shortcuts for brightness/volume
@@ -116,9 +110,3 @@ general
 	
 	document submodule upstream urls (for myself) since they get lost when cloned
 		automate somehow?
-
-	can we fix the orphaned clusters SD card problem or would that require kernel changes?
-		https://elinux.org/images/5/54/Elc2011_munegowda.pdf
-
-flipbook
-	-
