@@ -20,6 +20,7 @@ As always, thanks eggs, neonloop, and gameblabla!
 =======================================
 
 TODO: mention Tips.pak in README.txt
+TODO: port to OpenDingux? would probably require a full rewrite :sob:
 
 under consideration
 	share native game paks?
@@ -30,11 +31,31 @@ under consideration
 
 MinUI+libmmenu
 	continuously scroll long names?
+	support localization
+		localized strings files
+		most text is in images
+			not just text but all the button prompts are hardcoded too...
+				eg. USB Bridge.pak
+				eg. the QR code in Tips.pak
+		some strings are built programmatically
+			eg. System/Update.pak
+		would need an alternative to bin/show, bin/confirm, even bin/flipbook :weary:
+		I don't think the current typeface supports anything beyond ascii :sob:
+		
+		modes
+			just text, centered (manually wrapped), eg. wake.png
+			prompt, centered text, buttons at bottom, eg. USB Bridge.pak
+			layout, centered text, centered header, buttons along bottom, eg. Tips.pak
+				multi-paged :cold_sweat:
+				
 
 libmmenu
 	switch to MinUI's Input_* API
 
 MinUI
+	remove Color versions of Game Boy and Neo Geo Pocket paks?
+		add variations like this to an Extras folder with its own readme
+
 	is there a way to remember the MinUI name for a pak?
 		so a pak can be updated even if renamed?
 		if <name>.pak/default_name.txt doesn't exist write <name> to it
@@ -48,9 +69,14 @@ MinUI
 		
 	file system based settings?
 		checkboxes (eg. enable screenshots, enable suspend/resume?, enable tips on boot)
-		select menus (eg. sleep timeout/disable, choose console names?)	
+		select menus (eg. sleep timeout/disable, language, choose console names?)	
 
 emulators
+	gpsp-bittboy
+		remove submodule
+		link to picogpsp repo
+		archive repo
+
 	all
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
@@ -58,10 +84,6 @@ emulators
 		should power off before exiting (or add note to readme that that's how games save to sram?)
 	picogpsp
 		-
-	gpsp-bittboy
-		remove submodule
-		link to picogpsp repo
-		archive repo
 	oswan
 		-
 	picodrive
@@ -91,8 +113,19 @@ emulators
 		-
 	race
 		-
-	
+
+paks
+	Dead Pixel Reanimator.pak
+		just need to fork, branch, commit my changes, submodule and potentially add to makefile
+			https://github.com/retrofw/pixmassage
+		probably more of an Extras thing
+	Commander.pak
+		merge in latest additions from (or just switch to entirely?):
+			https://github.com/od-contrib/commander/
+
 general
+	remove old paks from archive
+	
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
 		note stock shortcuts for brightness/volume

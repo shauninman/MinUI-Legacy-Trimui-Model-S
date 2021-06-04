@@ -1,5 +1,5 @@
 #!/bin/sh
-# Flipbook.pak/launch.sh
+# Tips.pak/launch.sh
 
 DIR=$(dirname "$0")
 cd "$DIR"
