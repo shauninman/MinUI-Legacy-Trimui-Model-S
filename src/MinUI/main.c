@@ -942,8 +942,8 @@ static void applyTearingPatch(void) {
 	int		addrmask1 = address & (0-pagesize);
 	int		addrmask2 = address & (pagesize-1);
 
-	int			memhandle = open("/dev/mem",O_RDWR);
-	unsigned char		*memaddress = mmap(NULL,pagesize,PROT_READ|PROT_WRITE,MAP_SHARED,memhandle,addrmask1);
+	int						memhandle = open("/dev/mem",O_RDWR);
+	unsigned char			*memaddress = mmap(NULL,pagesize,PROT_READ|PROT_WRITE,MAP_SHARED,memhandle,addrmask1);
 	volatile unsigned char	*modaddress = (memaddress + addrmask2);
 
 	*(unsigned int*)modaddress = 0x03e70025;	// HT , HBP	0x3e7 lowest	(for my device)
