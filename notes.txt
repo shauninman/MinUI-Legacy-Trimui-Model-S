@@ -1,3 +1,19 @@
+building SDL 1.2
+	git clone https://github.com/libsdl-org/SDL-1.2.git
+	search source for `sdl_nomouse =` and set it to "1"
+	export CC=/opt/trimui-toolchain/bin/arm-buildroot-linux-gnueabi-gcc; ./configure --host=arm-buildroot-linux-gnueabi --enable-input-tslib=no
+	make
+	load it up by putting it somewhere in your LD_LIBRARY_PATH
+
+scummvm
+	https://git.crowdedwood.com/scummvm-rg350/
+	maybe MinUI could special case its weird rom format? bad precedent
+		https://retropie.org.uk/docs/ScummVM/
+xm8
+	check out eggs PC-88 emulator
+		https://www.dropbox.com/sh/854r0eye4za40e7/AADoQ_bIuw-UuVDhyR5ucJvYa
+
+
 can we fix the orphaned clusters SD card problem or would that require kernel changes?
 	https://elinux.org/images/5/54/Elc2011_munegowda.pdf
 

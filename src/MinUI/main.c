@@ -1197,35 +1197,35 @@ int main(void) {
 	if (exists("/dev/dsp1")) putenv("AUDIODEV=/dev/dsp1"); // headphones
 	else putenv("AUDIODEV=/dev/dsp"); // speaker
 	
-	putenv("trimui_show=yes");
-	
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)==-1) {
+	if (SDL_Init(SDL_INIT_VIDEO)==-1) { // | SDL_INIT_AUDIO
 		puts("could not init SDL");
 		puts(SDL_GetError());
 		// fflush(stdout);
 	}
 	
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)==-1) {
-	    printf( "Mix_OpenAudio() failed! SDL_mixer Error: %s\n", Mix_GetError() );
-		// fflush(stdout);
-		
-		puts("\tquitting prematurely");
-		// fflush(stdout);
-		
-		Mix_CloseAudio();
-		Mix_Quit();
-		SDL_Quit();
-		fclose(stdout);
-		SDL_Quit();
-		return 0;
-	}
+	// if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048)==-1) {
+	//     printf( "Mix_OpenAudio() failed! SDL_mixer Error: %s\n", Mix_GetError() );
+	// 	// fflush(stdout);
+	//
+	// 	puts("\tquitting prematurely");
+	// 	// fflush(stdout);
+	//
+	// 	Mix_CloseAudio();
+	// 	Mix_Quit();
+	// 	SDL_Quit();
+	// 	fclose(stdout);
+	// 	SDL_Quit();
+	// 	return 0;
+	// }
 	
 	restoreSettings();
-	applyTearingPatch();
+	// applyTearingPatch();
 	
 	battery = BatteryReader_new();
 	
-	screen = SDL_SetVideoMode(320, 240, 16, SDL_HWSURFACE | SDL_DOUBLEBUF);
+	screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
+	// putenv("trimui_show=yes");
+	screen->unused1 = 1; // trimui_show=yes
 	buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
 	
 	SDL_ShowCursor(0);
@@ -1510,7 +1510,7 @@ int main(void) {
 			needs_scrolling = 0;
 			
 			// clear
-			SDL_FillRect(buffer, &buffer->clip_rect, SDL_MapRGB(buffer->format, 0,0,0));
+			SDL_FillRect(buffer, &buffer->clip_rect, 0);
 			
 			// chrome
 			SDL_BlitSurface(ui_top_bar, NULL, buffer, NULL);
@@ -1692,8 +1692,8 @@ int main(void) {
 	Menu_quit();
 	
 	// Mix_FreeChunk(click);
-	Mix_CloseAudio();
-	Mix_Quit();
+	// Mix_CloseAudio();
+	// Mix_Quit();
 	
 	SDL_FreeSurface(ui_logo);
 	SDL_FreeSurface(ui_highlight_bar);
@@ -1721,7 +1721,8 @@ int main(void) {
 	TTF_Quit();
 	SDL_Quit();
 	
-	putenv("trimui_show=no");
+	// putenv("trimui_show=no");
+	screen->unused1 = 0; // trimui_show=no
 	
 	// fflush(stdout);
 	// fclose(stdout);

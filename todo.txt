@@ -13,14 +13,29 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- 
+- replaced stock SDL lib to eliminate tearing
+
+Known issues: 
+
+- some MinUI messages don't stay on screen for more than a split second
+- returning to the game from the in-game menu blacks out the screen momentarily
+	- Genesis
+		- does picodrive use SDL_GetScreen() for the frame passed to ShowMenu()?
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+TODO: integrate modified libSDL
+	add battery indicator
+	eggs says
+		In the source above, the value was set to 
+		(245-line)*(1000000/60/286), but I changed 
+		(1000000/60/286)=58.27 to 56 to give a little 
+		more room for gambatte, etc.
+
 TODO: mention Tips.pak in README.txt
-TODO: port to OpenDingux? would probably require a full rewrite :sob:
+TODO: add native games QR code to Tips.pak?
 
 under consideration
 	share native game paks?
@@ -47,7 +62,6 @@ MinUI+libmmenu
 			prompt, centered text, buttons at bottom, eg. USB Bridge.pak
 			layout, centered text, centered header, buttons along bottom, eg. Tips.pak
 				multi-paged :cold_sweat:
-				
 
 libmmenu
 	switch to MinUI's Input_* API
@@ -92,13 +106,6 @@ emulators
 			do CD games need a delay before restoring from menu?
 				I'm using a built in load state flag so I don't _think_ this is my bug...
 			Final Fight CD states created after entering the subway car will load but only play music
-	scummvm
-		https://git.crowdedwood.com/scummvm-rg350/
-		maybe MinUI could special case its weird rom format? bad precedent
-			https://retropie.org.uk/docs/ScummVM/
-	xm8
-		check out eggs PC-88 emulator
-			https://www.dropbox.com/sh/854r0eye4za40e7/AADoQ_bIuw-UuVDhyR5ucJvYa
 	fceux
 		-
 	pcsx_rearmed

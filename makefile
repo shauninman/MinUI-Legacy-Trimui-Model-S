@@ -11,6 +11,8 @@ BUILD_PATH=./build
 PAYLOAD_PATH=$(BUILD_PATH)/PAYLOAD
 ROMS_PATH=$(BUILD_PATH)/Roms
 
+SDL_MAKEFILE=./third-party/SDL-1.2/Makefile
+
 #--------------------------------------
 all: readme sys emus tools zip
 #--------------------------------------
@@ -18,12 +20,18 @@ all: readme sys emus tools zip
 lib:
 	cd ./src/libmmenu && make
 
+$(SDL_MAKEFILE):
+	cd ./third-party/SDL-1.2 && export CC=/opt/trimui-toolchain/bin/arm-buildroot-linux-gnueabi-gcc; ./configure --host=arm-buildroot-linux-gnueabi --enable-input-tslib=no
+
+sdl: $(SDL_MAKEFILE)
+	cd ./third-party/SDL-1.2 && make -j
+
 readme:
 	mkdir -p "$(BUILD_PATH)"
 	echo "$(RELEASE_NAME)" > "$(BUILD_PATH)/version.txt"
 	fmt -w 40 -s "src/MinUI/readme.txt" > "$(BUILD_PATH)/readme.txt"
 
-sys: lib
+sys: lib sdl
 	mkdir -p "$(PAYLOAD_PATH)"
 	mkdir -p "$(PAYLOAD_PATH)/System"
 	echo "$(RELEASE_NAME)" > "$(PAYLOAD_PATH)/System/version.txt"
@@ -44,6 +52,7 @@ sys: lib
 	cp "src/needs-swap.sh"			"$(PAYLOAD_PATH)/System/bin/needs-swap"
 	cp "bin/keymon-patched"			"$(PAYLOAD_PATH)/System/bin/keymon"
 	cp "src/libmmenu/libmmenu.so"	"$(PAYLOAD_PATH)/System/lib"
+	cp "third-party/SDL-1.2/build/.libs/libSDL-1.2.so.0.11.5" "$(PAYLOAD_PATH)/System/lib/libSDL-1.2.so.0"
 	cp -R "paks/Update.pak" 		"$(PAYLOAD_PATH)/System"
 
 #--------------------------------------
@@ -188,6 +197,7 @@ clean:
 	cd ./src/confirm && make clean
 	cd ./src/flipbook && make clean
 	cd ./TrimuiUpdate/ && make clean
+	cd ./third-party/SDL-1.2 && make clean
 	cd ./third-party/DinguxCommander && make clean
 	cd ./third-party/gambatte-dms && make clean
 	cd ./third-party/pokemini/platform/trimui && make clean

@@ -41,8 +41,6 @@ int main(int argc , char* argv[]) {
 				}
 			}
 		}
-		// SDL_FillRect(screen, NULL, 0);
-		// SDL_Flip(screen);
 	}
 	
 	SDL_FreeSurface(image);

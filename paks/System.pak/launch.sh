@@ -3,7 +3,7 @@
 
 killall keymon
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/mnt/SDCARD/System/lib"
+export LD_LIBRARY_PATH="/mnt/SDCARD/System/lib:$LD_LIBRARY_PATH"
 export PATH="/mnt/SDCARD/System/bin:$PATH"
 
 a=`ps | grep keymon | grep -v grep`
