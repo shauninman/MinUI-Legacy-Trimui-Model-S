@@ -1510,7 +1510,7 @@ int main(void) {
 			needs_scrolling = 0;
 			
 			// clear
-			SDL_FillRect(buffer, &buffer->clip_rect, 0);
+			SDL_FillRect(buffer, NULL, 0);
 			
 			// chrome
 			SDL_BlitSurface(ui_top_bar, NULL, buffer, NULL);

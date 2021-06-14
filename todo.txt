@@ -13,11 +13,13 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- replaced stock SDL lib to (completely?) eliminate tearing
+- 
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
+
+TODO: add audio input switching to SDL
 
 TODO: mention Tips.pak in README.txt
 TODO: add native games QR code to Tips.pak?
@@ -35,7 +37,7 @@ under consideration
 		https://www.dropbox.com/sh/d56fljlyuc3brd9/AAA5YGRNOa1IK7TOd3rWsEnOa?dl=0
 
 	recognize neonloop's dynamic-libs.zip and automatically unzip into /System/libs?
-		will it get nuked on update? test
+		will it get nuked on update? no
 
 MinUI+libmmenu
 	continuously scroll long names?
@@ -60,6 +62,9 @@ libmmenu
 	switch to MinUI's Input_* API
 
 MinUI
+	BUG: if Games only contains subfolders (no paks) it won't appear
+		eg. if you only add Doom (which contains paks for each wad) and no other game paks
+	
 	remove Color versions of Game Boy and Neo Geo Pocket paks?
 		add variations like this to an Extras folder with its own readme
 
