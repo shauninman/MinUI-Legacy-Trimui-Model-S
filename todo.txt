@@ -13,29 +13,22 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- replaced stock SDL lib to eliminate tearing
-
-Known issues: 
-
-- some MinUI messages don't stay on screen for more than a split second
-- returning to the game from the in-game menu blacks out the screen momentarily
-	- Genesis
-		- does picodrive use SDL_GetScreen() for the frame passed to ShowMenu()?
+- replaced stock SDL lib to (completely?) eliminate tearing
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-TODO: integrate modified libSDL
-	add battery indicator
-	eggs says
-		In the source above, the value was set to 
-		(245-line)*(1000000/60/286), but I changed 
-		(1000000/60/286)=58.27 to 56 to give a little 
-		more room for gambatte, etc.
-
 TODO: mention Tips.pak in README.txt
 TODO: add native games QR code to Tips.pak?
+
+TODO: buttons pressed when entering menu stay pressed upon exiting
+	- pokemini
+	- picogpsp
+	- picodrive
+	- sms_sdl
+	- snes9x2002
+	- temper
 
 under consideration
 	share native game paks?

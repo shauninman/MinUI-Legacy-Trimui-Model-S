@@ -18,7 +18,6 @@ int main(int argc , char* argv[]) {
 	if (SDL_Init(SDL_INIT_VIDEO)==-1) {
 		puts("could not init SDL");
 		puts(SDL_GetError());
-		
 	}
 	
 	SDL_Surface* screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
