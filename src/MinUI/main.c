@@ -1718,11 +1718,11 @@ int main(void) {
 	TTF_CloseFont(font);
 	TTF_CloseFont(tiny);
 	
-	TTF_Quit();
-	SDL_Quit();
-	
 	// putenv("trimui_show=no");
 	screen->unused1 = 0; // trimui_show=no
+
+	TTF_Quit();
+	SDL_Quit();
 	
 	// fflush(stdout);
 	// fclose(stdout);
