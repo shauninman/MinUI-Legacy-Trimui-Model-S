@@ -1224,9 +1224,11 @@ int main(void) {
 	battery = BatteryReader_new();
 	
 	screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
-	// putenv("trimui_show=yes");
-	screen->unused1 = 1; // trimui_show=yes
 	buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
+
+	// both for compatibility pre and post 1.7
+	putenv("trimui_show=yes");
+	screen->unused1 = 1;
 	
 	SDL_ShowCursor(0);
 	SDL_EnableKeyRepeat(300,100);
@@ -1718,8 +1720,9 @@ int main(void) {
 	TTF_CloseFont(font);
 	TTF_CloseFont(tiny);
 	
-	// putenv("trimui_show=no");
-	screen->unused1 = 0; // trimui_show=no
+	// both for compatibility pre and post 1.7
+	putenv("trimui_show=no");
+	screen->unused1 = 0;
 
 	TTF_Quit();
 	SDL_Quit();
