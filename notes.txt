@@ -3,11 +3,16 @@ add eggs' custom keymon?
 	write brightness and volume to files in .minui?
 	update brightness to have 20 steps with 3 unit intervals from 60-120 or 65-125?
 	leave as is for now (more to maintain, no real added benefit)
-	tried integrating but its dependence on tinyalsa is a dealbreaker
+	tried integrating but its dependence on tinyalsa is a dealbreaker (figured this out!)
 		requires linking to all emulators
 		didn't always work (in hindsight I'm realizing this might be because 
 			the makefile was the only thing changed so in the cases where it 
 			didn't work, maybe they didn't actually recompile)
+		tried again tonight
+			what worked was dlopen-ing tinyalsa with RTLD_LAZY|RTLD_GLOBAL before using any mixer_* calls
+				oddly I still had to -ltinyalsa in MinUI's makefile but not libmmenu or any emulators...
+	but modified keymon was emptying system.json and always defaulting to max values
+		emptied json happened with eggs gmenunx version too but it successfully read the values correctly (before nuking them :sob:)
 	
 building SDL 1.2
 	git clone https://github.com/libsdl-org/SDL-1.2.git
