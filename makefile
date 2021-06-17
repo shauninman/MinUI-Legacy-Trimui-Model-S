@@ -11,8 +11,6 @@ BUILD_PATH=./build
 PAYLOAD_PATH=$(BUILD_PATH)/PAYLOAD
 ROMS_PATH=$(BUILD_PATH)/Roms
 
-SDL_MAKEFILE=./third-party/SDL-1.2/Makefile
-
 #--------------------------------------
 all: readme sys emus tools zip
 #--------------------------------------
@@ -20,21 +18,16 @@ all: readme sys emus tools zip
 lib:
 	cd ./src/libmmenu && make
 
-$(SDL_MAKEFILE):
-	cd ./third-party/SDL-1.2 && export CC=/opt/trimui-toolchain/bin/arm-buildroot-linux-gnueabi-gcc; ./configure --host=arm-buildroot-linux-gnueabi --enable-input-tslib=no
-
-sdl: $(SDL_MAKEFILE)
-	cd ./third-party/SDL-1.2 && make -j
-
 readme:
 	mkdir -p "$(BUILD_PATH)"
 	echo "$(RELEASE_NAME)" > "$(BUILD_PATH)/version.txt"
 	fmt -w 40 -s "src/MinUI/readme.txt" > "$(BUILD_PATH)/readme.txt"
 
-sys: lib sdl
+sys: lib
 	mkdir -p "$(PAYLOAD_PATH)"
 	mkdir -p "$(PAYLOAD_PATH)/System"
 	echo "$(RELEASE_NAME)" > "$(PAYLOAD_PATH)/System/version.txt"
+	cd ./third-party/SDL-1.2 && ./make.sh
 	cd ./TrimuiUpdate/ && make
 	cp -R ./TrimuiUpdate/installer/. "$(PAYLOAD_PATH)"
 	cd ./src/MinUI && make
