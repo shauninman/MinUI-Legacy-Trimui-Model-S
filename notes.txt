@@ -1,3 +1,14 @@
+add eggs' custom keymon?
+	I think I might fork it to remove suspend and dependence on system.json
+	write brightness and volume to files in .minui?
+	update brightness to have 20 steps with 3 unit intervals from 60-120 or 65-125?
+	leave as is for now (more to maintain, no real added benefit)
+	tried integrating but its dependence on tinyalsa is a dealbreaker
+		requires linking to all emulators
+		didn't always work (in hindsight I'm realizing this might be because 
+			the makefile was the only thing changed so in the cases where it 
+			didn't work, maybe they didn't actually recompile)
+	
 building SDL 1.2
 	git clone https://github.com/libsdl-org/SDL-1.2.git
 	search source for `sdl_nomouse =` and set it to "1"
@@ -40,12 +51,6 @@ add tips to boot image?
 		StockUI.pak/launch.sh would restore (for the dual booters)
 	adds unnecessary delay to boot + risk of bad nand writes not worth it for 4-5 tips
 
-add eggs' custom keymon?
-	I think I might fork it to remove suspend and dependence on system.json
-	write brightness and volume to files in .minui?
-	update brightness to have 20 steps with 3 unit intervals from 60-120 or 65-125?
-	leave as is for now (more to maintain, no real added benefit)
-	
 something to watch out for:
 	launching games with a remapped pak when the target paks roms folder doesn't exist 
 		breaks all saving (in-game, states, settings)
