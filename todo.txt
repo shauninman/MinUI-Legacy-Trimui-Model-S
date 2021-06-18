@@ -13,6 +13,7 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
+- added native support for USB headphones
 - fixed black square in top left corner of screen on exit
 - updated patched keymon with improved headphone support
 - reduced custom SDL lib file size (from 1.2MB to 233KB)
@@ -21,6 +22,10 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+TODO: remove adbd from System.pak/launch.sh!
+TODO: HazMan1988 reports PS1 games are crashy with custom SDL
+	does this have something to do with resolution switching?
+	
 TODO: add audio input switching to SDL
 TODO: look into eggs suspend feature
 	he sleeps other processes
