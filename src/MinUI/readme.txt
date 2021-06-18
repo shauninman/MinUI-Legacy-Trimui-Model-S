@@ -60,6 +60,11 @@ Return to MinUI
 Navigate to FILE and open TrimuiUpdate_MinUI.zip. Welcome back!
 
 ----------------------------------------
+One more thing
+
+Check out the Tips pak in Tools for handy info about waking from sleep, changing the volume and brightness, quickly navigating MinUI, resuming from your most recent save states, downloading native games, and keeping up to date.
+
+----------------------------------------
 Thanks
 
 To eggs for his early and frequent hacking and porting, LCD initialization code, screen tearing patch, under- and over-clocking; the list continues to grow every day, but above all for sharing these constant discoveries.

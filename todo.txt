@@ -13,10 +13,12 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- added native support for USB headphones
-- fixed black square in top left corner of screen on exit
+- updated SDL with native support for USB headphones
 - updated patched keymon with improved headphone support
+- fixed black square in top left corner of screen on exit
 - reduced custom SDL lib file size (from 1.2MB to 233KB)
+- updated Tips.pak
+- updated readme
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -26,15 +28,11 @@ TODO: remove adbd from System.pak/launch.sh!
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
 	does this have something to do with resolution switching?
 	
-TODO: add audio input switching to SDL
 TODO: look into eggs suspend feature
 	he sleeps other processes
 	might not be necessary for 
 	MinUI/libmmenu since it's 
 	invoked by a running process
-
-TODO: mention Tips.pak in README.txt
-TODO: add native games QR code to Tips.pak?
 
 TODO: some emulators aren't wiping the screen on quit (is this a regression?)
 TODO: buttons pressed when entering menu stay pressed upon exiting
@@ -46,9 +44,6 @@ TODO: buttons pressed when entering menu stay pressed upon exiting
 	- temper
 
 under consideration
-	share native game paks?
-		https://www.dropbox.com/sh/d56fljlyuc3brd9/AAA5YGRNOa1IK7TOd3rWsEnOa?dl=0
-
 	recognize neonloop's dynamic-libs.zip and automatically unzip into /System/libs?
 		will it get nuked on update? no
 
@@ -133,6 +128,10 @@ emulators
 		-
 
 paks
+	Tips
+		explain USB Bridge + webadb.com?
+		mention USB headphones and impact on performance
+		
 	Dead Pixel Reanimator.pak
 		just need to fork, branch, commit my changes, submodule and potentially add to makefile
 			https://github.com/retrofw/pixmassage
@@ -146,16 +145,15 @@ general
 	
 	add a quickstart section to readme
 		make clear the `Roms/Console Name` and `Emus/Console Name.pak` connection
-		note stock shortcuts for brightness/volume
 		add info about USB Bridge + webadb.com to upload files over USB
-		also note to use Power Off to make sure that save states don't get lost
-			not actually necessary
 		mention GBA, PSX, and 32x using dynarec which may have performance issues initially that go away after playing for a bit and it caches instructions?
 		document new REMPAP launch.sh for multiple rom types that use the same emulator
 		document no-update file in paks
 	
 	wrap functions shared by MinUI, utilities, and libmmenu into a shared source file?
 		yes, please!
+		this is tricky because libmmenu is a submodule
+			it might need to be a submodule itself?
 	
 	document submodule upstream urls (for myself) since they get lost when cloned
 		automate somehow?
