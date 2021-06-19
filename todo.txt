@@ -23,10 +23,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-BUG: dis/connecting any USB cable causes stutter not present in MinUI 1.7's SDL
-	step back through commits to determine when it was introduced
-	doesn't seem to be caused by USB_* functions (persists even though commented out)
-
 TODO: persist separate speaker and headphone volumes
 
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
