@@ -190,7 +190,7 @@ clean:
 	cd ./src/confirm && make clean
 	cd ./src/flipbook && make clean
 	cd ./TrimuiUpdate/ && make clean
-	cd ./third-party/SDL-1.2 && make clean
+	cd ./third-party/SDL-1.2 && make distclean
 	cd ./third-party/DinguxCommander && make clean
 	cd ./third-party/gambatte-dms && make clean
 	cd ./third-party/pokemini/platform/trimui && make clean
