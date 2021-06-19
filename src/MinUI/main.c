@@ -1227,8 +1227,9 @@ int main(void) {
 	buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
 
 	// both for compatibility pre and post 1.7
+	#define TRIMUI_SHOW unused1
+	screen->TRIMUI_SHOW = 1;
 	putenv("trimui_show=yes");
-	screen->unused1 = 1;
 	
 	SDL_ShowCursor(0);
 	SDL_EnableKeyRepeat(300,100);
@@ -1722,7 +1723,7 @@ int main(void) {
 	
 	// both for compatibility pre and post 1.7
 	putenv("trimui_show=no");
-	screen->unused1 = 0;
+	screen->TRIMUI_SHOW = 0;
 
 	TTF_Quit();
 	SDL_Quit();

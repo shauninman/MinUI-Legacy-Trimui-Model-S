@@ -62,7 +62,7 @@ Navigate to FILE and open TrimuiUpdate_MinUI.zip. Welcome back!
 ----------------------------------------
 One more thing
 
-Check out the Tips pak in Tools for handy info about waking from sleep, changing the volume and brightness, quickly navigating MinUI, resuming from your most recent save states, downloading native games, and keeping up to date.
+Check out Tips in Tools for handy info about waking from sleep, changing the volume and brightness, quickly navigating MinUI, resuming from your most recent save states, downloading native games, and keeping up to date.
 
 ----------------------------------------
 Thanks

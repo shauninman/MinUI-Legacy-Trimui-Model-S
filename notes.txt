@@ -1,3 +1,6 @@
+use inotify to detect when /dev/dsp1 appears?
+	doesn't work with /dev :sob:
+	
 add eggs' custom keymon?
 	I think I might fork it to remove suspend and dependence on system.json
 	write brightness and volume to files in .minui?
