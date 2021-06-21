@@ -23,7 +23,12 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+TODO: eggs SDL_Audio + SLD_Init tweaks
 TODO: persist separate speaker and headphone volumes
+	this is a lot of work
+		update keymon? (which doesn't work currently, possibly because MinUI/libmmenu's aggressive reads?)
+		new settings storage?
+		shared memory?
 
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
 	does this have something to do with resolution switching?

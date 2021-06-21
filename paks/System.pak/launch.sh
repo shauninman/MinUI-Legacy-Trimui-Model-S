@@ -1,6 +1,8 @@
 #!/bin/sh
 # System.pak/launch.sh
 
+# echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH\nPATH=$PATH" > /mnt/SDCARD/.minui/logs/System.txt
+
 killall keymon
 
 export LD_LIBRARY_PATH="/mnt/SDCARD/System/lib:$LD_LIBRARY_PATH"
