@@ -2,10 +2,11 @@ BUG: dis/connecting any USB cable causes stutter not present in MinUI 1.7's SDL
 	step back through commits to determine when it was introduced
 	doesn't seem to be caused by USB_* functions (persists even though commented out)
 	problem went away when I manually deleted .tmp_update, System, and TrimuiUpdate_MinUI.zip and installed fresh from stock...
+	I think this is because of adbd, it only happens when USB Bridge is running
 	
 use inotify to detect when /dev/dsp1 appears?
 	doesn't work with /dev :sob:
-	unnecessary, the stuttering does not appear to be related to polling access()
+	unnecessary, the stuttering does not appear to be related to polling access(), it's lower than that
 	
 add eggs' custom keymon?
 	I think I might fork it to remove suspend and dependence on system.json
@@ -23,7 +24,7 @@ add eggs' custom keymon?
 	but modified keymon was emptying system.json and always defaulting to max values
 		emptied json happened with eggs gmenunx version too but it successfully read the values correctly (before nuking them :sob:)
 	
-building SDL 1.2
+building SDL 1.2 (outdated)
 	git clone https://github.com/libsdl-org/SDL-1.2.git
 	search source for `sdl_nomouse =` and set it to "1"
 	export CC=/opt/trimui-toolchain/bin/arm-buildroot-linux-gnueabi-gcc; ./configure --host=arm-buildroot-linux-gnueabi --enable-input-tslib=no
