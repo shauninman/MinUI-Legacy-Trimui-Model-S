@@ -9,11 +9,14 @@
 #include <string.h>
 
 typedef struct Settings {
+	int version; // future proofing
 	int brightness;
 	int headphones;
 	int speaker;
+	int unused[4]; // for future use
 } Settings;
 static Settings DefaultSettings = {
+	.version = 1,
 	.brightness = 5,
 	.headphones = 4,
 	.speaker = 8,
@@ -50,6 +53,7 @@ void InitSettings(void) {
 			// load from file
 			puts("load");
 			read(fd, settings, shm_size);
+			// TODO: use settings->version for future proofing
 			close(fd);
 		}
 		else {
