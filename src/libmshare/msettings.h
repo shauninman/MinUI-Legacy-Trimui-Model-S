@@ -1,8 +1,8 @@
 #ifndef msettings_h__
 #define msettings_h__
 
-void InitSettings(void);
-void QuitSettings(void);
+void InitSettings(void); // host/client
+void QuitSettings(void); // host-only
 
 int GetBrightness(void);
 int GetVolume(void);
