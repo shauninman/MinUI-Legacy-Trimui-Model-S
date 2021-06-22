@@ -21,12 +21,12 @@ build:
 	$(CC) -shared -o "lib$(TARGET).so" "$(TARGET).o"
 	cp "$(TARGET).h" "$(PREFIX)/include"
 	cp "lib$(TARGET).so" "$(PREFIX)/lib"
-	$(CC) -o "Share.pak/$(TARGET)_client" client.c $(CFLAGS) $(LDFLAGS) $(OPTM)
-	$(CC) -o "Share.pak/$(TARGET)_host" host.c $(CFLAGS) $(LDFLAGS) $(OPTM)
+	$(CC) -o "Settings.pak/$(TARGET)_client" client.c $(CFLAGS) $(LDFLAGS) $(OPTM)
+	$(CC) -o "Settings.pak/$(TARGET)_host" host.c $(CFLAGS) $(LDFLAGS) $(OPTM)
 clean:
 	rm -f *.o
 	rm -f "lib$(TARGET).so"
-	rm -f "Share.pak/$(TARGET)_client"
-	rm -f "Share.pak/$(TARGET)_host"
+	rm -f "Settings.pak/$(TARGET)_client"
+	rm -f "Settings.pak/$(TARGET)_host"
 	rm -f $(PREFIX)/include/$(TARGET).h
 	rm -f $(PREFIX)/lib/lib$(TARGET).so
