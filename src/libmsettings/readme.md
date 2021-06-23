@@ -5,7 +5,7 @@
 3. call `InitSettings()`
 4. get brightness and volume with `GetBrightness()` and `GetVolume()`
 5. set with `SetBrightness(0-10)` and `SetVolume(0-20)`
-6. to set without saving the new values call `SetRawBrightness(0-120ish)` or `SetRawVolume(0-100%)`
+6. to set without saving the new values call `SetRawBrightness(0-120ish)` or `SetRawVolume(0-100%)` (eg. for sleep or restoring on launch)
 7. call `QuitSettings()` when you're done
 
 The shared memory is created in `/tmp/SharedSettings` (there is no `/dev/shm` on this device I guess?) and settings are persisted in `/mnt/settings.bin`.
