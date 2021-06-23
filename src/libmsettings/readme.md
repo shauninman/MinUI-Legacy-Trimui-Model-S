@@ -16,4 +16,4 @@ To test copy `libmsettings.so` to `/System/lib` and `Settings.pak` to `/Tools`.
 
 When you launch `Settings.pak` it launches a keymon-like process and a GUI that displays the current values that change in real time. The keymon-like changes brightness with UP/DOWN and volume with X/B. Plugging and unplugging headphones will show the volume switching between the separate speaker and headphones settings.
 
-Rudimentary version control is in place. The Settings struct's first member is `int version` and has 4 unused slots for an even 8 members. If we need more than that for some reason we can bump the version number, rename the old Settings to Settings_v1, and have some logic to handle converting old to new.
+Rudimentary future proofing is in place. The Settings struct's first member is `int version` and has 4 unused slots for an even 8 members. If we need more than that for some reason we can bump the version number, rename the old Settings to Settings_v1, and have some logic to handle converting old to new.
