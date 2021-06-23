@@ -58,7 +58,6 @@ inline void openInputDevice(void) {
 			}
 		}
 	}
-	// ERROR("Failed to open /dev/input/event");
 }
 
 #define RELEASED	0
@@ -75,7 +74,6 @@ void main(void) {
     sigaction(SIGTERM, &action, NULL);
 		
 	InitSettings();
-	
 	openInputDevice();
 	
 	int v;
