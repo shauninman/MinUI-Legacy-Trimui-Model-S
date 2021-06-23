@@ -21,7 +21,7 @@ build:
 	$(CC) -shared -o "lib$(TARGET).so" "$(TARGET).o"
 	cp "$(TARGET).h" "$(PREFIX)/include"
 	cp "lib$(TARGET).so" "$(PREFIX)/lib"
-	$(CC) -o "Settings.pak/$(TARGET)_client" client.c $(CFLAGS) $(LDFLAGS) $(OPTM)
+	$(CC) -o "Settings.pak/$(TARGET)_client" client.c $(CFLAGS) $(LDFLAGS) -lSDL_ttf -lz -lm $(OPTM)
 	$(CC) -o "Settings.pak/$(TARGET)_host" host.c $(CFLAGS) $(LDFLAGS) $(OPTM)
 clean:
 	rm -f *.o

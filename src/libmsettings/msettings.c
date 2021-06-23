@@ -8,6 +8,8 @@
 #include <dlfcn.h>
 #include <string.h>
 
+#include "msettings.h"
+
 typedef struct Settings {
 	int version; // future proofing
 	int brightness;
@@ -21,14 +23,16 @@ static Settings DefaultSettings = {
 	.headphones = 4,
 	.speaker = 8,
 };
+static Settings* settings;
 
 #define SHM_KEY "/SharedSettings"
 #define kSettingsPath "/mnt/settings.bin"
 static int shm_fd = -1;
-static int is_host = 0; // TODO: I'm not sure this distinction is helpful...
+static int is_host = 0;
 static int shm_size = sizeof(Settings);
 
 #define SHOUT(msg) puts(msg); fflush(stdout)
+#define HasUSBAudio() access("/dev/dsp1", R_OK | W_OK)==0
 
 static void* libtinyalsa = NULL; // NOTE: required to remove cascading linking requirement
 void InitSettings(void) {
@@ -40,13 +44,14 @@ void InitSettings(void) {
 	if (shm_fd==-1 && errno==EEXIST) { // already exists
 		puts("\tclient");
 		shm_fd = shm_open(SHM_KEY, O_RDWR, 0644);
+		settings = mmap(NULL, shm_size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
 	}
 	else { // host
 		puts("\thost");
 		is_host = 1;
 		// we created it so set initial size and populate
 		ftruncate(shm_fd, shm_size);
-		Settings* settings = mmap(NULL, shm_size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+		settings = mmap(NULL, shm_size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
 		
 		int fd = open(kSettingsPath, O_RDONLY);
 		if (fd>=0) {
@@ -64,61 +69,45 @@ void InitSettings(void) {
 		printf("\tbrightness: %i\n", settings->brightness);
 		printf("\theadphones: %i\n", settings->headphones);
 		printf("\tspeaker   : %i\n", settings->speaker);
-		munmap(settings, shm_size);
 	} 
 	fflush(stdout);
 }
 void QuitSettings(void) {
+	munmap(settings, shm_size);
 	if (is_host) {
 		puts("quit host");
-		shm_unlink(SHM_KEY); // TODO: is this necessary?
+		shm_unlink(SHM_KEY);
 	}
 	else {
 		puts("quit client");
 	}
 	fflush(stdout);
 }
-
-int GetBrightness(void) {
-	Settings* settings = mmap(NULL, shm_size, PROT_READ, MAP_SHARED, shm_fd, 0);
-	int value = settings->brightness;
-	munmap(settings, shm_size);
-	return value;
-}
-int GetVolume(void) {
-	Settings* settings = mmap(NULL, shm_size, PROT_READ, MAP_SHARED, shm_fd, 0);
-	int value;
-	if (access("/dev/dsp1", R_OK | W_OK) == 0) {
-		value = settings->headphones;
-	}
-	else {
-		value = settings->speaker;
-	}
-	munmap(settings, shm_size);
-	return value;
-}
-
-void SetBrightness(int value) {
-	// setBrightnessRaw(70 + (value * 5)); // 0..10 -> 70..120
-
-	printf("set brightness: %i\n", value);
-	Settings* settings = mmap(NULL, shm_size, PROT_WRITE, MAP_SHARED, shm_fd, 0);
-	settings->brightness = value;
-		
-	// persist change
+static inline void SaveSettings(void) {
 	int fd = open(kSettingsPath, O_CREAT|O_WRONLY, 0644);
 	if (fd>=0) {
 		write(fd, settings, shm_size);
 		close(fd);
 	}
-	munmap(settings, shm_size);
+}
+
+int GetBrightness(void) {
+	return settings->brightness;
+}
+int GetVolume(void) {
+	return HasUSBAudio() ? settings->headphones : settings->speaker;
+}
+
+void SetBrightness(int value) {
+	SetRawBrightness(70 + (value * 5)); // 0..10 -> 70..120
+	printf("set brightness: %i\n", value);
+	settings->brightness = value;
+	SaveSettings();
 }
 void SetVolume(int value) {
-	// SetRawVolume(value * 5); // 0..20 -> 0..100 (%)
-	
+	SetRawVolume(value * 5); // 0..20 -> 0..100 (%)
 	printf("set volume: %i\n", value);
-	Settings* settings = mmap(NULL, shm_size, PROT_WRITE, MAP_SHARED, shm_fd, 0);
-	if (access("/dev/dsp1", R_OK | W_OK) == 0) {
+	if (HasUSBAudio()) {
 		puts("\theadphones");
 		settings->headphones = value;
 	}
@@ -127,18 +116,12 @@ void SetVolume(int value) {
 		settings->speaker = value;
 	}
 	
-	// persist change
-	int fd = open(kSettingsPath, O_CREAT|O_WRONLY, 0644);
-	if (fd>=0) {
-		write(fd, settings, shm_size);
-		close(fd);
-	}
-	munmap(settings, shm_size);
+	SaveSettings();
 }
 
 void SetRawBrightness(int val) {
 	int fd = open("/sys/class/disp/disp/attr/lcdbl", O_WRONLY);
-	if (fd > 0) {
+	if (fd>=0) {
 		dprintf(fd,"%d",val);
 		close(fd);
 	}
@@ -146,7 +129,7 @@ void SetRawBrightness(int val) {
 void SetRawVolume(int val) {
 	struct mixer *mixer;
 	struct mixer_ctl *ctl;
-	if (access("/dev/dsp1", R_OK | W_OK) == 0) {
+	if (HasUSBAudio()) {
 		mixer = mixer_open(1);
 		if (mixer != NULL) {
 			// for USB headphones

@@ -19,7 +19,9 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+TODO: get eggs latest fbflip changes
 TODO: persist separate speaker and headphone volumes
+	this is coming along with libmsettings
 	this is a lot of work
 		update keymon? (which doesn't work currently, possibly because MinUI/libmmenu's aggressive reads?)
 			might need semaphores?
