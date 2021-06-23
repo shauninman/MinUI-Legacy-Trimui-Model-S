@@ -46,3 +46,6 @@
 [submodule "third-party/SDL-1.2"]
 	path = third-party/SDL-1.2
 	url = git@github.com:shauninman/SDL-1.2.git
+[submodule "src/libmsettings"]
+	path = src/libmsettings
+	url = git@github.com:shauninman/libmsettings.git
