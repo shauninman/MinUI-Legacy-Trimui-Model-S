@@ -11,7 +11,7 @@ SYSROOT     := $(shell $(CC) --print-sysroot)
 
 INCLUDEDIR = $(SYSROOT)/usr/include
 CFLAGS = -I$(INCLUDEDIR)
-LDFLAGS = -s -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lz -lm
+LDFLAGS = -s -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lz -lm -lmsettings -ltinyalsa -lrt
 
 OPTM=-O3
 

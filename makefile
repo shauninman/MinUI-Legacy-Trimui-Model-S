@@ -16,6 +16,7 @@ all: readme sys emus tools zip
 #--------------------------------------
 
 lib:
+	cd ./src/libmsettings && make
 	cd ./src/libmmenu && make
 
 readme:
@@ -26,27 +27,29 @@ readme:
 sys: lib
 	mkdir -p "$(PAYLOAD_PATH)"
 	mkdir -p "$(PAYLOAD_PATH)/System"
+	mkdir -p "$(PAYLOAD_PATH)/System/bin"
+	mkdir -p "$(PAYLOAD_PATH)/System/lib"
 	echo "$(RELEASE_NAME)" > "$(PAYLOAD_PATH)/System/version.txt"
 	cd ./third-party/SDL-1.2 && ./make.sh
 	cd ./TrimuiUpdate/ && make
 	cp -R ./TrimuiUpdate/installer/. "$(PAYLOAD_PATH)"
+	cd ./src/keymon && make
 	cd ./src/MinUI && make
 	cd ./src/show && make
 	cd ./src/confirm && make
 	cd ./src/flipbook && make
-	cp -R "paks/System.pak" 		"$(PAYLOAD_PATH)/System"
-	cp "src/MinUI/MinUI" 			"$(PAYLOAD_PATH)/System/System.pak"
-	mkdir -p "$(PAYLOAD_PATH)/System/bin"
-	mkdir -p "$(PAYLOAD_PATH)/System/lib"
+	cp -R "paks/System.pak" 			"$(PAYLOAD_PATH)/System"
+	cp -R "paks/Update.pak" 			"$(PAYLOAD_PATH)/System"
+	cp "src/MinUI/MinUI" 				"$(PAYLOAD_PATH)/System/System.pak"
 	cp -R "res" "$(PAYLOAD_PATH)/System"
-	cp "src/show/show" 				"$(PAYLOAD_PATH)/System/bin"
-	cp "src/confirm/confirm" 		"$(PAYLOAD_PATH)/System/bin"
-	cp "src/flipbook/flipbook" 		"$(PAYLOAD_PATH)/System/bin"
-	cp "src/needs-swap.sh"			"$(PAYLOAD_PATH)/System/bin/needs-swap"
-	cp "bin/keymon-patched"			"$(PAYLOAD_PATH)/System/bin/keymon"
-	cp "src/libmmenu/libmmenu.so"	"$(PAYLOAD_PATH)/System/lib"
+	cp "src/show/show" 						"$(PAYLOAD_PATH)/System/bin"
+	cp "src/confirm/confirm" 				"$(PAYLOAD_PATH)/System/bin"
+	cp "src/flipbook/flipbook" 				"$(PAYLOAD_PATH)/System/bin"
+	cp "src/keymon/keymon"					"$(PAYLOAD_PATH)/System/bin"
+	cp "src/needs-swap.sh"					"$(PAYLOAD_PATH)/System/bin/needs-swap"
+	cp "src/libmsettings/libmsettings.so"	"$(PAYLOAD_PATH)/System/lib"
+	cp "src/libmmenu/libmmenu.so"			"$(PAYLOAD_PATH)/System/lib"
 	cp "third-party/SDL-1.2/build/.libs/libSDL-1.2.so.0.11.5" "$(PAYLOAD_PATH)/System/lib/libSDL-1.2.so.0"
-	cp -R "paks/Update.pak" 		"$(PAYLOAD_PATH)/System"
 
 #--------------------------------------
 emus: gb pm ngp gg snes ps gba nes gen pce swan lynx
@@ -183,13 +186,15 @@ zip:
 
 #--------------------------------------
 
-clean:
+clean-sys:
 	cd ./src/libmmenu && make clean
 	cd ./src/MinUI && make clean
 	cd ./src/show && make clean
 	cd ./src/confirm && make clean
 	cd ./src/flipbook && make clean
 	cd ./TrimuiUpdate/ && make clean
+	
+clean: clean-sys
 	cd ./third-party/SDL-1.2 && make distclean
 	cd ./third-party/DinguxCommander && make clean
 	cd ./third-party/gambatte-dms && make clean

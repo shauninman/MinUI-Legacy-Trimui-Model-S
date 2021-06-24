@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <msettings.h>
 
 ///////////////////////////////////////
 
@@ -738,51 +739,6 @@ Directory* top;
 
 ///////////////////////////////////////
 
-static int* key[10];
-static void (*loadSystemState)(void*);
-static void (*saveSystemState)(void*);
-static int (*GetKeyShm)(void*,int);
-static void (*SetKeyShm)(void*,int,int);
-
-static int getVolume(void) {
-	return GetKeyShm(key, 0);
-}
-static int getBrightness(void) {
-	return GetKeyShm(key, 1);
-}
-
-static void setVolume(int value) { // 0-20
-	// SetKeyShm(key,0,value);
-	// saveSystemState(key);
-	
-	int val = value * (63.0f / 20.0f);
-	char cmd[32];
-	sprintf(cmd, "tinymix set 22 %d", val);
-	system(cmd);
-}
-static void setBrightness(int value) { // 0-10
-	// SetKeyShm(key,1,value);
-	// saveSystemState(key);
-	
-	// int val = value<9 ? 70 + (value * 3) : 130 - (6 * (10-value));
-	int val = 70 + (5 * value); // match bin/keymon-patched formula
-	char cmd[64];
-	sprintf(cmd, "echo %d > /sys/class/disp/disp/attr/lcdbl", val);
-	system(cmd);
-}
-
-static void initTrimuiAPI(void) {
-	void* libtmenu = dlopen("/usr/trimui/lib/libtmenu.so", RTLD_LAZY);
-
-	void (*InitKeyShm)(int* [10]) = dlsym(libtmenu, "InitKeyShm");
-	loadSystemState = dlsym(libtmenu, "loadSystemState");
-	saveSystemState = dlsym(libtmenu, "saveSystemState");
-	GetKeyShm = dlsym(libtmenu, "GetKeyShm");
-	SetKeyShm = dlsym(libtmenu, "SetKeyShm");
-
-	InitKeyShm(key);
-}
-
 #define kCPUDead 0x0112 // 16MHz (dead)
 #define kCPULow 0x00c00532 // 192MHz (lowest)
 #define kCPUNormal 0x02d01d22 // 720MHz (default)
@@ -851,46 +807,28 @@ static void waitForWakeCombo(void) {
 }
 
 static void fauxSleep(void) {
-	int v = getVolume();
-	int b = getBrightness();
-	// printf("before v:%i b:%i\n",v,b);
-	setVolume(0);
-	system("echo 0 > /sys/class/disp/disp/attr/lcdbl"); // setBrightness(0);
+	SetRawVolume(0);
+	SetRawBrightness(0);
 	setCPU(kCPUDead);
 	
-	// system("echo 1 > /sys/devices/virtual/disp/disp/attr/suspend");
 	system("killall -s STOP keymon");
 	
 	waitForWakeCombo();
 	
 	system("killall -s CONT keymon");
 
-	setVolume(v);
-	setBrightness(b);
+	SetVolume(GetVolume());
+	SetBrightness(GetBrightness());
 	setCPU(kCPUNormal);
-
-	// system("echo 0 > /sys/devices/virtual/disp/disp/attr/suspend");
-	// initLCD();
-	// setBrightness(b);
-	
-	// v = getVolume();
-	// b = getBrightness();
-	// printf("after v:%i b:%i\n",v,b);
 }
 
 ///////////////////////////////////////
 
 static void restoreSettings(void) {
 	initLCD();
-	initTrimuiAPI();
-	loadSystemState(key);
-	
-	int v = getVolume();
-	int b = getBrightness();
-	// printf("init v:%i b:%i\n",v,b);
-
-	setVolume(v);
-	setBrightness(b);
+	InitSettings();
+	SetVolume(GetVolume());
+	SetBrightness(GetBrightness());
 }
 static int getBatteryLevel(void) {
 	int value = -1;
@@ -1189,7 +1127,7 @@ void save_screenshot(SDL_Surface* surface) {
 	put_file(kScreenshotsPath, count);
 }
 
-int main(void) {
+int main(void) {	
 	// freopen(kRootDir "/stderr.txt", "w", stderr);
 	// freopen(kRootDir "/stdout.txt", "w", stdout);
 	signal(SIGSEGV, error_handler); // runtime error reporting
@@ -1496,13 +1434,13 @@ int main(void) {
 		}
 		else if (Input_isPressed(kButtonStart)) {
 			show_setting = 1;
-			setting_value = getBrightness();
+			setting_value = GetBrightness();
 			setting_max = 10;
 			// printf("show brightness: %i\n", setting_value, setting_max);
 		}
 		else if (Input_isPressed(kButtonSelect)) {
 			show_setting = 2;
-			setting_value = getVolume();
+			setting_value = GetVolume();
 			setting_max = 20;
 			// printf("show volume: %i\n", setting_value, setting_max);
 		}
@@ -1724,10 +1662,12 @@ int main(void) {
 	// both for compatibility pre and post 1.7
 	putenv("trimui_show=no");
 	screen->TRIMUI_SHOW = 0;
-
+	
 	TTF_Quit();
 	SDL_Quit();
 	
+	QuitSettings();
+
 	// fflush(stdout);
 	// fclose(stdout);
 	return 0;
