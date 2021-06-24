@@ -13,21 +13,14 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- 
+- added separate volume settings for headphones and speaker (switches automatically between the two)
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-TODO: get eggs latest fbflip changes
-TODO: persist separate speaker and headphone volumes
-	this is coming along with libmsettings
-	this is a lot of work
-		update keymon? (which doesn't work currently, possibly because MinUI/libmmenu's aggressive reads?)
-			might need semaphores?
-		new settings storage?
-			headphones should default to half or quarter speaker volume
-		shared memory?
+TODO: get eggs latest SDL changes (just comments I think)
+TODO: remove my dumb BatteryReading nonsense (just use a static var)
 
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
 	does this have something to do with resolution switching?
@@ -70,6 +63,9 @@ MinUI+libmmenu
 			layout, centered text, centered header, buttons along bottom, eg. Tips.pak
 				multi-paged :cold_sweat:
 
+libmsettings
+	- 
+	
 libmmenu
 	switch to MinUI's Input_* API
 
