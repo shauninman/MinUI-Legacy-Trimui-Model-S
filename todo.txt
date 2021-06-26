@@ -20,9 +20,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 =======================================
 
 TODO: switch from pthread to signal for usb audio check?
-TODO: remove binary files with gitignore
-TODO: get eggs latest SDL changes (just comments I think)
-TODO: remove my dumb BatteryReading nonsense (just use a static var)
 TODO: updateui hanging when launched from stock...
 
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
@@ -35,6 +32,7 @@ TODO: look into eggs suspend feature
 	invoked by a running process
 
 TODO: some emulators aren't wiping the screen on quit (is this a regression?)
+	sometimes the wipe flips back to the last rendered screen (separate bugs?)
 TODO: buttons pressed when entering menu stay pressed upon exiting
 	- pokemini
 	- picogpsp
