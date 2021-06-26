@@ -3,15 +3,9 @@
 
 # echo -e "LD_LIBRARY_PATH=$LD_LIBRARY_PATH\nPATH=$PATH" > /mnt/SDCARD/.minui/logs/System.txt
 
-killall keymon
-
-export LD_LIBRARY_PATH="/mnt/SDCARD/System/lib:$LD_LIBRARY_PATH"
-export PATH="/mnt/SDCARD/System/bin:$PATH"
-
-a=`ps | grep keymon | grep -v grep`
-if [ "$a" == "" ]; then
-	keymon &
-fi
+# TODO: tmp
+# /etc/init.d/adbd start &
+# touch /tmp/disable-sleep
 
 SD=/mnt/SDCARD
 
@@ -30,6 +24,16 @@ notify 100 quit
 killall -s KILL updateui
 # killall -s KILL tee
 rm -f "$UPDATE_LOG"
+
+killall keymon
+
+export LD_LIBRARY_PATH="$SD/System/lib:$LD_LIBRARY_PATH"
+export PATH="$SD/System/bin:$PATH"
+
+a=`ps | grep keymon | grep -v grep`
+if [ "$a" == "" ]; then
+	keymon &
+fi
 
 touch /tmp/minui_exec
 sync
