@@ -45,11 +45,11 @@
 #endif
 
 //	Global Variables
-int			input_fd = 0;
 struct input_event	ev;
-int			memdev = 0;
+int	input_fd = 0;
+int	memdev = 0;
 uint32_t		*mem;
-pthread_t	usb_pt;
+pthread_t		usb_pt;
 //
 //	Quit
 //
@@ -107,12 +107,14 @@ inline void openInputDevice(void) {
 	ERROR("Failed to open /dev/input/event");
 }
 
+#define HasUSBAudio() access("/dev/dsp1", F_OK)==0
+
 void* checkUSB(void *arg) {
-	uint32_t has_USB = access("/dev/dsp1", R_OK | W_OK)==0;
+	uint32_t has_USB = HasUSBAudio();
 	uint32_t had_USB = has_USB;
 	while(1) {
 		sleep(1);
-		has_USB = access("/dev/dsp1", R_OK | W_OK)==0;
+		has_USB = HasUSBAudio();
 		if (had_USB!=has_USB) {
 			had_USB = has_USB;
 			SetVolume(GetVolume());
@@ -135,7 +137,6 @@ void main(void) {
 	InitSettings();
 	SetVolume(GetVolume());
 	SetBrightness(GetBrightness());
-	
 	
 	pthread_create(&usb_pt, NULL, &checkUSB, NULL);
 

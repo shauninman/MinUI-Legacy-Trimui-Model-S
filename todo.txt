@@ -19,8 +19,11 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+TODO: switch from pthread to signal for usb audio check?
+TODO: remove binary files with gitignore
 TODO: get eggs latest SDL changes (just comments I think)
 TODO: remove my dumb BatteryReading nonsense (just use a static var)
+TODO: updateui hanging when launched from stock...
 
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
 	does this have something to do with resolution switching?

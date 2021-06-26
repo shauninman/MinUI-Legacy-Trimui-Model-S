@@ -1132,8 +1132,8 @@ int main(void) {
 	// freopen(kRootDir "/stdout.txt", "w", stdout);
 	signal(SIGSEGV, error_handler); // runtime error reporting
 	
-	if (exists("/dev/dsp1")) putenv("AUDIODEV=/dev/dsp1"); // headphones
-	else putenv("AUDIODEV=/dev/dsp"); // speaker
+	// if (exists("/dev/dsp1")) putenv("AUDIODEV=/dev/dsp1"); // headphones
+	// else putenv("AUDIODEV=/dev/dsp"); // speaker
 	
 	if (SDL_Init(SDL_INIT_VIDEO)==-1) { // | SDL_INIT_AUDIO
 		puts("could not init SDL");
