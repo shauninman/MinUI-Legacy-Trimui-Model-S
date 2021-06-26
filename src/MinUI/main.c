@@ -831,47 +831,40 @@ static void restoreSettings(void) {
 	SetBrightness(GetBrightness());
 }
 static int getBatteryLevel(void) {
+	// returns the average of the last 10 readings
+	#define kBatteryReadings 10
+	static int values[kBatteryReadings];
+	static int total;
+	static int i = 0;
+	static int ready = 0;
+	
+	// get the current value
 	int value = -1;
 	FILE* file = fopen("/sys/devices/soc/1c23400.battery/adc", "r");
 	if (file!=NULL) {
 		fscanf(file, "%i", &value);
 		fclose(file);
 	}
+	
+	// first run, fill up the buffer
+	if (!ready) {
+		for (int i=0; i<kBatteryReadings; i++) {
+			values[i] = value;
+		}
+		total = value * kBatteryReadings;
+		ready = 1;
+	}
+	// subsequent calls, update average
+	else {
+		total -= values[i];
+		values[i] = value;
+		total += value;
+		i += 1;
+		if (i>=kBatteryReadings) i -= kBatteryReadings;
+		value = total / kBatteryReadings;
+	}
 	return value;
 }
-#define kBatteryReaderSmoothness 10
-typedef struct BatteryReader {
-	int values[kBatteryReaderSmoothness];
-	int total;
-	int i;
-	int value;
-} BatteryReader;
-static BatteryReader* BatteryReader_new(void) {
-	BatteryReader* self = malloc(sizeof(BatteryReader));
-	int value = getBatteryLevel();
-	for (int i=0; i<kBatteryReaderSmoothness; i++) {
-		self->values[i] = value;
-	}
-	self->total = value * kBatteryReaderSmoothness;
-	self->i = 0;
-	self->value = value;
-	return self;
-}
-static int BatteryReader_getLevel(BatteryReader* self) {
-	int value = getBatteryLevel();
-	self->total -= self->values[self->i];
-	self->values[self->i] = value;
-	self->total += value;
-	self->i += 1;
-	if (self->i>=kBatteryReaderSmoothness) self->i -= kBatteryReaderSmoothness;
-	self->value = self->total / kBatteryReaderSmoothness;
-	return self->value;
-}
-// NOTE: just use free() :sweat_smile:
-// static void BatteryReader_free(BatteryReader* self) {
-// 	free(self);
-// }
-static BatteryReader* battery = NULL;
 
 static void applyTearingPatch(void) {
 	//	https://linux-sunxi.org/images/2/21/Allwinner_F1C200s_User_Manual_V1.0.pdf	Page 187,188
@@ -1158,8 +1151,6 @@ int main(void) {
 	
 	restoreSettings();
 	// applyTearingPatch();
-	
-	battery = BatteryReader_new();
 	
 	screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
 	buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
@@ -1486,7 +1477,7 @@ int main(void) {
 				}
 				
 				// battery
-				int charge = BatteryReader_getLevel(battery);
+				int charge = getBatteryLevel();
 				SDL_Surface* ui_power_icon;
 				if (charge<41)		ui_power_icon = ui_power_0_icon;
 				else if (charge<43) ui_power_icon = ui_power_20_icon;
@@ -1627,8 +1618,6 @@ int main(void) {
 	SDL_FillRect(buffer, NULL, 0);
 	SDL_BlitSurface(buffer, NULL, screen, NULL);
 	SDL_Flip(screen);
-	
-	free(battery);
 	
 	Menu_quit();
 	
