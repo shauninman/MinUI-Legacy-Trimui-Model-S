@@ -1,8 +1,10 @@
 build/*
 release/*
 src/confirm/confirm
-src/encode/encode
+src/flipbook/flipbook
+src/keymon/keymon
 src/show/show
 src/MinUI/MinUI
+TrimuiUpdate/installer/launch.sh
 TrimuiUpdate_MinUI.zip
 .DS_Store
