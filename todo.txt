@@ -13,33 +13,16 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- added separate volume settings for headphones and speaker (switches automatically between the two)
-- fixed hang when returning to MinUI from stock
+- 
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
-
-TODO: hanging when launching from stock...
-	might be before we hit updateui
-	my hunch 
-	grab another device/SD card
-	wipe .tmp_update and copy over past releases until I figure out when it broke
-		1.6 is fine
-		1.7 has the issue
-		
-		seems to be a timing or writing issue?
-		adding a sleep 1 to .tmp_update/updater fixes it
-		killall updateui instead of -s KILL allows it to draw the first step of the update but it then hangs
-			it worked like this for a few launches then started failing again...
-			maybe the slow updater was still installed?
-				I opened /System/System.pak/launch.sh three times in a row from the SD card and TextMate showed me a different version of the file each time
-		
-		is the addition of editing LD_LIBRARY_PATH
 		
 TODO: remove manual double-buffering
 
 TODO: switch from pthread to signal for usb audio check?
+	eggs said there wasn't really any difference
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
 	does this have something to do with resolution switching?
 	
@@ -60,6 +43,7 @@ TODO: buttons pressed when entering menu stay pressed upon exiting
 	- temper
 
 under consideration
+	new noise es?
 	recognize neonloop's dynamic-libs.zip and automatically unzip into /System/libs?
 		will it get nuked on update? no
 
@@ -122,7 +106,8 @@ emulators
 	pokemini
 		should power off before exiting (or add note to readme that that's how games save to sram?)
 	picogpsp
-		-
+		noticing audio issues that persist across save slot save and resume
+			could this be caused by resuming a slot before audio is ready?
 	oswan
 		-
 	picodrive
