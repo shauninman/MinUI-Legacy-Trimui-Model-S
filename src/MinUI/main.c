@@ -730,7 +730,6 @@ static int Input_getButton(SDL_Event *event) {
 ///////////////////////////////////////
 
 SDL_Surface* screen;
-SDL_Surface* buffer;
 int quit = 0;
 
 Array* stack;
@@ -1153,7 +1152,6 @@ int main(void) {
 	// applyTearingPatch();
 	
 	screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
-	buffer = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
 
 	// both for compatibility pre and post 1.7
 	#define TRIMUI_SHOW unused1
@@ -1229,7 +1227,7 @@ int main(void) {
 		SDL_FreeSurface(ui_roms);
 	}
 	
-	SDL_FillRect(buffer, NULL, 0);
+	SDL_FillRect(screen, NULL, 0);
 	
 	SDL_Event event;
 	int is_dirty = 1;
@@ -1407,8 +1405,7 @@ int main(void) {
 		#define kSleepDelay 30000
 		if (cancel_sleep || disable_sleep) cancel_start = now;
 		if (Input_justPressed(kButtonMenu) || now-cancel_start>=kSleepDelay) {
-			SDL_FillRect(buffer, NULL, 0);
-			SDL_BlitSurface(buffer, NULL, screen, NULL);
+			SDL_FillRect(screen, NULL, 0);
 			SDL_Flip(screen);
 			
 			fauxSleep();
@@ -1442,24 +1439,24 @@ int main(void) {
 			needs_scrolling = 0;
 			
 			// clear
-			SDL_FillRect(buffer, NULL, 0);
+			SDL_FillRect(screen, NULL, 0);
 			
 			// chrome
-			SDL_BlitSurface(ui_top_bar, NULL, buffer, NULL);
-			SDL_BlitSurface(ui_bottom_bar, NULL, buffer, &(SDL_Rect){0,202,0,0});
+			SDL_BlitSurface(ui_top_bar, NULL, screen, NULL);
+			SDL_BlitSurface(ui_bottom_bar, NULL, screen, &(SDL_Rect){0,202,0,0});
 			
 			SDL_Surface* text;
 			
 			// logo
-			SDL_BlitSurface(ui_logo, NULL, buffer, &(SDL_Rect){10,10,0,0});
+			SDL_BlitSurface(ui_logo, NULL, screen, &(SDL_Rect){10,10,0,0});
 			
 			if (show_setting) {
 				// icon
-				SDL_BlitSurface(show_setting==1?ui_brightness_icon:(setting_value>0?ui_volume_icon:ui_mute_icon), NULL, buffer, &(SDL_Rect){178,9,0,0});
+				SDL_BlitSurface(show_setting==1?ui_brightness_icon:(setting_value>0?ui_volume_icon:ui_mute_icon), NULL, screen, &(SDL_Rect){178,9,0,0});
 				// bar
-				SDL_BlitSurface(ui_settings_bar_empty, NULL, buffer, &(SDL_Rect){202,16,0,0});
+				SDL_BlitSurface(ui_settings_bar_empty, NULL, screen, &(SDL_Rect){202,16,0,0});
 				int w = 108 * ((float)setting_value / setting_max);
-				SDL_BlitSurface(ui_settings_bar_full, &(SDL_Rect){0,0,w,4}, buffer, &(SDL_Rect){202,16,w,4});
+				SDL_BlitSurface(ui_settings_bar_full, &(SDL_Rect){0,0,w,4}, screen, &(SDL_Rect){202,16,w,4});
 			}
 			else {
 				// x/y text
@@ -1467,12 +1464,12 @@ int main(void) {
 					char mini[8];
 					sprintf(mini, "/%d", top->entries->count);
 					text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
-					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184,9,0,0});
+					SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){184,9,0,0});
 					SDL_FreeSurface(text);
 			
 					sprintf(mini, "%d", top->selected+1);
 					text = TTF_RenderUTF8_Blended(tiny, mini, (SDL_Color){0xd2,0xb4,0x6c});
-					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){184-text->w,9,0,0});
+					SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){184-text->w,9,0,0});
 					SDL_FreeSurface(text);
 				}
 				
@@ -1484,53 +1481,47 @@ int main(void) {
 				else if (charge<44) ui_power_icon = ui_power_50_icon;
 				else if (charge<46) ui_power_icon = ui_power_80_icon;
 				else				ui_power_icon = ui_power_100_icon;
-				SDL_BlitSurface(ui_power_icon, NULL, buffer, &(SDL_Rect){294,6,0,0});
+				SDL_BlitSurface(ui_power_icon, NULL, screen, &(SDL_Rect){294,6,0,0});
 			}
 			
 			if (top->entries->count) {
 				if (can_resume) {
-					// START Resume
-					// SDL_BlitSurface(ui_start_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
-					// text = TTF_RenderUTF8_Blended(tiny, "RESUME", (SDL_Color){0xff,0xff,0xff});
-					// SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){56,212,0,0});
-					// SDL_FreeSurface(text);
-					
 					// X Resume
-					SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){10,210,0,0});
+					SDL_BlitSurface(ui_round_button, NULL, screen, &(SDL_Rect){10,210,0,0});
 					text = TTF_RenderUTF8_Blended(tiny, "RESUME", (SDL_Color){0xff,0xff,0xff});
-					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){35,212,0,0});
+					SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){35,212,0,0});
 					SDL_FreeSurface(text);
 			
 					text = TTF_RenderUTF8_Blended(font, "X", (SDL_Color){0x9f,0x89,0x52});
-					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){10+6,210+1,0,0});
+					SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){10+6,210+1,0,0});
 					SDL_FreeSurface(text);
 				}
 				else {
-					SDL_BlitSurface(ui_menu_icon, NULL, buffer, &(SDL_Rect){10,210,0,0});
+					SDL_BlitSurface(ui_menu_icon, NULL, screen, &(SDL_Rect){10,210,0,0});
 					text = TTF_RenderUTF8_Blended(tiny, "SLEEP", (SDL_Color){0xff,0xff,0xff});
-					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){56,212,0,0});
+					SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){56,212,0,0});
 					SDL_FreeSurface(text);
 				}
 			
 				// A Open
-				SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){251,210,0,0});
+				SDL_BlitSurface(ui_round_button, NULL, screen, &(SDL_Rect){251,210,0,0});
 				text = TTF_RenderUTF8_Blended(tiny, "OPEN", (SDL_Color){0xff,0xff,0xff});
-				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){276,212,0,0});
+				SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){276,212,0,0});
 				SDL_FreeSurface(text);
 			
 				text = TTF_RenderUTF8_Blended(font, "A", (SDL_Color){0x9f,0x89,0x52});
-				SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){251+6,210+1,0,0});
+				SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){251+6,210+1,0,0});
 				SDL_FreeSurface(text);
 			
 				// B Back
 				if (stack->count>1) {
-					SDL_BlitSurface(ui_round_button, NULL, buffer, &(SDL_Rect){251-68,210,0,0});
+					SDL_BlitSurface(ui_round_button, NULL, screen, &(SDL_Rect){251-68,210,0,0});
 					text = TTF_RenderUTF8_Blended(tiny, "BACK", (SDL_Color){0xff,0xff,0xff});
-					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){276-68,212,0,0});
+					SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){276-68,212,0,0});
 					SDL_FreeSurface(text);
 			
 					text = TTF_RenderUTF8_Blended(font, "B", (SDL_Color){0x9f,0x89,0x52});
-					SDL_BlitSurface(text, NULL, buffer, &(SDL_Rect){251+6-68+1,210+1,0,0});
+					SDL_BlitSurface(text, NULL, screen, &(SDL_Rect){251+6-68+1,210+1,0,0});
 					SDL_FreeSurface(text);
 				}
 			}
@@ -1544,34 +1535,33 @@ int main(void) {
 					char* name = entry->conflict ? fullname : entry->name;
 					
 					// bar
-					SDL_BlitSurface(ui_highlight_bar, NULL, buffer, &(SDL_Rect){0,38+y,0,0});
+					SDL_BlitSurface(ui_highlight_bar, NULL, screen, &(SDL_Rect){0,38+y,0,0});
 					
 					// shadow
 					text = TTF_RenderUTF8_Blended(font, name, (SDL_Color){0x68,0x5a,0x35});
 					if (text->w>kMaxTextWidth) needs_scrolling = 1;
-					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16+1,38+y+6+2,0,0});
+					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, screen, &(SDL_Rect){16+1,38+y+6+2,0,0});
 					SDL_FreeSurface(text);
 					
 					text = TTF_RenderUTF8_Blended(font, name, color);
-					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
+					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, screen, &(SDL_Rect){16,38+y+6,0,0});
 					SDL_FreeSurface(text);
 				}
 				else {
 					if (entry->conflict) {
 						text = TTF_RenderUTF8_Blended(font, fullname, (SDL_Color){0x66,0x66,0x66});
-						SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
+						SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, screen, &(SDL_Rect){16,38+y+6,0,0});
 						SDL_FreeSurface(text);
 					}
 					
 					text = TTF_RenderUTF8_Blended(font, entry->name, color);
-					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16,38+y+6,0,0});
+					SDL_BlitSurface(text, &(SDL_Rect){0,0,kMaxTextWidth,text->h}, screen, &(SDL_Rect){16,38+y+6,0,0});
 					SDL_FreeSurface(text);
 				}
 				
 				y += 32;
 			}
 			
-			SDL_BlitSurface(buffer, NULL, screen, NULL);
 			SDL_Flip(screen);
 			is_dirty = 0;
 		}
@@ -1588,18 +1578,18 @@ int main(void) {
 			text = TTF_RenderUTF8_Blended(font, name, (SDL_Color){0x68,0x5a,0x35});
 			if (text->w-scroll_ox>kMaxTextWidth) {
 				// bar
-				SDL_BlitSurface(ui_highlight_bar, NULL, buffer, &(SDL_Rect){0,38+y,0,0});
+				SDL_BlitSurface(ui_highlight_bar, NULL, screen, &(SDL_Rect){0,38+y,0,0});
 			
 				// shadow
 				// NOTE: text creation moved outside conditional
-				SDL_BlitSurface(text, &(SDL_Rect){scroll_ox,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16+1,38+y+6+2,kMaxTextWidth,text->h});
+				SDL_BlitSurface(text, &(SDL_Rect){scroll_ox,0,kMaxTextWidth,text->h}, screen, &(SDL_Rect){16+1,38+y+6+2,kMaxTextWidth,text->h});
 				SDL_FreeSurface(text);
 			
 				text = TTF_RenderUTF8_Blended(font, name, color);
-				SDL_BlitSurface(text, &(SDL_Rect){scroll_ox,0,kMaxTextWidth,text->h}, buffer, &(SDL_Rect){16,38+y+6,kMaxTextWidth,text->h});
+				SDL_BlitSurface(text, &(SDL_Rect){scroll_ox,0,kMaxTextWidth,text->h}, screen, &(SDL_Rect){16,38+y+6,kMaxTextWidth,text->h});
 				SDL_FreeSurface(text);
 			
-				SDL_BlitSurface(buffer, NULL, screen, NULL);
+				SDL_BlitSurface(screen, NULL, screen, NULL);
 			}
 			else {
 				needs_scrolling = 0;
@@ -1615,8 +1605,7 @@ int main(void) {
 	}
 	
 	// one last wipe
-	SDL_FillRect(buffer, NULL, 0);
-	SDL_BlitSurface(buffer, NULL, screen, NULL);
+	SDL_FillRect(screen, NULL, 0);
 	SDL_Flip(screen);
 	
 	Menu_quit();

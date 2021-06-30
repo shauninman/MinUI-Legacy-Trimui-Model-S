@@ -19,8 +19,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 		
-TODO: remove manual double-buffering
-
 TODO: switch from pthread to signal for usb audio check?
 	eggs said there wasn't really any difference
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
