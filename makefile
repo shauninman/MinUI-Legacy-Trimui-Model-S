@@ -203,7 +203,7 @@ clean: clean-sys
 	cd ./third-party/sms_sdl && make clean
 	cd ./third-party/snes9x2002 && make clean
 	cd ./third-party/pcsx_rearmed && make clean
-	cd ./third-party/gpsp-bittboy/trimui && make clean
+	cd ./third-party/picogpsp && make clean
 	cd ./third-party/fceux && make clean
 	cd ./third-party/picodrive && make clean
 	cd ./third-party/temper/SDL && make clean

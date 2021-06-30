@@ -19,8 +19,6 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 		
-TODO: switch from pthread to signal for usb audio check?
-	eggs said there wasn't really any difference
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
 	does this have something to do with resolution switching?
 	
@@ -93,11 +91,6 @@ MinUI
 		select menus (eg. sleep timeout/disable, language, choose console names?)	
 
 emulators
-	gpsp-bittboy
-		remove submodule
-		link to picogpsp repo
-		archive repo
-
 	all
 		standardize bios locations
 			I would prefer they all live in the emu folder not the rom folder but...
