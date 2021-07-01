@@ -22,6 +22,7 @@
 #define kRootDir "/mnt/SDCARD"
 #define kEmusDir kRootDir "/Emus/"
 #define kRomsDir kRootDir "/Roms/"
+#define kResDir kRootDir "/System/res/"
 #define kRecentlyPlayedDir kRootDir "/Recently Played"
 #define kLastPath "/tmp/last.txt"
 #define kChangeDiscPath "/tmp/change_disc.txt"
@@ -1162,13 +1163,13 @@ int main(void) {
 	SDL_EnableKeyRepeat(300,100);
 	
 	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("/usr/res/BPreplayBold.otf", 16);
-	TTF_Font* tiny = TTF_OpenFont("/usr/res/BPreplayBold.otf", 14);
+	TTF_Font* font = TTF_OpenFont(kResDir "BPreplayBold.otf", 16);
+	TTF_Font* tiny = TTF_OpenFont(kResDir "BPreplayBold.otf", 14);
 	SDL_Color color = {0xff,0xff,0xff};
 	
 	// one-time instruction for wake from sleep
 	if (access("/mnt/SDCARD/.minui/can-sleep", 4)!=0) {
-		SDL_Surface* ui_wake = IMG_Load("/mnt/SDCARD/System/res/wake.png");
+		SDL_Surface* ui_wake = IMG_Load(kResDir "wake.png");
 		SDL_BlitSurface(ui_wake, NULL, screen, NULL);
 		SDL_Flip(screen);
 		
@@ -1178,26 +1179,26 @@ int main(void) {
 		close(open("/mnt/SDCARD/.minui/can-sleep", O_RDWR|O_CREAT, 0777)); // basically touch
 	}
 	
-	SDL_Surface* ui_logo = IMG_Load("/mnt/SDCARD/System/res/logo.png");
-	SDL_Surface* ui_highlight_bar = IMG_Load("/usr/trimui/res/skin/list-selected-bg.png");
-	SDL_Surface* ui_top_bar = IMG_Load("/usr/trimui/res/skin/title-bg.png");
-	SDL_Surface* ui_bottom_bar = IMG_Load("/usr/trimui/res/skin/tips-bar-bg.png");
-	SDL_Surface* ui_browse_icon = IMG_Load("/usr/trimui/res/skin/stat-nav-icon.png");
-	SDL_Surface* ui_round_button = IMG_Load("/mnt/SDCARD/System/res/nav-bar-item-bg.png");
-	SDL_Surface* ui_menu_icon = IMG_Load("/usr/trimui/res/skin/stat-menu-icon.png");
-	SDL_Surface* ui_start_icon = IMG_Load("/mnt/SDCARD/System/res/stat-start-icon.png");
+	SDL_Surface* ui_logo				= IMG_Load(kResDir "logo.png");
+	SDL_Surface* ui_highlight_bar		= IMG_Load(kResDir "list-selected-bg.png");
+	SDL_Surface* ui_top_bar				= IMG_Load(kResDir "title-bg.png");
+	SDL_Surface* ui_bottom_bar			= IMG_Load(kResDir "tips-bar-bg.png");
+	SDL_Surface* ui_browse_icon			= IMG_Load(kResDir "stat-nav-icon.png");
+	SDL_Surface* ui_round_button		= IMG_Load(kResDir "nav-bar-item-bg.png");
+	SDL_Surface* ui_menu_icon			= IMG_Load(kResDir "stat-menu-icon.png");
+	SDL_Surface* ui_start_icon			= IMG_Load(kResDir "stat-start-icon.png");
 	
-	SDL_Surface* ui_power_0_icon   = IMG_Load("/usr/trimui/res/skin/power-0%-icon.png");
-	SDL_Surface* ui_power_20_icon  = IMG_Load("/usr/trimui/res/skin/power-20%-icon.png");
-	SDL_Surface* ui_power_50_icon  = IMG_Load("/usr/trimui/res/skin/power-50%-icon.png");
-	SDL_Surface* ui_power_80_icon  = IMG_Load("/usr/trimui/res/skin/power-80%-icon.png");
-	SDL_Surface* ui_power_100_icon = IMG_Load("/usr/trimui/res/skin/power-full-icon.png");
+	SDL_Surface* ui_power_0_icon		= IMG_Load(kResDir "power-0%-icon.png");
+	SDL_Surface* ui_power_20_icon		= IMG_Load(kResDir "power-20%-icon.png");
+	SDL_Surface* ui_power_50_icon		= IMG_Load(kResDir "power-50%-icon.png");
+	SDL_Surface* ui_power_80_icon		= IMG_Load(kResDir "power-80%-icon.png");
+	SDL_Surface* ui_power_100_icon		= IMG_Load(kResDir "power-full-icon.png");
 
-	SDL_Surface* ui_settings_bar_empty = IMG_Load("/mnt/SDCARD/System/res/settings-bar-empty.png");
-	SDL_Surface* ui_settings_bar_full = IMG_Load("/mnt/SDCARD/System/res/settings-bar-full.png");
-	SDL_Surface* ui_brightness_icon = IMG_Load("/mnt/SDCARD/System/res/settings-icon-brightness.png");
-	SDL_Surface* ui_volume_icon = IMG_Load("/mnt/SDCARD/System/res/settings-icon-volume.png");
-	SDL_Surface* ui_mute_icon = IMG_Load("/mnt/SDCARD/System/res/settings-icon-volume-mute.png");
+	SDL_Surface* ui_settings_bar_empty	= IMG_Load(kResDir "settings-bar-empty.png");
+	SDL_Surface* ui_settings_bar_full	= IMG_Load(kResDir "settings-bar-full.png");
+	SDL_Surface* ui_brightness_icon		= IMG_Load(kResDir "settings-icon-brightness.png");
+	SDL_Surface* ui_volume_icon			= IMG_Load(kResDir "settings-icon-volume.png");
+	SDL_Surface* ui_mute_icon			= IMG_Load(kResDir "settings-icon-volume-mute.png");
 
 	// Mix_Chunk *click = Mix_LoadWAV("/usr/trimui/res/sound/click.wav");
 	

@@ -17,8 +17,17 @@ Please see the readme.txt in the zip file for installation instructions.
 
 As always, thanks eggs, neonloop, and gameblabla!
 
+HOUSEKEEPING
+
+- removed manual double-buffering from MinUI and libmmenu
+- removed gpsp-bittboy submodule (replaced with picogpsp ages ago)
+
 =======================================
 		
+TODO: copy stock images to /System/res so they are available on PowKiddy devices?
+
+TODO: if *.pal/post.sh exists on launch, run and delete it?
+
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
 	does this have something to do with resolution switching?
 	
