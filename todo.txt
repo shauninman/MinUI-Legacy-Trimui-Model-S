@@ -13,14 +13,9 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- embedded UI graphics (now available on PowKiddy firmware too)
+- updated PlayStation emulator (fixes crashing after encounters on overworld in Final Fantasy VII)
 
 As always, thanks eggs, neonloop, and gameblabla!
-
-HOUSEKEEPING
-
-- removed manual double-buffering from MinUI and libmmenu
-- removed gpsp-bittboy submodule (replaced with picogpsp ages ago)
 
 =======================================
 		
