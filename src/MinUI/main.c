@@ -975,7 +975,7 @@ static void open_rom(char* path, char* last) {
 	saveLast(last==NULL ? path : last);
 	queue_next(launch);
 }
-static void open_game(char*path) {
+static void open_pak(char*path) {
 	char launch[256];
 	launch[0] = '"';
 	strcpy(launch+1, path);
@@ -1037,7 +1037,7 @@ static void Entry_open(Entry* self) {
 		open_rom(self->path, NULL);
 	}
 	else if (self->type==kEntryPak) {
-		open_game(self->path);
+		open_pak(self->path);
 	}
 	else if (self->type==kEntryDir) {
 		open_directory(self->path, 1);
@@ -1099,7 +1099,7 @@ static void Menu_quit(void) {
 
 static int enable_screenshots = 0;
 static int screenshots = 0;
-void load_screenshots(void) {
+static void load_screenshots(void) {
 	enable_screenshots = exists(kRootDir "/.minui/enable-screenshots");
 	if (!enable_screenshots) return;
 	if (exists(kScreenshotsPath)) {
@@ -1108,7 +1108,7 @@ void load_screenshots(void) {
 		screenshots = atoi(tmp);
 	}
 }
-void save_screenshot(SDL_Surface* surface) {
+static void save_screenshot(SDL_Surface* surface) {
 	if (!enable_screenshots) return;
 	
 	char screenshot_path[256];
@@ -1589,8 +1589,7 @@ int main(void) {
 				text = TTF_RenderUTF8_Blended(font, name, color);
 				SDL_BlitSurface(text, &(SDL_Rect){scroll_ox,0,kMaxTextWidth,text->h}, screen, &(SDL_Rect){16,38+y+6,kMaxTextWidth,text->h});
 				SDL_FreeSurface(text);
-			
-				SDL_BlitSurface(screen, NULL, screen, NULL);
+				SDL_Flip(screen); // TODO: just update the modified rect?
 			}
 			else {
 				needs_scrolling = 0;

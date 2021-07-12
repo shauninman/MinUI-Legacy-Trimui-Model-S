@@ -13,7 +13,7 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- updated Game Boy Advance emulator (misc upstream patches)
+- fixed scrolling of long names
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -23,6 +23,7 @@ TODO: if *.pal/post.sh exists on launch, run and delete it?
 
 TODO: HazMan1988 reports PS1 games are crashy with custom SDL
 	does this have something to do with resolution switching?
+	can't reproduce
 	
 TODO: look into eggs suspend feature
 	he sleeps other processes
