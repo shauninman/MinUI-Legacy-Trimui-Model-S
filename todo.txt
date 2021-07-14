@@ -13,26 +13,19 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
+- updated all emulators with immediate write of save states
+- updated Game Boy Advance emulator (dynarec fixes)
 - fixed scrolling of long names
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
-		
-TODO: if *.pal/post.sh exists on launch, run and delete it?
 
-TODO: HazMan1988 reports PS1 games are crashy with custom SDL
-	does this have something to do with resolution switching?
-	can't reproduce
-	
-TODO: look into eggs suspend feature
-	he sleeps other processes
-	might not be necessary for 
-	MinUI/libmmenu since it's 
-	invoked by a running process
+TODO: if *.pal/post.sh exists on launch, run and delete it?
 
 TODO: some emulators aren't wiping the screen on quit (is this a regression?)
 	sometimes the wipe flips back to the last rendered screen (separate bugs?)
+	
 TODO: buttons pressed when entering menu stay pressed upon exiting
 	- pokemini
 	- picogpsp
@@ -47,7 +40,6 @@ under consideration
 		will it get nuked on update? no
 
 MinUI+libmmenu
-	continuously scroll long names?
 	support localization
 		localized strings files
 		most text is in images
@@ -72,6 +64,7 @@ libmmenu
 	switch to MinUI's Input_* API
 
 MinUI
+	continuously scroll long names?
 	BUG: if Games only contains subfolders (no paks) it won't appear
 		eg. if you only add Doom (which contains paks for each wad) and no other game paks
 	
@@ -124,6 +117,9 @@ emulators
 		-
 	race
 		-
+	gngeo
+		see alias-support branch
+		save states don't restore audio
 
 paks
 	Tips
