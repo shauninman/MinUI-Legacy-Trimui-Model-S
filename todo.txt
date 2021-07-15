@@ -21,6 +21,8 @@ As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
+TODO: make sure Cave Story and VVVVVV sync on save too?
+
 TODO: if *.pal/post.sh exists on launch, run and delete it?
 
 TODO: some emulators aren't wiping the screen on quit (is this a regression?)
