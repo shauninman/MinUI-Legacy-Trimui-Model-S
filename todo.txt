@@ -13,28 +13,32 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- updated all emulators with immediate write of save states
-- updated Game Boy Advance emulator (dynarec fixes)
+- added immediate-write-to-disk of save states to all included emulators
+- improved USB-C headphone and adaptor support
+- updated all emulators with immediate writing of save states to disk
+- updated Game Boy Advance emulator (dynarec fixes, additional bios locations)
 - fixed scrolling of long names
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
 
-TODO: make sure Cave Story and VVVVVV sync on save too?
+TODO: press Y to remove a game from Recently Played
+	require confirmation? use REMOVE (from list) versus DELETE in language
 
-TODO: if *.pal/post.sh exists on launch, run and delete it?
+TODO: make the percentage increment configuable (1-5) for a max volume of 20-100%?
+TODO: make sure Cave Story and VVVVVV sync on save too?
 
 TODO: some emulators aren't wiping the screen on quit (is this a regression?)
 	sometimes the wipe flips back to the last rendered screen (separate bugs?)
 	
-TODO: buttons pressed when entering menu stay pressed upon exiting
-	- pokemini
-	- picogpsp
-	- picodrive
-	- sms_sdl
-	- snes9x2002
-	- temper
+TODO: buttons pressed when entering menu stay pressed upon exiting (this is kinda useful as an auto-hold feature :sweat_smile:)
+	pokemini
+	picogpsp
+	picodrive
+	sms_sdl
+	snes9x2002
+	temper
 
 under consideration
 	new noise es?
