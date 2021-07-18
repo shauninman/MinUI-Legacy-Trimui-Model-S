@@ -13,11 +13,7 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- added immediate-write-to-disk of save states to all included emulators
-- improved USB-C headphone and adaptor support
-- updated all emulators with immediate writing of save states to disk
-- updated Game Boy Advance emulator (dynarec fixes, additional bios locations)
-- fixed scrolling of long names
+- 
 
 As always, thanks eggs, neonloop, and gameblabla!
 
