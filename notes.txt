@@ -1,3 +1,7 @@
+press Y to remove a game from Recently Played?
+	require confirmation? use REMOVE (from list) versus DELETE in language
+	this is much more involved than I thought because of the way we load and present recently played games
+
 switch from pthread to signal for usb audio check?
 	eggs said there wasn't really any difference
 

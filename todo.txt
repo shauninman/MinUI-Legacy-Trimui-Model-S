@@ -13,14 +13,12 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- 
+- updated Game Boy Advance emulator (restored trimmed rom support)
+- fixed issue where two files with similar names might display as the same name
 
 As always, thanks eggs, neonloop, and gameblabla!
 
 =======================================
-
-TODO: press Y to remove a game from Recently Played
-	require confirmation? use REMOVE (from list) versus DELETE in language
 
 TODO: make the percentage increment configuable (1-5) for a max volume of 20-100%?
 TODO: make sure Cave Story and VVVVVV sync on save too?
@@ -38,6 +36,8 @@ TODO: buttons pressed when entering menu stay pressed upon exiting (this is kind
 
 under consideration
 	new noise es?
+		http://p7zip.sourceforge.net/ (might unzip rar too)
+		https://github.com/kornelski/7z
 	recognize neonloop's dynamic-libs.zip and automatically unzip into /System/libs?
 		will it get nuked on update? no
 
