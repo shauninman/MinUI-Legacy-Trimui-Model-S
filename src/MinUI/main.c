@@ -180,6 +180,10 @@ static char* raw_name(char* path) {
 		tmp[0] = '\0';
 		tmp = name;
 	}
+	// Trim trailing space
+	tmp = name+strlen(name)-1;
+    while(tmp>name && isspace((unsigned char)*tmp)) tmp--;
+    tmp[1] = '\0';
 	if (name[0]=='\0') strcpy(name,safe);
 	
 	// else concat(name, "/", 128);
