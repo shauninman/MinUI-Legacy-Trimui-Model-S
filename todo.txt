@@ -13,8 +13,7 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- updated Game Boy Advance emulator (restored trimmed rom support)
-- fixed issue where two files with similar names might display as the same name
+- 
 
 As always, thanks eggs, neonloop, and gameblabla!
 
