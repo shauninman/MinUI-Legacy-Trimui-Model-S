@@ -13,7 +13,7 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
-- 
+- fixed Roms sub-folder support for Game Gear and Master System
 
 As always, thanks eggs, neonloop, and gameblabla!
 
@@ -93,6 +93,7 @@ emulators
 			I would prefer they all live in the emu folder not the rom folder but...
 	pokemini
 		should power off before exiting (or add note to readme that that's how games save to sram?)
+		see https://github.com/libretro/PokeMini/commit/fa58158436d989d2ae51e24746f24767dada5487
 	picogpsp
 		noticing audio issues that persist across save slot save and resume
 			could this be caused by resuming a slot before audio is ready?
@@ -111,7 +112,7 @@ emulators
 	sms_sdl
 		-
 	snes9x2002
-		-
+		https://git.crowdedwood.com/snes9x2002/commit/?id=1aca018a2212d69fe38fda260ab76da0b4e8373e
 	temper
 		-
 	handy
