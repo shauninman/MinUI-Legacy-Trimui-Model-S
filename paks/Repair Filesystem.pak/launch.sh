@@ -11,8 +11,16 @@ if [ "$a" == "" ]; then
 fi
 
 show "$DIR/scanning.png"
-/usr/sbin/fsck.vfat -a -w /dev/mmcblk0p1
-confirm "$DIR/done.png"
+
+runit=$(/usr/sbin/fsck.vfat -a -w /dev/mmcblk0p1)
+b=`echo $runit | grep Dirty`
+
+if [ "$b" == "" ]; then
+  confirm "$DIR/doneclean.png"
+else
+  confirm "$DIR/donedirty.png"
+fi
+
 if [ -f ./OKAY ]; then
  rm -f ./OKAY
 fi
