@@ -10,4 +10,9 @@ if [ "$a" == "" ]; then
   chmod 777 /usr/sbin/fsck.vfat
 fi
 
+show "$DIR/scanning.png"
 /usr/sbin/fsck.vfat -a -w /dev/mmcblk0p1
+confirm "$DIR/done.png"
+if [ -f ./OKAY ]; then
+ rm -f ./OKAY
+fi
