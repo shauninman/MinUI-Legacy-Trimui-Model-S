@@ -13,11 +13,15 @@ Remember the goals:
 
 Please see the readme.txt in the zip file for installation instructions.
 
+- increased font size in Commander.pak (created my own pixel font, Commander-11)
 - fixed Roms sub-folder support for Game Gear and Master System
 
-As always, thanks eggs, neonloop, and gameblabla!
+As always, thanks eggs, neonloop, gameblabla, and christianhaitian!
 
 =======================================
+
+TODO: versions of Christian's pull requests
+	Repair SD.pak (see notes in ~/Desktop/repair-sd.txt)
 
 TODO: make the percentage increment configuable (1-5) for a max volume of 20-100%?
 TODO: make sure Cave Story and VVVVVV sync on save too?
